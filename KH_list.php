@@ -478,7 +478,7 @@ aside.floating section.inside > a {
 </head>
 <body>
 <div id="wrapper">
-	 <?php include 'menukhu_bk.php'; ?>
+	 <?php include 'menukhu.php'; ?>
     <div id="page-wrapper">
       <div class="col-md-12 graphs">
 	       <div class="xs">

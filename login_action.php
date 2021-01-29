@@ -11,6 +11,9 @@ session_start();
 	$stmt->bindValue(':user', "%{$user}%");
 	$stmt->execute();
 	$r = $stmt->fetch();//var_dump($r);die;
+	// $sql="select PWDCOMPARE('$pass',MatKhau) as IsDungMatKhau, TenSD, b.MaNV, b.TenNV, b.MaTrungTam, c.TenTrungTam from tblDSNguoiSD a, tblDMNhanVien b, tblDMTrungTam c where a.MaNhanVien = b.MaNV and b.MaTrungTam = c.MaTrungTam and a.TenSD like '$user'";
+	// $r = $conn->query($sql)->fetch();var_dump($r);die;
+	
 	if(($r)===false)
 	{
 ?>

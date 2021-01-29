@@ -36,7 +36,8 @@ class App{
             $this->params = $_POST;
 
         }
-        call_user_func_array([$this->controller, $this->action], array($this->params) );
+        call_user_func_array([$this->controller, $this->action], count($this->params) > 1 ? array($this->params) : $this->params );
+        //unset($_SESSION['page']);
 
     }
 

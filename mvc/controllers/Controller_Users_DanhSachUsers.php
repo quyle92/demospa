@@ -41,6 +41,29 @@ class Controller_Users_DanhSachUsers extends Controller{
 		$themUser->them($user_info); 
 	}
 
+	public function edit($user_info){
+
+		$editUser = $this->model("Model");
+		if( !isset( $user_info['password'] ) )
+			$editUser->edit($user_info); 
+		else
+		{
+			$editUser->editWithPassword($user_info); 
+		}
+		
+	}
+
+	public function xoaUser( $tenSD ){
+
+		$xoaUser = $this->model("Model");
+		$xoaUser->xoaUser($tenSD); 
+		
+	}
+
+
+
+
+
 
 }
 ?>

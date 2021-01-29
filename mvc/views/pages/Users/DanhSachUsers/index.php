@@ -8,9 +8,37 @@
   vertical-align: 2px;
 }
 </style>
+<?php 
+    if(  isset($_SESSION['signup_success']) && $_SESSION['signup_success'] == 1 )
+    {
+    echo "<div class='alert alert-success'>
+          <strong>Success!</strong> Sign up successful...
+        </div>";unset($_SESSION['signup_success']); 
+    }
 
+    elseif ( isset($_SESSION['signup_success']) && $_SESSION['signup_success'] == 0  )
+    {
+    echo "<div class='alert alert-danger'>
+          <strong>Alert!</strong> Sign up fail...
+    </div>";unset($_SESSION['signup_success']); 
+    }
+
+    elseif(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
+    {
+     echo "<div class='alert alert-warning'>
+          <strong>Alert!</strong> Password mismatch...
+    </div>";unset($_SESSION['password_mismatch']); 
+    }
+
+  elseif(  isset($_SESSION['duplicate_username']) && $_SESSION['duplicate_username'] == -1 ) 
+    {
+     echo "<div class='alert alert-warning'>
+          <strong>Alert!</strong> Username already existed...
+    </div>";unset($_SESSION['duplicate_username']);
+  }
+?>
   <div class="btn-toolbar" style="margin-bottom:10px"> 
-  	<button class="btn btn-primary" data-toggle="modal" data-target="#them_user">Thêm User </button> 
+    <button class="btn btn-primary" data-toggle="modal" data-target="#them_user">Thêm User </button> 
   </div>
   <!-- Modal Add User -->
   <div class="modal fade them_user" id="them_user">
@@ -23,48 +51,24 @@
             <div class="modal-body">
 
                 <form class="form-horizontal" role="form" action="them" method="post">
-                  <?php 
-                    if(  isset($_SESSION['signup_success']) && $_SESSION['signup_success'] == 1 )
-                    {
-                    echo "<div class='alert alert-success'>
-                          <strong>Success!</strong> Sign up successful...
-                        </div>";unset($_SESSION['signup_success']); 
-                    }
-
-                    elseif ( isset($_SESSION['signup_success']) && $_SESSION['signup_success'] == 0  )
-                    {
-                    echo "<div class='alert alert-danger'>
-                          <strong>Alert!</strong> Sign up fail...
-                    </div>";unset($_SESSION['signup_success']); 
-                    }
-
-                    elseif(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
-                    {
-                     echo "<div class='alert alert-warning'>
-                          <strong>Alert!</strong> Password mismatch...
-                    </div>";unset($_SESSION['password_mismatch']); 
-                    }
-
-                    ?>
-
                   <div class="form-group">
                       <label for="username" class="col-md-3 control-label">ID:</label>
                       <div class="col-md-8">
-                        <input type="text" class="form-control" name="username" id="username" value="" >
+                        <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ""; unset($_SESSION['username']); ?>" required>
                       </div>
                   </div>
 
                   <div class="form-group">
                       <label for="password" class="col-md-3 control-label">Password:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="password" id="password" >
+                          <input type="text" class="form-control" name="password" id="password" required>
                         </div>
                   </div>
 
                   <div class="form-group">
                       <label for="confirm_password" class="col-md-3 control-label">Confirm Password:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="confirm_password" id="confirm_password" >
+                          <input type="text" class="form-control" name="confirm_password" id="confirm_password" required >
                           <span id='message'></span>
                         </div>
                   </div>
@@ -76,11 +80,20 @@
                               <option value="" disabled selected> Tên NV</option>
                               <?php
                               $list_NV_arr =  $data['users']; 
-                              foreach ( $list_NV_arr as $r ) {
-
+                              $maNV = $_SESSION['maNV'];//if(isset( $maNV  ) ) echo "yes";
+                              foreach ( $list_NV_arr as $r ) 
+                              {
+                                if( isset( $maNV  ) && $maNV == $r['MaNV'] )
+                                {
+                                    echo '<option value="' . $r["MaNV"] . '" selected="selected">' . $r['TenNV'] . '</option>';
+                                }
+                                else
+                                {
                                     echo '<option value="' . $r["MaNV"] . '">' . $r['TenNV'] . '</option>';
+                                }
 
-                              }
+                               
+                              } unset($_SESSION['maNV']); 
                               ?>
 
                             </select>
@@ -93,16 +106,26 @@
                         <div class="row"></div>
                         <?php
                         $danh_sach_bao_cao = $data["reports"];
-                     
+                        $bao_cao_duoc_xem_arr = isset($_SESSION['report_arr']) ? $_SESSION['report_arr'] : array();
+                        
                         foreach ( $danh_sach_bao_cao as $r ) {
-                          echo '
-                              
+                          if (  in_array( $r['MaBaoCao'], $bao_cao_duoc_xem_arr ) )
+                          {
+                              echo '
+                                <input type="checkbox" checked data-toggle="toggle" name="report_arr[]" value="' . $r['MaBaoCao'] . '" >
+                                 <span style="vertical-align:11px">' . $r['TenBaoCao']  . '</span>
+                                 <br>
+                            ';
+                          }
+                          else
+                          {
+                              echo '
                                 <input type="checkbox"  data-toggle="toggle" name="report_arr[]" value="' . $r['MaBaoCao'] . '" >
                                  <span style="vertical-align:11px">' . $r['TenBaoCao']  . '</span>
                                  <br>
-                            
                             ';
-                        } ?>
+                          }
+                        }  unset($_SESSION['report_arr']); ?>
                         </div>
                     </div>
 
@@ -160,12 +183,18 @@
               ?>
             </ul></td>
             <td>
+            <?php
+              if( $i !== 1 )
+                { ?> 
                 <a href="" data-toggle="modal" data-target="#edit_user_<?=$r['TenSD']?>"><i class="glyphicon glyphicon-pencil" style="font-size: 1.3em;"></i></a>
-                
+                <?php } ?>
             </td>
             <td>
-               
-                <a href="user-delete.php?maNV=<?=$r['TenSD']?>" onclick="return confirm('Are you sure you want to delete?');" role="button" data-toggle="modal"><i class="glyphicon glyphicon-remove-sign" style="color:#F44336; font-size: 1.3em;"></i></a>
+               <?php
+               if( $i !== 1 )
+                { ?> <a href="xoaUser/<?=$r['TenSD']?>" onclick="return confirm('Are you sure you want to delete?');" role="button" data-toggle="modal"><i class="glyphicon glyphicon-remove-sign" style="color:#F44336; font-size: 1.3em;"></i></a> 
+                <?php } ?>
+                
             </td>
 
           </tr>
@@ -176,8 +205,8 @@
         </tbody>
       </table>
   </div> 
-  <?php
-  $users_list = $data['users']; //var_dump($users_list);die;
+<?php
+$users_list = $data['users']; //var_dump($users_list);die;
 foreach ( $users_list as $r ) 
   { ?>
                               
@@ -191,7 +220,7 @@ foreach ( $users_list as $r )
             </div>
             <div class="modal-body" style="display: block;overflow: auto;">
 
-                <form class="form-horizontal" role="form" action="sua" method="post">
+                <form class="form-horizontal" role="form" action="edit" method="post">
                   <?php 
                     if(  isset($_SESSION['signup_success']) && $_SESSION['signup_success'] == 1 )
                     {
@@ -216,16 +245,11 @@ foreach ( $users_list as $r )
 
                     ?>
 
-                  <div class="form-group">
-                      <label for="username" class="col-md-3 control-label">ID:</label>
-                      <div class="col-md-8">
-                        <input type="text" class="form-control" name="username" id="username" value="<?=$r['TenSD']?>" >
-                      </div>
-                  </div>
+                  <input type="hidden" class="form-control" name="username" id="username" value="<?=$r['TenSD']?>" >
 
                   <div class="password_group">
                       <div class="form-group">
-                          <label class="col-md-3 control-label">Đổi mật khẩu</label>
+                          <label class="col-md-4 control-label">* Đổi mật khẩu</label>
                           <div class="col-md-8">
                             <input type="checkbox" class="" name="changePassword" id="changePassword">
                           </div>
@@ -234,14 +258,14 @@ foreach ( $users_list as $r )
                         <div class="form-group">
                             <label for="password" class="col-md-3 control-label">Password:</label>
                               <div class="col-md-8">
-                                <input type="text" class="form-control" name="password" id="password" value="" disabled>
+                                <input type="text" class="form-control" name="password" id="password" value="" disabled required>
                               </div>
                         </div>
 
                         <div class="form-group">
                             <label for="confirm_password" class="col-md-3 control-label">Confirm Password:</label>
                               <div class="col-md-8">
-                                <input type="text" class="form-control" name="confirm_password" id="confirm_password" disabled>
+                                <input type="text" class="form-control" name="confirm_password" id="confirm_password" disabled required>
                                 <span id='message'></span>
                               </div>
                         </div>
@@ -325,9 +349,9 @@ foreach ( $users_list as $r )
 
 <script type="text/javascript">
 $('#password, #confirm_password').on('keyup', function () {
-  if ($('#password').val() == $('#confirm_password').val()) {
+  if ( $('#password').val() == $('#confirm_password').val() && $('#password').val() !== '') {
     $('#message').html('Matching').css('color', 'green');
-  } else 
+  } else
     $('#message').html('Not Matching').css('color', 'red');
 });
 
@@ -346,5 +370,16 @@ $(document).on('change', '#changePassword', function(){
     }
 });
 
+$(function(){
+  $('.them_user').on('submit', 'button', function(){e.preventDefault();
+      pass = $('#password').val();
+      passAgain = $('#confirm_password').val();
+      if( pass !== passAgain ){
+        alert('password not matched');
+        
+      }
+  });
 
-  </script>}
+});
+
+  </script>
