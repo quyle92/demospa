@@ -1,0 +1,11 @@
+<?php
+	session_start();
+	unset($_SESSION['TenSD']);
+	unset($_SESSION['MaTrungTam']);
+	unset($_SESSION['TenTrungTam']);
+	unset($_SESSION['MaKhu']);
+	unset($_SESSION['MaLichSuPhieu']);
+	unset($_SESSION['MaNhomNhanVien']);
+	unset($_SESSION['MaNV']);
+	header('location:login.php');
+?>

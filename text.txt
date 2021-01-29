@@ -1,0 +1,4 @@
+
+PHP fgets() Function: The fgets() function returns a line from an open file.
+
+fopen() function opens a file or URL.
