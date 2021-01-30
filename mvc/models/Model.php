@@ -16,7 +16,7 @@ class Model extends DB{
 	}
 
 	public function layTatCaBaoCao(){
-		$sql = "SELECT top 3 * FROM [tblDMBaoCao] ";
+		$sql = "SELECT  * FROM [tblDMBaoCao] ";
 		try {
 			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); 
 			

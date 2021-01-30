@@ -4,7 +4,7 @@ session_start();
 	$user=$_POST['username'];
 	$pass=$_POST['password'];
 	
-	$sql="select PWDCOMPARE(:pass,MatKhau) as IsDungMatKhau, TenSD, b.MaNV, b.TenNV, b.MaTrungTam, c.TenTrungTam from tblDSNguoiSD a, tblDMNhanVien b, tblDMTrungTam c where a.MaNhanVien = b.MaNV and b.MaTrungTam = c.MaTrungTam and a.TenSD like :user";
+	$sql="select PWDCOMPARE(:pass,MatKhau) as IsDungMatKhau, TenSD, b.MaNV, b.TenNV, BaoCaoDuocXem, b.MaTrungTam, c.TenTrungTam from tblDSNguoiSD a, tblDMNhanVien b, tblDMTrungTam c where a.MaNhanVien = b.MaNV and b.MaTrungTam = c.MaTrungTam and a.TenSD like :user";
 	
 	$stmt = $conn->prepare($sql);
 	$stmt->bindParam(':pass', $pass, PDO::PARAM_INT);
@@ -37,6 +37,7 @@ session_start();
 			$_SESSION['MaTrungTam']=$r['MaTrungTam'];
 			$_SESSION['TenTrungTam']=$r['TenTrungTam']; //mb_convert_encoding($r['TenTrungTam'],'UTF-8', 'UTF-8');
 			$_SESSION['MaKhu'] = "";
+			$_SESSION['BaoCaoDuocXem'] = unserialize( $r['BaoCaoDuocXem'] );//var_dump($_SESSION['BaoCaoDuocXem'] );die;
 
 			header('location:home.php');
 		}

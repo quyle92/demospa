@@ -5,6 +5,8 @@ require('functions/lichsuphieu.php');
 $sgDep = new clsKhachHang($conn);
 @session_start();	
 
+
+
 date_default_timezone_set('Asia/Bangkok');
 if (isset($_SESSION['MaLichSuPhieu'])) 
 {
