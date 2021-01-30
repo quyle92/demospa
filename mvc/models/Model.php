@@ -3,7 +3,7 @@ class Model extends DB{
  
 	public function getUsersList()
 	{
-		 $sql = "SELECT distinct TenSD, b.MaNV,b.TenNV, BaoCaoDuocXem FROM [tblDSNguoiSD] a,  [tblDMNhanVien] b, [tblDMBaoCao] c where a.MaNhanVien = b.MaNV ";
+		 $sql = "SELECT  ROW_NUMBER() OVER(ORDER BY TenSD)  AS STT,  TenSD, b.MaNV,b.TenNV, BaoCaoDuocXem FROM [tblDSNguoiSD] a,  [tblDMNhanVien] b where a.MaNhanVien = b.MaNV ";
 		try{
 			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 			

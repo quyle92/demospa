@@ -60,6 +60,16 @@ class Controller_Users_DanhSachUsers extends Controller{
 		
 	}
 
+    public function exportExcel(){
+
+        $users = $this->model("Model");
+        $users = $users->getUsersList();
+        $this->view( 'pages/' . $_SESSION['page'] . '/excel-export', [
+            "users" => $users,
+        ]);
+        
+    }
+
 
 
 

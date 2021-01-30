@@ -39,6 +39,7 @@
 ?>
   <div class="btn-toolbar" style="margin-bottom:10px"> 
     <button class="btn btn-primary" data-toggle="modal" data-target="#them_user">Thêm User </button> 
+    <a href="exportExcel" class="btn btn-warning pull-right" >Export Spreadsheet </a> 
   </div>
   <!-- Modal Add User -->
   <div class="modal fade them_user" id="them_user">

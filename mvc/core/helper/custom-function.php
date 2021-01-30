@@ -45,4 +45,5 @@ function strToInt( array $input ){
     return $output;
 }
 
+function pr($array = null) { echo "<pre>" . print_r($array, true) . "</pre>"; } 
 
