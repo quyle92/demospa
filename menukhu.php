@@ -43,7 +43,7 @@ $general = new GENERAL($conn);
                     Khu 1</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Khu 2</a>
                 </li>              
             </div>
@@ -57,7 +57,7 @@ $general = new GENERAL($conn);
                     Độ phủ</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Doanh thu bán hàng</a>
                 </li>     
                 <li style="list-style-type: none;">
@@ -65,7 +65,7 @@ $general = new GENERAL($conn);
                     Doanh thu khách lẻ, thẻ</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Khách hàng</a>
                 </li>          
             </div>
@@ -79,7 +79,7 @@ $general = new GENERAL($conn);
                     Doanh thu theo khu</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Doanh thu hàng bán</a>
                 </li>     
                 <li style="list-style-type: none;">
@@ -87,11 +87,11 @@ $general = new GENERAL($conn);
                     Doanh thu khách hàng</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Doanh thu nhân viên</a>
                 </li>  
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Báo cáo tồn kho</a>
                 </li>        
             </div>
@@ -105,11 +105,11 @@ $general = new GENERAL($conn);
                     Danh sách nhóm hàng</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Danh sách hàng bán</a>
                 </li>  
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Giá bán hàng</a>
                 </li>    
             </div>
@@ -123,7 +123,7 @@ $general = new GENERAL($conn);
                     Phiếu nhập hàng</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Phiếu xuất hàng</a>
                 </li>  
             </div>
@@ -137,7 +137,7 @@ $general = new GENERAL($conn);
                     Danh sách khách hàng, thẻ</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Danh sách lịch hẹn</a>
                 </li>  
             </div>
@@ -151,7 +151,7 @@ $general = new GENERAL($conn);
                     Danh sách nhân viên</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Báo cáo Tour KTV</a>
                 </li>
                 <li style="list-style-type: none;">
@@ -159,8 +159,22 @@ $general = new GENERAL($conn);
                     Lịch sử ra vào</a>
                 </li>
                 <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "goldenlotus" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
                     Tổng hợp chấm công</a>
+                </li>
+            </div>
+
+            <button class="dropdown-btn" data-report="BaoCaoNhanVien"><i class="fas fa-address-card"></i> Users
+                <span class="fa fa-caret-down"></span>
+            </button>
+            <div class="dropdown-container">
+                <li style="list-style-type: none;">
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=Users/DanhSachUsers/"><i class="fa fa-apple-alt"></i>
+                    Danh sách users</a>
+                </li>
+                <li style="list-style-type: none;">
+                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=Users/DoiMatKhau/"><i class="fa fa-apple-alt"></i>
+                    Đổi mật khẩu</a>
                 </li>
             </div>
 
@@ -178,9 +192,9 @@ $general = new GENERAL($conn);
 </nav>
 
 <?php
-var_dump ($_SESSION['TenSD']);
+
 $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuocXem'] : array() );
-var_dump($bao_cao_duoc_xem);
+
 ?>
 
 <script>
@@ -212,8 +226,8 @@ var_dump($bao_cao_duoc_xem);
         for ( var i = 0; i < hiddenReports.length; i++ )
         {   
 
-            $('button[data-report="' + hiddenReports[i] + '"]').css({display:'none'});
-            $('button[data-report="' + hiddenReports[i] + '"] + div.dropdown-container').html('');
+            // $('button[data-report="' + hiddenReports[i] + '"]').css({display:'none'});
+            // $('button[data-report="' + hiddenReports[i] + '"] + div.dropdown-container').html('');
 
         }
     }

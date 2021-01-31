@@ -1,5 +1,6 @@
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
+#Enable this one will make url go directly to folder (https://www.youtube.com/watch?v=UXPLuDXeUTA)
+#RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule ^(.+)$ mvc_index.php?url=$1
+RewriteRule ^(.+)$ index.php?p=$1
