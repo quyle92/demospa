@@ -569,9 +569,8 @@ window.onclick = function(event) {
 $client_list = $client->getAllClients();
 $clients = array(); 
 
-for($i = 0; $i < sqlsrv_num_rows($client_list); $i++)
+foreach($client_list as $r )
 {
-  $r = sqlsrv_fetch_array($client_list, SQLSRV_FETCH_ASSOC , SQLSRV_SCROLL_ABSOLUTE, $i);
   $clients[] = [
           'MaDoiTuong' => $r['MaDoiTuong'], 
           'TenDoiTuong' => $r['TenDoiTuong'], 
@@ -637,7 +636,7 @@ foreach( $client_list as $client )
                                     <p><?=$bill_id?></p>
                                 </div>
                                 <div class="Cell">
-                                    <p><?=(isset($client->GioVao[$i])) ? $client->GioVao[$i]->format('d/m/Y') : ""?> </p>
+                                    <p><?=(isset($client->GioVao[$i])) ? substr($client->GioVao[$i],0,10) : ""?> </p>
                                 </div>
                                 <div class="Cell">
                                     <p> <?=number_format($client->TienThucTra[$i],0,",",".")?><sup>đ</sup></p>

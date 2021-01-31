@@ -27,165 +27,182 @@ $general = new GENERAL($conn);
     {
 ?>
     <li style="list-style-type: none;" class="li-level1">
-        <a class="menu-level1" href="home.php?makhu=<?php echo $r1['MaKhu']; ?>"><i class="fa fa-home nav_icon"></i><?php echo $r1['MoTa']; ?></a>
+        <a class="menu-level1" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>home.php?makhu=<?php echo $r1['MaKhu']; ?>"><i class="fa fa-home nav_icon"></i><?php echo $r1['MoTa']; ?></a>
     </li>
 <?php
     }
 
     
-?>          
-            <button class="dropdown-btn" data-report="BaoCaoBanHang"><i class="fas fa-address-card"></i> Bán hàng
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Khu 1</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Khu 2</a>
-                </li>              
+?>          <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoBanHang"><i class="fas fa-store"></i> Bán hàng
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BanHang/Khu1/">
+                            <i class="fas fa-landmark"></i>
+                        Khu 1</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BanHang/Khu2/">
+                            <i class="fas fa-mosque"></i>
+                        Khu 2</a>
+                    </li>              
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoBieuDo"><i class="fas fa-address-card"></i> Báo cáo Biểu đồ
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Độ phủ</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Doanh thu bán hàng</a>
-                </li>     
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Doanh thu khách lẻ, thẻ</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Khách hàng</a>
-                </li>          
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoBieuDo"><i class="fas fa-chart-area"></i> Báo cáo Biểu đồ
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BaoCaoBieuDo/DoanhThuBanHang"><i class="fas fa-chart-pie"></i>
+                        Doanh thu bán hàng</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BaoCaoBieuDo/DoanhThuKhachLeThe"><i class="fa fa-signal nav_icon"></i>
+                        Doanh thu khách lẻ, thẻ </a>
+                    </li>     
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BaoCaoBieuDo/DoPhu"><i class="fas fa-address-card"></i> 
+                        Độ phủ</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>BaoCaoBieuDo/KhachHang"><i class="fas fa-handshake"></i>
+                        Khách hàng</a>
+                    </li>          
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoSoLieu"><i class="fas fa-address-card"></i> Báo cáo số liệu
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Doanh thu theo khu</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Doanh thu hàng bán</a>
-                </li>     
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Doanh thu khách hàng</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Doanh thu nhân viên</a>
-                </li>  
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Báo cáo tồn kho</a>
-                </li>        
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoSoLieu"><i class="fas fa-book"></i> Báo cáo số liệu
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BaoCaoSoLieu/DoanhThutheoKhu"><i class="fas fa-chart-area"></i>
+                        Doanh thu theo khu</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>BaoCaoSoLieu/DoanhThuHangBan"><i class="fas fa-shopping-cart"></i>
+                        Doanh thu hàng bán</a>
+                    </li>     
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>BaoCaoSoLieu/DoanhThuKhachHang"><i class="fas fa-gopuram"></i>
+                        Doanh thu khách hàng</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>BaoCaoSoLieu/DoanhThuNhanVien"><i class="fas fa-male"></i>
+                        Doanh thu nhân viên</a>
+                    </li>  
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>BaoCaoSoLieu/BaoCaoTonKho"><i class="fas fa-warehouse"></i>
+                        Báo cáo tồn kho</a>
+                    </li>        
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoHangHoa"><i class="fas fa-address-card"></i> Hàng hóa
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Danh sách nhóm hàng</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Danh sách hàng bán</a>
-                </li>  
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Giá bán hàng</a>
-                </li>    
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoHangHoa"><i class="fas fa-box-open"></i> Hàng hóa
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>HangHoa/DanhSachNhomHang"><i class="fas fa-th-list"></i>
+                        Danh sách nhóm hàng</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>HangHoa/DanhSachHangBan"><i class="fas fa-list-alt"></i>
+                        Danh sách hàng bán</a>
+                    </li>  
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>HangHoa/GiaHangBan"><i class="fas fa-tags"></i>
+                        Giá bán hàng</a>
+                    </li>    
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoNhapXuat"><i class="fas fa-address-card"></i> Nhập xuất kho
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Phiếu nhập hàng</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Phiếu xuất hàng</a>
-                </li>  
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoNhapXuat"><i class="fas fa-truck"></i> Nhập xuất kho
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>NhapXuatKho/PhieuNhapHang"><i class="fas fa-file-invoice"></i>
+                        Phiếu nhập hàng</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>NhapXuatKho/PhieuXuatHang"><i class="fas fa-file-alt"></i>
+                        Phiếu xuất hàng</a>
+                    </li>  
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoKhachHang"><i class="fas fa-address-card"></i> Khách hàng
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Danh sách khách hàng, thẻ</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Danh sách lịch hẹn</a>
-                </li>  
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoKhachHang"><i class="far fa-handshake"></i> Khách hàng
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>KhachHang/DanhSachKhachHangThe"><i class="fab fa-cc-visa"></i>
+                        Danh sách khách hàng, thẻ</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>KhachHang/DanhSachLichHen"><i class="fas fa-calendar-check"></i> 
+                        Danh sách lịch hẹn</a>
+                    </li>  
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoNhanVien"><i class="fas fa-address-card"></i> Nhân viên
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Danh sách nhân viên</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Báo cáo Tour KTV</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=BanHang/Khu1/"><i class="fa fa-apple-alt"></i>
-                    Lịch sử ra vào</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/tonghop-monan-theongay/index.php"><i class="fa fa-cookie"></i>
-                    Tổng hợp chấm công</a>
-                </li>
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoNhanVien"><i class="fas fa-address-card"></i> Nhân viên
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>NhanVien/BaoCaoTourKTV"><i class="fas fa-fingerprint"></i> 
+                        Danh sách nhân viên</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>NhanVien/DanhSachNhanVien"><i class="fas fa-book-open"></i>
+                        Báo cáo Tour KTV</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>NhanVien/LichSuRaVao"><i class="fas fa-door-open"></i> 
+                        Lịch sử ra vào</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>NhanVien/TongHopChamCong"><i class="fas fa-notes-medical"></i>
+                        Tổng hợp chấm công</a>
+                    </li>
+                </ul>
             </div>
 
-            <button class="dropdown-btn" data-report="BaoCaoNhanVien"><i class="fas fa-address-card"></i> Users
-                <span class="fa fa-caret-down"></span>
-            </button>
-            <div class="dropdown-container">
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=Users/DanhSachUsers/"><i class="fa fa-apple-alt"></i>
-                    Danh sách users</a>
-                </li>
-                <li style="list-style-type: none;">
-                    <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>index.php?p=Users/DoiMatKhau/"><i class="fa fa-apple-alt"></i>
-                    Đổi mật khẩu</a>
-                </li>
+            <div class="menu_item">
+                <button class="dropdown-btn" data-report="BaoCaoNhanVien"><i class="fas fa-address-card"></i> Users
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>Users/DanhSachUsers"><i class="fa fa-apple-alt"></i>
+                        Danh sách users</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>Users/DoiMatKhau"><i class="fa fa-apple-alt"></i>
+                        Đổi mật khẩu</a>
+                    </li>
+                </ul>
             </div>
 
             <li style="list-style-type: none;" class="li-level1">
-                <a class="menu-level1" href="KTV_list.php"><i class="fa fa-upload nav_icon"></i>QUẢN LÝ KTV</a>
+                <a class="menu-level1" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>KTV_list.php"><i class="fa fa-upload nav_icon"></i>QUẢN LÝ KTV</a>
             </li>
             <li style="list-style-type: none;" class="li-level1">
-                <a class="menu-level1" href="KH_list.php"><i class="fa fa-upload nav_icon"></i>KHÁCH HÀNG</a>
+                <a class="menu-level1" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>KH_list.php"><i class="fa fa-upload nav_icon"></i>KHÁCH HÀNG</a>
             </li>
             <li style="list-style-type: none;" class="li-level1">
-                <a class="menu-level1" href="logout.php"><i class="fa fa-sign-out nav_icon"></i>THOÁT</a>
+                <a class="menu-level1" href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa/" : "" )?>logout.php"><i class="fa fa-sign-out nav_icon"></i>THOÁT</a>
             </li>
         </div>
     </div>
@@ -213,7 +230,7 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
 
     var reportArr = []; 
     reportArr = [baoCaoBanHang, baoCaoBieuDo, baoCaoHangHoa, baoCaoKhachHang, baoCaoNhanVien, baoCaoNhapXuat, baoCaoSoLieu];
-    console.log(baoCaoDuocXem);
+    //console.log(baoCaoDuocXem);
 
     // return report array not in baoCaoDuocXem
     let hiddenReports = reportArr.filter(function (report) {
@@ -231,5 +248,41 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
 
         }
     }
+
+</script>
+
+<script>
+$(document).ready( function() {
+
+       // $(document).on('click', '.menu_item' , function(){  
+        $(".menu_item").on('click', function() {// cái này mà để theo event propagation sẽ ko toggle đc vì kẹt     
+           // alert(11);     
+            $(this).find('ul.dropdown-container').toggle();
+        });
+
+        // Get current page and set current in nav
+        var path = location.href ;//console.log( 'path: ' + path);
+
+        $(".navbar-default.sidebar .sidebar-nav ul > li").each(function() {//alert(11);
+          let navItem = $(this);
+          
+          let href  = navItem.find("a").attr("href");//console.log('href: '+ href);
+
+          if ( path == href ) {
+            //navItem.addClass("active");
+            navItem.parent().css({display:'block'});
+            navItem.css({background:'green'});
+            navItem.find("a").css({color:'#fff'});
+          }
+
+        });
+
+
+         $("ul.dropdown-container ").on('click', function(e) {
+              e.stopPropagation(); 
+                
+        });
+
+  });
 
 </script>

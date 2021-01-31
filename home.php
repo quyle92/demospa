@@ -48,7 +48,7 @@ $tentrungtam = $_SESSION['TenTrungTam'];
 //
 //--------------------X? LÝ KHU, BÀN ----------------------//
 //
-$makhu = $_SESSION['MaKhu']; 
+$makhu = isset($_SESSION['MaKhu']) ? $_SESSION['MaKhu'] : "01-SPA1"; 
 if(isset($_GET['makhu']))
 {
 	$makhu = $_GET['makhu']; //---check ok

@@ -36,7 +36,7 @@ session_start();
 			$_SESSION['TenSD']=$r['TenSD'];
 			$_SESSION['MaTrungTam']=$r['MaTrungTam'];
 			$_SESSION['TenTrungTam']=$r['TenTrungTam']; //mb_convert_encoding($r['TenTrungTam'],'UTF-8', 'UTF-8');
-			$_SESSION['MaKhu'] = "";
+			//$_SESSION['MaKhu'] = "";
 			$_SESSION['BaoCaoDuocXem'] = unserialize( $r['BaoCaoDuocXem'] );//var_dump($_SESSION['BaoCaoDuocXem'] );die;
 
 			header('location:home.php');

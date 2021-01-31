@@ -1,4 +1,4 @@
 <?php
-require_once(__DIR__ . '/../../helper/security.php');
+require_once(__DIR__ . '/../../../helper/security.php');
 
 echo "Khu 2";

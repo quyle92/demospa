@@ -4,8 +4,9 @@ session_start();
 date_default_timezone_set('Asia/Bangkok'); 
 //$p = $_SERVER['REQUEST_URI'];var_dump($p);
 if( isset($_GET["p"]) ){
-    $p = $_GET["p"];
+    $p = substr($_GET["p"], -1)!== '/' ?  $_GET["p"] . '/' : $_GET["p"];
 }
+
 
 
 ?>
@@ -26,31 +27,38 @@ if( isset($_GET["p"]) ){
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"> 
 <link href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/css/search-form-home.css" rel='stylesheet' type='text/css' />
 <link href="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/css/custom.css" rel="stylesheet">
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<!---//webfonts--->  
+
+
+<!-- Custom JavaScript -->
+<script src="<?=( isset($_SERVER['HTTPS']) ? "https://" : "http://" )?><?=$_SERVER['SERVER_NAME']?>/<?=( !isset($_SERVER['HTTPS']) ? "demospa" : "" )?>/js/custom.js"></script>
+
 <!-- Bootstrap Core JavaScript -->
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<!-- DataTable plugin --> 
+<!--  ChartJS   -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<!-- DataLabels plugin --> 
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script> 
+
+<!-- DataTable --> 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
-<!-- Custom JavaScript -->
-<script src="js/custom.js"></script>
 
 <!-- iOS toggle -->
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // $.noConflict();
-    //   $('select').selectize({
-    //       sortField: 'text'
-    //   });
 
-  });
-</script>
+<!-- Moment JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+
+<!-- Boostrap Datetimepicker CSS + JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css">
+
 <style> 
 .form-group label[for="vip"] + div {
   left: 80px;
@@ -337,10 +345,12 @@ aside.floating section.inside > a {
 <body>
 <div id="wrapper">
     <?php include 'menukhu.php'; ?>
+
     <div id="page-wrapper">
+        <div class="col-md-12"></div>
         <div class="col-md-12 ">
-          <?php 
-			require "views/" . $p . "index.php"; 
+          <?php
+               require "views/" . $p . "index.php";
           ?>
         </div>
     </div>

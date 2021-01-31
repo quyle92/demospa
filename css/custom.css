@@ -120,3 +120,6 @@
     }
 }
 
+.nav-tabs > li > a, .nav-tabs > li > a:focus {
+    color: #fff;
+}
