@@ -1,8 +1,3 @@
-<?php
-$chartReport = new BaoCaoBieuDo($conn);
-?>
-
-
 <div class="panel panel-warning">
   <div class="panel-body no-padding">
     <div class="container-fluid">

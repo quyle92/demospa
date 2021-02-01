@@ -3,6 +3,9 @@ require('lib/db.php');
 require('lib/clsKhachHang.php');
 require('functions/lichsuphieu.php');
 require('helper/custom-functions.php');
+require('lib/General.php');
+$general = new General($conn);
+require('functions/lichsuphieu.php');
 
 @session_start();
 $client = new clsKhachHang($conn);
@@ -113,9 +116,12 @@ if($themmoi == 1)
 
 <!-- Custom CSS -->
 <link href="css/style1.css" rel='stylesheet' type='text/css' />
-<link href="css/font-awesome.css" rel="stylesheet"> 
 <link href="css/search-form-home.css" rel='stylesheet' type='text/css' />
 <link href="css/custom.css" rel="stylesheet">
+
+<!-- Font-awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"> 
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <!---//webfonts--->  
@@ -686,20 +692,7 @@ $(document).ready(function() {
 <link href="js/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" /> 
 <script>
 	/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
 
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-  	this.classList.toggle("active");
-  	var dropdownContent = this.nextElementSibling;
-  	if (dropdownContent.style.display === "block") {
-  		dropdownContent.style.display = "none";
-  	} else {
-  		dropdownContent.style.display = "block";
-  	}
-  });
-}
 
 
 </script>

@@ -37,7 +37,7 @@ $_SESSION['back'] = $_SERVER['REQUEST_URI'];
 
 <!-- Custom CSS -->
 <!-- <link href="css/style1.css" rel='stylesheet' type='text/css' /> -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+
 <link href="css/search-form-home.css" rel='stylesheet' type='text/css' />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

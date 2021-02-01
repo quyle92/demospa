@@ -106,7 +106,7 @@ if(isset($_GET['chon'])) //----------lấy từ orderKH.php
 
 <!-- Custom CSS -->
 <link href="css/style1.css" rel='stylesheet' type='text/css' />
-<link href="css/font-awesome.css" rel="stylesheet"> 
+
 <link href="css/search-form-home.css" rel='stylesheet' type='text/css' />
 <link href="css/custom.css" rel="stylesheet">
 <!-- jQuery -->
@@ -575,20 +575,7 @@ window.onclick = function(event) {
 <link href="js/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" /> 
 <script>
 	/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
 
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-  	this.classList.toggle("active");
-  	var dropdownContent = this.nextElementSibling;
-  	if (dropdownContent.style.display === "block") {
-  		dropdownContent.style.display = "none";
-  	} else {
-  		dropdownContent.style.display = "block";
-  	}
-  });
-}
 </script>
 <script>
 $('.navbar-toggle').on('click', function() {

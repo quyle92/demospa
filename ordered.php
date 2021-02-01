@@ -171,7 +171,7 @@ if ($action=="remove-all")
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
 <link href="css/style1.css" rel='stylesheet' type='text/css' />
-<link href="css/font-awesome.css" rel="stylesheet"> 
+
 <!-- Nav CSS -->
 <link href="css/custom.css" rel="stylesheet">
 <!-- jQuery -->
@@ -987,20 +987,7 @@ $('.navbar-toggle').on('click', function() {
 </script>
 <script>
 	/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
 
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-  	this.classList.toggle("active");
-  	var dropdownContent = this.nextElementSibling;
-  	if (dropdownContent.style.display === "block") {
-  		dropdownContent.style.display = "none";
-  	} else {
-  		dropdownContent.style.display = "block";
-  	}
-  });
-}
 </script>
 <script>
 $('.navbar-toggle').on('click', function() {

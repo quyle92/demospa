@@ -99,7 +99,7 @@ if(isset($_GET['ketthuc']))
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
 <link href="css/style1.css" rel='stylesheet' type='text/css' />
-<link href="css/font-awesome.css" rel="stylesheet"> 
+
 <!-- Nav CSS -->
 <link href="css/custom.css" rel="stylesheet">
 <!-- jQuery -->

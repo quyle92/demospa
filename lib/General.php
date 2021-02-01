@@ -11,7 +11,7 @@ class General  {
 
 	public function getKhu()
 	{
-		$sql="select a.* from tblDMKhu a Where MaKhu in (Select MaKhu from tblDMBan)";
+		$sql="select COUNT(MaKhu) OVER(PARTITION BY MaKhu) AS count, a.* from tblDMKhu a Where MaKhu in (Select MaKhu from tblDMBan)";
 		try
 		{
 			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);

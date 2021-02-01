@@ -1,6 +1,7 @@
 <?php
 require_once('./helper/security.php');
 require_once('./lib/BaoCaoBieuDo.php');
+$chartReport = new BaoCaoBieuDo($conn);
 ?>
 <script>
 var title = "Doanh Thu Theo Năm";

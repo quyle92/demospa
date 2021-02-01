@@ -1,4 +1,9 @@
-<div class="col-md-4 form-group">
+ <style>
+.bootstrap-datetimepicker-widget table tr:hover{
+  background: whitesmoke;
+}
+ </style>
+  <div class="col-md-4 form-group">
   <div class="input-group date" style="margin-bottom:5px">
     <input type='text' id='weeklyDatePicker'  class="form-control"  name="timeRange" placeholder="Week..."/>
     <span class="input-group-addon">
@@ -24,13 +29,15 @@ $(document).ready(function(){
   $("#weeklyDatePicker").datetimepicker({
       format: 'MMM DD, YYYY',
       useCurrent: true,
+      //keepOpen: true,
+      //sideBySide: true,
       //daysOfWeekDisabled: [0,6],//disable Sat and Sun
       //minDate: new Date(),
       //showClear: true,
       // keepOpen: true,
       // inline: true,
-      // debug: true,
-     // allowInputToggle: true,
+       //debug: true,
+      // allowInputToggle: true,
   });
 
   $('#weeklyDatePicker').data("DateTimePicker").keyBinds({
@@ -67,7 +74,7 @@ $(document).ready(function(){
       //Styling only
       var targetTr = $('.bootstrap-datetimepicker-widget .datepicker-days table tbody tr td.active').parent();
       targetTr.css({'background': 'rgb(253, 249, 28)'});
-      $('.bootstrap-datetimepicker-widget table td.active').css({'background': 'initial' , 'color': 'initial'});
+      $('.bootstrap-datetimepicker-widget table tr:hover').css({'background': 'grey!important'});
   });
 
   /**
@@ -75,7 +82,7 @@ $(document).ready(function(){
    * @type {[type]}
    */
   var firstDate = moment().weekday(0).format("MMM DD, YYYY");
-  var lastDate = moment().weekday(7).format("MMM DD, YYYY");
+  var lastDate = moment().weekday(6).format("MMM DD, YYYY");
    $("#weeklyDatePicker").val(firstDate + " - " + lastDate);
    var targetTr = $('.bootstrap-datetimepicker-widget .datepicker-days table tbody tr td.active').parent();
       targetTr.css({'background': 'rgb(253, 249, 28)'});
