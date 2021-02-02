@@ -1,15 +1,8 @@
 <?php
-$tungay = date('d-m-Y');
-//$tungay = substr($tungay,6) . "/" . substr($tungay,3,2) . "/" . substr($tungay,0,2);
-
-$denngay = date('d-m-Y', strtotime('+1 day'));
-//$denngay = substr($denngay,6) . "/" . substr($denngay,3,2) . "/" . substr($denngay,0,2);
-
-$tugio =  isset( $_POST['tugio'] ) ? $_POST['tugio'] :"";
-if ($tugio == '' || $tugio == null) $tugio = "00:01";
-
-$dengio =  isset( $_POST['dengio'] ) ? $_POST['dengio'] :"";
-if ($dengio == '' || $dengio == null) $dengio = "23:00";
+$tuNgay = isset( $_POST['tuNgay'] ) ? $_POST['tuNgay'] :  date('d-m-Y');
+$denNgay = isset( $_POST['denNgay'] ) ? $_POST['denNgay'] : date('d-m-Y', strtotime('+1 day'));
+$tuGio =  isset( $_POST['tuGio'] ) ? $_POST['tuGio'] :"08:00";
+$denGio =  isset( $_POST['denGio'] ) ? $_POST['denGio'] :"08:00";
 
 ?>
 
@@ -19,7 +12,7 @@ if ($dengio == '' || $dengio == null) $dengio = "23:00";
 	        <div class="col-md-3" >
             <div class="form-group">
               <div class='input-group date'>
-                 <input type='text'  name="tungay" class="form-control" value="<?=isset($tungay) ? $tungay : ""?>" id="tungay"/>
+                 <input type='text'  name="tuNgay" class="form-control" value="<?=isset($tuNgay) ? $tuNgay : ""?>" id="tuNgay"/>
                  <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                  </span>
@@ -29,8 +22,8 @@ if ($dengio == '' || $dengio == null) $dengio = "23:00";
 	        <div class="col-md-2" >Từ giờ: </div>
             <div class="col-md-3" >
   	          <div class="form-group">
-                <div class='input-group date' name="tugio"    value="<?=isset($tugio) ? $tugio : ""?>">
-                   <input type='text' class="form-control" id='tugio'/>
+                <div class='input-group date'  >
+                   <input type='text' class="form-control"  id='tuGio' name="tuGio" value="<?=isset($tuGio) ? $tuGio : ""?>"/>
                    <span class="input-group-addon">
                    <span class="glyphicon glyphicon-time"></span>
                    </span>
@@ -44,7 +37,7 @@ if ($dengio == '' || $dengio == null) $dengio = "23:00";
 	        <div class="col-md-3" >
             <div class="form-group">
               <div class='input-group date'>
-                 <input type='text'  name="denngay" class="form-control" value="<?=isset($denngay) ? $denngay : ""?>" id="denngay"/>
+                 <input type='text'  name="denNgay" class="form-control" value="<?=isset($denNgay) ? $denNgay : ""?>" id="denNgay"/>
                  <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                  </span>
@@ -54,8 +47,8 @@ if ($dengio == '' || $dengio == null) $dengio = "23:00";
 	        <div class="col-md-2" >Đến giờ: </div>
 	        <div class="col-md-3" >
               <div class="form-group">
-                <div class='input-group date' name="dengio"  value="<?=isset($dengio) ? $dengio : ""?>">
-                   <input type='text' class="form-control"  id='dengio' />
+                <div class='input-group date'   >
+                   <input type='text' class="form-control"  id='denGio'  name="denGio" value="<?=isset($denGio) ? $denGio : ""?>"/>
                    <span class="input-group-addon">
                    <span class="glyphicon glyphicon-time"></span>
                    </span>
@@ -66,3 +59,39 @@ if ($dengio == '' || $dengio == null) $dengio = "23:00";
 	</div>
 
 
+<script type="text/javascript">
+
+$(function () {
+
+   $('#tuNgay').datetimepicker({
+      //viewMode: 'years',
+      format: 'DD-MM-YYYY',
+      showClear: true
+   });
+
+  $('#denNgay').datetimepicker({
+      format: 'DD-MM-YYYY',
+      showClear: true,
+      useCurrent: false
+  });
+
+  $("#tuNgay").on("dp.change", function (e) {
+   
+       $('#denNgay').data("DateTimePicker").minDate(e.date.add(1, 'day'));//(1)
+  });
+
+  $("#denNgay").on("dp.change", function (e) {
+       $('#tuNgay').data("DateTimePicker").maxDate(e.date.subtract(1, 'day'));
+  });
+
+  $('#tuGio').datetimepicker({
+      format: 'HH:mm'
+  });
+
+  $('#denGio').datetimepicker({
+      format: 'HH:mm'
+  });
+
+
+});
+</script>

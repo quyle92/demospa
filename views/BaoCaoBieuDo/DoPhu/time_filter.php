@@ -67,32 +67,5 @@ foreach ( $khu as $r )
 ?>
 
 <script type="text/javascript">
- 
-$(function () {
-      $('#tungay').datetimepicker({
-         format: 'DD/MM/YYYY'
-      });
 
-      $('#denngay').datetimepicker({
-           format: 'DD/MM/YYYY',
-           useCurrent: false //Important! See issue #1075
-      });
-
-     $("#tungay").on("dp.change", function (e) {
-         $('#denngay').data("DateTimePicker").minDate(e.date.add(1, 'day'));
-     });
-
-     $("#denngay").on("dp.change", function (e) {
-         $('#tungay').data("DateTimePicker").maxDate(e.date.subtract(1, 'day'));
-     });
-
-     $('#tugio').datetimepicker({
-          format: 'LT'
-     });
-
-     $('#dengio').datetimepicker({
-          format: 'LT'
-     });
-
-});
 </script>

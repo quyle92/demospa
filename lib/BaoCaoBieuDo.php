@@ -395,16 +395,17 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 	}
 
 	public function getTotalTablesWithBills( $tungay, $denngay, $tugio, $dengio, $ma_khu = NULL) : int {
-		if( $ma_khu == NULL Or $ma_khu == 'all')
+		var_dump ($ma_khu);
+		if( !isset($ma_khu) )
 		{
-			$sql = "SELECT count(*) FROM
+			echo $sql = "SELECT count(*) FROM
 		 	 ( SELECT MaBan, count(*) as SoLuong FROM [tblLichSuPhieu] where substring( Convert(varchar,isnull(ThoiGianDongPhieu,getdate()),126),0,17 ) BETWEEN '{$tungay}T{$tugio}' AND 
 				'{$denngay}T{$dengio}' group by MaBan ) t1
 			";
 		}
 		else
 		{
-			$sql = "SELECT count(*) FROM
+			 $sql = "SELECT count(*) FROM
 		 	( SELECT a.MaBan, count(*) as SoLuong FROM [tblLichSuPhieu] a Left join
 			 [tblDMBan] b ON a.MaBan=b.MaBan Left join
 			 [tblDMKhu] c ON b.MaKhu=c.MaKhu

@@ -17,7 +17,7 @@
     event.preventDefault();
 
     var maKhu = "<?=$ma_khu?>";
-    var formValues= $(this).serialize();//alert(formValues);
+    var formValues= $(this).serialize();console.log(formValues);
     var fileNameAjax = "<?=basename($file_name_ajax); ?>";//alert(fileNameAjax);//Tang_TRET.php
     $.ajax({
     url: '../views/BaoCaoBieuDo/DoPhu/KhuList_Filter/ajax/' + fileNameAjax,
@@ -55,7 +55,7 @@
 
           var options = {
             responsive: true,
-      maintainAspectRatio: false,
+            maintainAspectRatio: false,
             title: {
               display: true,
               position: "top",

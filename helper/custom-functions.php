@@ -136,3 +136,16 @@ function strToInt( array $input ){
     
     return $output;
 }
+
+
+function removeOuterArr( array $input) {
+
+    $output = [];
+    foreach($input as $item)
+    { //pr($item[0]); die;
+        $output[] = ($item[0]);
+    }
+    //pr($output); die;
+    return $output;
+
+}
