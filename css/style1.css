@@ -1603,11 +1603,7 @@ i.icon_8{
 a.btn.btn-default.mrg5R {
   float: left;
 }
-.float-left, .pull-left {
-  float: left!important;
-  width: 50%;
-  cursor: pointer;
-}
+
 .mrg5R {
   margin-right: 5px!important;
 }
@@ -2213,9 +2209,7 @@ canvas#doughnut, canvas#line, canvas#polarArea, #bar, #pie, #radar {
 .avatar_left {
   width: 65%;
 }
-.float-left, .pull-left {
-  width: 47%;
-}
+
 .login-social-link a.facebook {
   margin-right: 20px;
 }
@@ -2234,9 +2228,7 @@ i.text-info {
   line-height: 39px;
   font-size: 1em;
 }
-.float-left, .pull-left {
-  width: 42%;
-}
+
 .login-social-link a {
   padding: 13px 25px;
   width: 45.5%;

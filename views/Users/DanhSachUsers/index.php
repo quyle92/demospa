@@ -1,21 +1,8 @@
 <?php 
 //require_once('./helper/security.php');
 require_once('./lib/Users.php');
-$user = new Users($conn);
-if(isset($_POST['add_user']) )
-{
-  $user->them($_POST);
-}
+$user = new Users($conn); 
 
-if( isset($_POST['edit_user']) )
-{
-  $user->edit($_POST);
-}
-
-if( isset($_GET['xoaUser']) )
-{
-  $user->xoaUser($_GET['xoaUser']);
-}
 ?>
 <style>
 .form-horizontal{
@@ -26,65 +13,89 @@ if( isset($_GET['xoaUser']) )
 .toggle.btn{
   vertical-align: 2px;
 }
+
+small.field-msg.error{
+  color:red;
+
+}
 </style>
 <?php 
 //Add status message
-    if(  isset($_SESSION['add_success']) && $_SESSION['add_success'] == 1 )
-    {
-    echo "<div class='alert alert-success'>
-          <strong>Success!</strong> Add user successfully...
-        </div>";unset($_SESSION['add_success']); 
-    }
+if( isset($_SESSION['error']) )
+{
+  echo "<div id=\"error\"></div>";
 
-    elseif ( isset($_SESSION['add_success']) && $_SESSION['add_success'] == 0  )
-    {
-    echo "<div class='alert alert-danger'>
-          <strong>Alert!</strong> Add user failed...
-    </div>";unset($_SESSION['add_success']); 
-    }
+}
 
-    elseif(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
-    {
-     echo "<div class='alert alert-warning'>
-          <strong>Alert!</strong> Password mismatch...
-    </div>";unset($_SESSION['password_mismatch']); 
-    }
+// if ( isset($_SESSION['add_success']) && $_SESSION['add_success'] == 0  )
+// {
+// echo "<div class='alert alert-danger'>
+//       <strong>Alert!</strong> Add user failed...
+// </div>";unset($_SESSION['add_success']); 
+// }
 
-  elseif(  isset($_SESSION['duplicate_username']) && $_SESSION['duplicate_username'] == -1 ) 
-    {
-     echo "<div class='alert alert-warning'>
-          <strong>Alert!</strong> Username already existed...
-    </div>";unset($_SESSION['duplicate_username']);
-  }
+// if(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
+// {
+//  echo "<div class='alert alert-warning'>
+//       <strong>Alert!</strong> Password mismatch...
+// </div>";unset($_SESSION['password_mismatch']); 
+// }
+
+// if(  isset($_SESSION['duplicate_username']) && $_SESSION['duplicate_username'] == -1 ) 
+// {
+//  echo "<div class='alert alert-warning'>
+//       <strong>Alert!</strong> Username already existed...
+// </div>";unset($_SESSION['duplicate_username']);
+// }
+
+// if(  isset($_SESSION['add_success']) && $_SESSION['add_success'] == 1 )
+// {
+// echo "<div class='alert alert-success'>
+//       <strong>Success!</strong> Add user successfully...
+//     </div>";unset($_SESSION['add_success']); 
+// }
+
+
 //Edit status message
-  if(  isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == 1 )
-  {
-  echo "<div class='alert alert-success'>
-        <strong>Success!</strong> Edited successfully...
-      </div>";unset($_SESSION['edit_success']); 
-  }
 
-  elseif ( isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == 0  )
-  {
-  echo "<div class='alert alert-danger'>
-        <strong>Alert!</strong> Edited fail...
-  </div>";unset($_SESSION['edit_success']); 
-  }
+if ( isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == 0  )
+{
+echo "<div class='alert alert-danger'>
+      <strong>Alert!</strong> Edited fail...
+</div>";unset($_SESSION['edit_success']); 
+}
 
-  elseif(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
-  {
-   echo "<div class='alert alert-warning'>
-        <strong>Alert!</strong> Password mismatch...
-  </div>";unset($_SESSION['password_mismatch']); 
-  }
+if(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
+{
+ echo "<div class='alert alert-warning'>
+      <strong>Alert!</strong> Password mismatch...
+</div>";unset($_SESSION['password_mismatch']); 
+}
+
+if(  isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == 1 )
+{
+echo "<div class='alert alert-success'>
+      <strong>Success!</strong> Edited successfully...
+    </div>";unset($_SESSION['edit_success']); 
+}
+
+//Delete status message
+if(  isset($_SESSION['del_success']) && $_SESSION['del_success'] == 1 )
+{
+echo "<div class='alert alert-success'>
+      <strong>Success!</strong> Deleted successfully...
+    </div>";unset($_SESSION['del_success']); 
+}
+
 ?>
   <div class="btn-toolbar" style="margin-bottom:10px"> 
     <button class="btn btn-primary" data-toggle="modal" data-target="#them_user">Thêm User </button> 
     <a href="../../views/Users/ExcelExport/index.php" class="btn btn-warning pull-right" >Export Spreadsheet </a> 
   </div>
-  <?php
-  require_once ('add_user_modal.php'); 
-  ?>
+<?php
+require_once ('add_user_modal.php'); 
+unset($_SESSION['error']);
+?>
   <!-- End Modal Add User -->
   <div class="well col-md-11" style="background:#fff; font-size: 1.2em;">
       <table class="table table-striped table-hover">
@@ -134,7 +145,7 @@ if( isset($_GET['xoaUser']) )
             <td>
                <?php
                if( $i !== 1 )
-                { ?> <a href="<?=$_SERVER['REQUEST_URI']?>&xoaUser=<?=$r['TenSD']?>" onclick="return confirm('Are you sure you want to delete?');" role="button" data-toggle="modal"><i class="glyphicon glyphicon-remove-sign" style="color:#F44336; font-size: 1.3em;"></i></a> 
+                { ?> <a href="action/delete_action.php?xoaUser=<?=$r['TenSD']?>" onclick="return confirm('Are you sure you want to delete?');" role="button" data-toggle="modal"><i class="glyphicon glyphicon-remove-sign" style="color:#F44336; font-size: 1.3em;"></i></a> 
                 <?php } ?>
                 
             </td>
@@ -195,5 +206,10 @@ $(function(){
   });
 
 });
+
+var error = $('div#error');
+if(error.length >0){
+  $('#them_user').modal('show');
+}
 
   </script>

@@ -14,9 +14,7 @@ date_default_timezone_set('Asia/Bangkok');
 if( isset($_GET["p"]) ){
     $p = substr($_GET["p"], -1)!== '/' ?  $_GET["p"] . '/' : $_GET["p"];
 }
-
-
-
+//var_dump ($p);
 ?>
 <!DOCTYPE HTML>
 <html>

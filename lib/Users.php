@@ -49,62 +49,70 @@ class Users  {
 		}
 	}
 
-	public function them($user_info)
-	{	// var_dump(  $user_info);die;
-		$username =  htmlentities(trim(strip_tags($user_info['username'])),ENT_QUOTES,'utf-8');
-		//var_dump(  $this->checkUser($username) );die;
-		if( $this->checkUser($username) == true)
+	public function them()
+	{	 
+		$flag = true;
+
+		$username =  htmlentities(trim(strip_tags($_POST['username'])),ENT_QUOTES,'utf-8');
+		$maNV = htmlentities(trim(strip_tags($_POST['maNV'])),ENT_QUOTES,'utf-8');
+		$report_arr = isset( $_POST['report_arr'] ) ? serialize( $_POST['report_arr'] )  : "";
+
+		if( empty($username) )
 		{
-			$_SESSION['duplicate_username'] = -1;
-			echo  "<script>window.history.go(-1); </script>";
-			return;
+			$_SESSION['error']['empty_username'] = "Username is empty!";
+			$flag = false;
+		}
+		elseif( $this->checkUser($username) == true)
+		{
+			$_SESSION['error']['duplicate_username'] = "Username already existed!";
+			$flag = false;
 		};
 
-		$password = htmlentities(trim(strip_tags($user_info['password'])),ENT_QUOTES,'utf-8');
-		$confirm_password = htmlentities(trim(strip_tags($user_info['confirm_password'])),ENT_QUOTES,'utf-8');
-		$maNV = htmlentities(trim(strip_tags($user_info['maNV'])),ENT_QUOTES,'utf-8');
-
-		$report_arr = isset( $user_info['report_arr'] ) ? serialize( $user_info['report_arr'] )  : array(); 
-
-		if( empty( $password ) || $password !== $confirm_password ){//var_dump("confirm_password: " . $password);die;
-
-			$_SESSION['password_mismatch'] = -1;
-			$_SESSION['username'] = $username;
-			$_SESSION['maNV'] = $maNV;
-			$_SESSION['report_arr'] = unserialize($report_arr);
-
-			//echo  "<script>window.history.go(-1); </script>";
-			return false;
+		$password = htmlentities(trim(strip_tags($_POST['password'])),ENT_QUOTES,'utf-8');
+		$confirm_password = htmlentities(trim(strip_tags($_POST['confirm_password'])),ENT_QUOTES,'utf-8');
+		
+		if( empty( $password ) )
+		{
+			$_SESSION['error']['empty_password'] = "Password is empty!";
+			$flag = false;
 		}
 
-		
-		//$report_arr = htmlentities(trim(strip_tags($report_arr)),ENT_QUOTES,'utf-8');
-		//echo $report_arr; die;
-		if ( $username != "" && $password != "" && $report_arr != "" )
-		{//var_dump("INSERT_INTO: " .$password);die;
-			 $sql="INSERT INTO [tblDSNguoiSD] ( [TenSD], [MaNhanVien],
+		if( empty( $confirm_password ) )
+		{
+			$_SESSION['error']['empty_confirm_password'] = "Confirmed Password is empty!";
+			$flag = false;
+		}
+
+		if(  $password !== $confirm_password )
+		{
+			
+			$_SESSION['error']['password_mismatch'] = "Password mismatch...";
+			$flag = false;
+		}
+
+		$_SESSION['username'] = $username;
+		$_SESSION['maNV'] = $maNV;
+		$_SESSION['report_arr'] = ( !empty($report_arr) ) ? unserialize($report_arr) : "";
+
+		if ( $flag === true )
+		{
+			$sql="INSERT INTO [tblDSNguoiSD] ( [TenSD], [MaNhanVien],
 			   [MatKhau],[KiemTraSD],[DangSD],[TamNgung],[KhongDoi],[SuDungDacBiet], [BaoCaoDuocXem]) VALUES ( '$username', '$maNV', PWDENCRYPT('$password'), 0,0,0,0,0, '$report_arr' )"; 
 
-			try{
+			try
+			{
 			 		$rs = $this->conn->query($sql);
-			 		$_SESSION['add_success'] = 1;
-					return true;
-					
-				}
+			 		$_SESSION['add_success'] = "New  user added successfully...";
+			}
 
 			catch(Exception $e) 
-				{ 	
-					echo $e->getMessage();
-					$_SESSION['add_success'] = 0;
-					return false;
-				}
+			{ 	
+				echo $e->getMessage();
+				$_SESSION['error']['add_success'] = "Something went wrong in the database...";
+				//return false;
+			}
 
-		} else {//var_dump("signup_success = 0: " .$password);die;
-		 	//throw new \Exception('Required field(s) missing. Please try again.');
-		 	$_SESSION['signup_success'] = 0;
-		 	return false;
 		}
-
 
 	}
 
@@ -140,8 +148,7 @@ class Users  {
 			try{
 			 		$rs = $this->conn->query($sql);
 			 		$_SESSION['edit_success'] = 1;
-					//header('location:javascript://history.go(-1)');exit();
-					echo  "<script>window.history.go(-1); </script>";
+			
 					
 				}
 
@@ -149,15 +156,13 @@ class Users  {
 				{ 	
 					echo $e->getMessage();
 					$_SESSION['edit_success'] = 0;
-					//header('location:javascript://history.go(-1)');exit();
-					echo  "<script>window.history.go(-1); </script>";
+				
 				}
 
 		} else {//var_dump("signup_success = 0: " .$password);die;
 		 	//throw new \Exception('Required field(s) missing. Please try again.');
 		 	$_SESSION['edit_success'] = 0;
-		 	//header('location:javascript://history.go(-1)');exit();
-		 	echo  "<script>window.history.go(-1); </script>";
+
 		}
 
 
@@ -179,7 +184,7 @@ class Users  {
 			$_SESSION['report_arr'] = unserialize($report_arr);
 			// header('Location:javascript://history.go(-1)');
 			// exit();
-			echo  "<script>window.history.go(-1); </script>";
+			//echo  "<script>window.history.go(-1); </script>";
 			return;
 		}
 
@@ -191,7 +196,7 @@ class Users  {
 			 		$rs = $this->conn->query($sql);
 			 		$_SESSION['edit_success'] = 1;
 					//header('location:javascript://history.go(-1)');exit();
-					echo  "<script>window.history.go(-1); </script>";
+					//echo  "<script>window.history.go(-1); </script>";
 					
 				}
 
@@ -200,14 +205,14 @@ class Users  {
 					echo $e->getMessage();
 					$_SESSION['edit_success'] = 0;
 					//header('location:javascript://history.go(-1)');exit();
-					echo  "<script>window.history.go(-1); </script>";
+					//echo  "<script>window.history.go(-1); </script>";
 				}
 
 		} else {//var_dump("signup_success = 0: " .$password);die;
 		 	//throw new \Exception('Required field(s) missing. Please try again.');
 		 	$_SESSION['edit_success'] = 0;
 		 	//header('location:javascript://history.go(-1)');exit();
-		 	echo  "<script>window.history.go(-1); </script>";
+		 	//echo  "<script>window.history.go(-1); </script>";
 		}
 
 
@@ -215,10 +220,10 @@ class Users  {
 
 	public function xoaUser( $tenSD ){
 		//$tenSD = implode
-		 $sql = "DELETE FROM  [tblDSNguoiSD] where [TenSD] = '$tenSD'";
+		$sql = "DELETE FROM  [tblDSNguoiSD] where [TenSD] = '$tenSD'";
 		try{
 			$rs = $this->conn->query($sql);
-			echo  "<script>window.history.go(-1); </script>";
+//			$_SESSION['del_success'] == 1;
 		}
 		catch ( PDOException $error ){
 			echo $error->getMessage();
@@ -246,6 +251,7 @@ class Users  {
 		 		$_SESSION['change_success'] = 1; //var_dump($_SESSION['change_success']);die;
 				//header('location:javascript://history.go(-1)');exit();
 				//echo  "<script>window.history.go(-1); </script>";
+				
 					
 			}
 

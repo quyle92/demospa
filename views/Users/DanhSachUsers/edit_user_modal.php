@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body" style="display: block;overflow: auto;">
 
-                <form class="form-horizontal" role="form" action="" method="post">
+                <form class="form-horizontal" role="form" action="action/edit_action.php" method="post">
                   <input type="hidden" class="form-control" name="username" id="username" value="<?=$r['TenSD']?>" >
 
                   <div class="password_group">
@@ -92,7 +92,7 @@
 
                   <div class="form-group">
                     <div class="col-md-3 col-md-offset-3">
-                      <button class="btn btn-primary signup-btn" type="submit" name="edit_user">
+                      <button class="btn btn-primary signup-btn" type="submit" name="edit_user" value="submit">
                        Submit</button>
                     </div>
                   </div>

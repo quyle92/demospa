@@ -7,26 +7,31 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-horizontal" role="form" action="" method="post">
+                <form class="form-horizontal" role="form" action="action/add_action.php" method="post">
                   <div class="form-group">
                       <label for="username" class="col-md-3 control-label">ID:</label>
                       <div class="col-md-8">
-                        <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ""; unset($_SESSION['username']); ?>" required>
+                        <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ""; unset($_SESSION['username']); ?>" >
+                        <?=isset($_SESSION['error']['empty_username']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_username'] . '</small>' : "" ?>
+                        <?=isset($_SESSION['error']['duplicate_username']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['duplicate_username'] . '</small>' : "" ?>
                       </div>
+                       
                   </div>
 
                   <div class="form-group">
                       <label for="password" class="col-md-3 control-label">Password:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="password" id="password" required>
+                          <input type="text" class="form-control" name="password" id="password" >
+                          <?=isset($_SESSION['error']['empty_password']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_password'] . '</small>' : "" ?>
                         </div>
                   </div>
 
                   <div class="form-group">
                       <label for="confirm_password" class="col-md-3 control-label">Confirm Password:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="confirm_password" id="confirm_password" required >
-                          <span id='message'></span>
+                          <input type="text" class="form-control" name="confirm_password" id="confirm_password"  >
+                          <?=isset($_SESSION['error']['empty_confirm_password']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_confirm_password'] . '</small>' : "" ?>
+                          <?=isset($_SESSION['error']['password_mismatch']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['password_mismatch'] . '</small>' : "" ?>
                         </div>
                   </div>
 
@@ -63,10 +68,10 @@
                         <div class="row"></div>
                         <?php
                         $danh_sach_bao_cao = $user->layTatCaBaoCao();
-                        $bao_cao_duoc_xem_arr = isset($_SESSION['report_arr']) ? $_SESSION['report_arr'] : array();
+                        $bao_cao_duoc_xem_arr = !empty($_SESSION['report_arr']) ? $_SESSION['report_arr'] : "";
                         
                         foreach ( $danh_sach_bao_cao as $r ) {
-                          if (  in_array( $r['MaBaoCao'], $bao_cao_duoc_xem_arr ) )
+                          if ( !empty($_SESSION['report_arr']) && in_array( $r['MaBaoCao'], $bao_cao_duoc_xem_arr ) )
                           {
                               echo '
                                 <input type="checkbox" checked data-toggle="toggle" name="report_arr[]" value="' . $r['MaBaoCao'] . '" >
@@ -89,7 +94,7 @@
 
                   <div class="form-group">
                     <div class="col-md-3 col-md-offset-3">
-                      <button class="btn btn-primary signup-btn" type="submit" name="add_user">
+                      <button class="btn btn-primary signup-btn" type="submit" name="add_user" value="submit">
                        Submit</button>
                     </div>
                   </div>
