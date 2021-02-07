@@ -1,12 +1,15 @@
 <?php
-class Users  {
+require_once('lib/General.php');
+class Users extends General {
 
 	/* Properties */
     private $conn;
+    private $general;
 
     /* Get database access */
     public function __construct(\PDO $dbCon) {
         $this->conn = $dbCon;
+        $this->general = new General( $dbCon );
 	}
 
 	public function getUsersList()
@@ -62,7 +65,7 @@ class Users  {
 			$_SESSION['error']['empty_username'] = "Username is empty!";
 			$flag = false;
 		}
-		elseif( $this->checkUser($username) == true)
+		elseif( $this->general->checkUser($username) == true)
 		{
 			$_SESSION['error']['duplicate_username'] = "Username already existed!";
 			$flag = false;
@@ -93,7 +96,7 @@ class Users  {
 		$_SESSION['username'] = $username;
 		$_SESSION['maNV'] = $maNV;
 		$_SESSION['report_arr'] = ( !empty($report_arr) ) ? unserialize($report_arr) : "";
-
+		//var_dump($_POST);die;
 		if ( $flag === true )
 		{
 			$sql="INSERT INTO [tblDSNguoiSD] ( [TenSD], [MaNhanVien],
@@ -108,7 +111,6 @@ class Users  {
 			catch(Exception $e) 
 			{ 	
 				echo $e->getMessage();
-				$_SESSION['error']['add_success'] = "Something went wrong in the database...";
 				//return false;
 			}
 
@@ -116,29 +118,15 @@ class Users  {
 
 	}
 
-	protected function checkUser($username)
-	{
-		$sql = "SELECT * FROM [tblDSNguoiSD] WHERE [TenSD] = '$username' ";
-		try {
-			$rs = $this->conn->query($sql)->fetch();
-				
-			if($rs) 
-				return true;
-			else
-				return false;
-			
-		}
-		catch ( PDOException $error ) {
-			echo $error->getMessage();
-		}
-	}
+	
 
-	public function edit($user_info)
+	public function edit()
 	{	 //var_dump(  $user_info);die;
-		$username =  htmlentities(trim(strip_tags($user_info['username'])),ENT_QUOTES,'utf-8');
-		$maNV = htmlentities(trim(strip_tags($user_info['maNV'])),ENT_QUOTES,'utf-8');
+		$flag = true;
+		$username =  htmlentities(trim(strip_tags($_POST['username'])),ENT_QUOTES,'utf-8');
+		$maNV = htmlentities(trim(strip_tags($_POST['maNV'])),ENT_QUOTES,'utf-8');
 
-		$report_arr = isset( $user_info['report_arr'] ) ? serialize( $user_info['report_arr'] )  : array(); 
+		$report_arr = isset( $_POST['report_arr'] ) ? serialize( $_POST['report_arr'] )  : array(); 
 		
 		if ( $report_arr != "" )
 		{//var_dump("INSERT_INTO: " .$password);die;
@@ -147,16 +135,13 @@ class Users  {
 
 			try{
 			 		$rs = $this->conn->query($sql);
-			 		$_SESSION['edit_success'] = 1;
-			
-					
+			 		$_SESSION['edit_success'] = "New  user added successfully...";
+							
 				}
 
 			catch(Exception $e) 
 				{ 	
 					echo $e->getMessage();
-					$_SESSION['edit_success'] = 0;
-				
 				}
 
 		} else {//var_dump("signup_success = 0: " .$password);die;
@@ -168,53 +153,54 @@ class Users  {
 
 	}
 
-	public function editWithPassword($user_info)
-	{	// var_dump(  $user_info);die;
-		$username =  htmlentities(trim(strip_tags($user_info['username'])),ENT_QUOTES,'utf-8');
-		$password = htmlentities(trim(strip_tags($user_info['password'])),ENT_QUOTES,'utf-8');
-		$confirm_password = htmlentities(trim(strip_tags($user_info['confirm_password'])),ENT_QUOTES,'utf-8');
-		$maNV = htmlentities(trim(strip_tags($user_info['maNV'])),ENT_QUOTES,'utf-8');
+	public function editWithPassword()
+	{	
+		$username =  htmlentities(trim(strip_tags($_POST['username'])),ENT_QUOTES,'utf-8');
+		$password = htmlentities(trim(strip_tags($_POST['password'])),ENT_QUOTES,'utf-8');
+		$confirm_password = htmlentities(trim(strip_tags($_POST['confirm_password'])),ENT_QUOTES,'utf-8');
+		$maNV = htmlentities(trim(strip_tags($_POST['maNV'])),ENT_QUOTES,'utf-8');
 
-		$report_arr = isset( $user_info['report_arr'] ) ? serialize( $user_info['report_arr'] )  : array(); 
+		$report_arr = isset( $_POST['report_arr'] ) ? serialize( $_POST['report_arr'] )  : array(); 
 
-		if( empty( $password ) || $password !== $confirm_password ){//var_dump("confirm_password: " . $password);die;
-
-			$_SESSION['password_mismatch'] = -1;
-			$_SESSION['maNV'] = $maNV;
-			$_SESSION['report_arr'] = unserialize($report_arr);
-			// header('Location:javascript://history.go(-1)');
-			// exit();
-			//echo  "<script>window.history.go(-1); </script>";
-			return;
+		if( empty( $password ) )
+		{
+			$_SESSION['fail']['empty_password'] = "Password is empty!";
+			$flag = false;
 		}
 
-		if (  $password != "" && $report_arr != "" )
-		{//var_dump("INSERT_INTO: " .$password);die;
+		if( empty( $confirm_password ) )
+		{
+			$_SESSION['fail']['empty_confirm_password'] = "Confirmed Password is empty!";
+			$flag = false;
+		}
+
+		if(  $password !== $confirm_password )
+		{
+			$_SESSION['fail']['password_mismatch'] = "Password mismatch...";
+			$flag = false;
+		}
+
+		$_SESSION['username_edit'] = $username;
+		$_SESSION['maNV'] = $maNV;
+		$_SESSION['report_arr'] = ( !empty($report_arr) ) ? unserialize($report_arr) : "";
+
+		if ( $flag === true )
+		{
 			 $sql="UPDATE [tblDSNguoiSD] SET  [MaNhanVien] = '$maNV', [MatKhau] = PWDENCRYPT('$password'), [BaoCaoDuocXem] = '$report_arr' Where [TenSD]= '$username'";
 
-			try{
-			 		$rs = $this->conn->query($sql);
-			 		$_SESSION['edit_success'] = 1;
-					//header('location:javascript://history.go(-1)');exit();
-					//echo  "<script>window.history.go(-1); </script>";
-					
-				}
+			try
+			{
+		 		$rs = $this->conn->query($sql);
+		 		$_SESSION['edit_success'] = 1;
+			}
 
 			catch(Exception $e) 
-				{ 	
-					echo $e->getMessage();
-					$_SESSION['edit_success'] = 0;
-					//header('location:javascript://history.go(-1)');exit();
-					//echo  "<script>window.history.go(-1); </script>";
-				}
+			{ 	
+				echo $e->getMessage();
 
-		} else {//var_dump("signup_success = 0: " .$password);die;
-		 	//throw new \Exception('Required field(s) missing. Please try again.');
-		 	$_SESSION['edit_success'] = 0;
-		 	//header('location:javascript://history.go(-1)');exit();
-		 	//echo  "<script>window.history.go(-1); </script>";
-		}
+			}
 
+		} 
 
 	}
 
@@ -223,7 +209,7 @@ class Users  {
 		$sql = "DELETE FROM  [tblDSNguoiSD] where [TenSD] = '$tenSD'";
 		try{
 			$rs = $this->conn->query($sql);
-//			$_SESSION['del_success'] == 1;
+			$_SESSION['del_success'] == "User deleted successfully!";
 		}
 		catch ( PDOException $error ){
 			echo $error->getMessage();

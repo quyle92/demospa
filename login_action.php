@@ -20,7 +20,7 @@ session_start();
 		<script>
 			window.onload=function(){
 		alert("Đăng nhập không thành công. Sai email hoặc mật khẩu");
-			//setTimeout('window.location="login.php"',0);
+			setTimeout('window.location="login.php"',0);
 		}
 		</script>
 <?php
@@ -47,7 +47,7 @@ session_start();
 			<script>
 				window.onload=function(){
 				alert("Đăng nhập không thành công. Sai mật khẩu");
-				//setTimeout('window.location="login.php"',0);
+				setTimeout('window.location="login.php"',0);
 				}
 			</script>
 <?php

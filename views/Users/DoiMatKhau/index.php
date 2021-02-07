@@ -1,3 +1,8 @@
+<style>
+.control-label {
+  text-align: left!important;
+}
+</style>
 <?php //var_dump($_SESSION['change_success']);
  if(  isset($_SESSION['change_success']) && $_SESSION['change_success'] == 1 )
     {
@@ -20,35 +25,47 @@
     </div>";unset($_SESSION['password_mismatch']); 
     }
 ?>
-<div class="table-responsive">
-    <form action="process" method="post">
-      <table class="table">
-         	<input type="hidden" size="35" name='username' value='<?=$_SESSION['TenSD']?>'>
-          <tr>
-            <td></td>
-            <td></td>
-            <th scope="row">Mật khẩu mới:</th>
-            <td> <input name="password" type="password" size="35" ></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <th scope="row">Nhập lại mật khẩu:</th>
-            <td> <input name="confirm_password" type="password" size="35" ></td>
-            <td class="error"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><input type="submit" value="Xác nhận"></td>          
-            <td></td>
-            <td></td>
-          </tr>
+
+    <form action="process" method="POST" class="form-horizontal col-sm-offset-4" role="form">
+        <div class="form-group">
+          <legend >Change Password</legend>
+
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="password" class="col-sm-2 control-label">Password:</label>
+          <div class="col-sm-5 input-group">
+            <input type="password" class="form-control" name="password" id="password">
+            <span class="input-group-btn">
+              <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="confirm_password" class="col-sm-2"> Password Again:</label>
+          <div class="col-sm-5 input-group">
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+            <span class="input-group-btn">
+              <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+            </span>
+          </div>
+        </div>
+        
     
-      </table>
+        <div class="form-group">
+          <div class="col-sm-10 ">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
     </form>
-</div><!-- /.table-responsive -->
+
+<script type="text/javascript">
+
+  $('.reveal').mousedown(function(){
+    $(this).parent().parent().find('input').attr('type', 'text');
+  }).mouseup(function(){
+    $(this).parent().parent().find('input').attr('type', 'password');
+  });
+
+</script>

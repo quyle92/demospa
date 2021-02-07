@@ -4,14 +4,15 @@
             <div class="modal-header">
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
                 <h3 class="modal-title">Thông Tin User</h3>
+<!--                 <button type="button" class="btn btn-warning"  id="resetButton">reset</button> -->
             </div>
             <div class="modal-body">
 
-                <form class="form-horizontal" role="form" action="action/add_action.php" method="post">
+                <form class="form-horizontal" role="form" action="action/add_action.php" method="post" id="addUserForm">
                   <div class="form-group">
                       <label for="username" class="col-md-3 control-label">ID:</label>
                       <div class="col-md-8">
-                        <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ""; unset($_SESSION['username']); ?>" >
+                        <input type="text" class="form-control" name="username" id="username" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ""; unset($_SESSION['username']); ?>" required>
                         <?=isset($_SESSION['error']['empty_username']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_username'] . '</small>' : "" ?>
                         <?=isset($_SESSION['error']['duplicate_username']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['duplicate_username'] . '</small>' : "" ?>
                       </div>
@@ -21,7 +22,7 @@
                   <div class="form-group">
                       <label for="password" class="col-md-3 control-label">Password:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="password" id="password" >
+                          <input type="password" class="form-control" name="password" id="password" required>
                           <?=isset($_SESSION['error']['empty_password']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_password'] . '</small>' : "" ?>
                         </div>
                   </div>
@@ -29,7 +30,7 @@
                   <div class="form-group">
                       <label for="confirm_password" class="col-md-3 control-label">Confirm Password:</label>
                         <div class="col-md-8">
-                          <input type="text" class="form-control" name="confirm_password" id="confirm_password"  >
+                          <input type="password" class="form-control" name="confirm_password" id="confirm_password"  required>
                           <?=isset($_SESSION['error']['empty_confirm_password']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_confirm_password'] . '</small>' : "" ?>
                           <?=isset($_SESSION['error']['password_mismatch']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['password_mismatch'] . '</small>' : "" ?>
                         </div>
@@ -105,3 +106,7 @@
         </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+
+  </script>

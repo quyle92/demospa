@@ -1,13 +1,17 @@
 <?php
-class HangHoa  {
+require_once('lib/General.php');
+class HangHoa  extends General {
 
 	/* Properties */
     private $conn;
+    private $general;
 
     /* Get database access */
     public function __construct(\PDO $dbCon) {
         $this->conn = $dbCon;
+        $this->general = new General( $dbCon );
 	}
+
 
 	public function getAllProductCats() {
 		$sql = "SELECT * FROM [tblDMNhomHangBan]";
@@ -22,94 +26,104 @@ class HangHoa  {
 		}
 	}
 
-	public function addNewCat( $catInfo ) {
-
-		$cat_id = htmlentities(trim(strip_tags($catInfo['cat_id'])),ENT_QUOTES,'utf-8');
-		$cat_name = htmlentities(trim(strip_tags($catInfo['cat_name'])),ENT_QUOTES,'utf-8');
-
-		// if( $this->checkCatID($cat_id) == true)
-		// {
-		// 	$_SESSION['duplicate_cat_id'] = -1;
-		// 	$_SESSION['cat_id'] = $cat_id;
-		// 	$_SESSION['cat_name'] = $cat_name;
-		// 	//echo  "<script>window.history.go(-1); </script>";
-		// 	return;
-		// };
-
-		// if( $this->checkCatName($cat_name) == true)
-		// {
-		// 	$_SESSION['duplicate_cat_name'] = -1;
-		// 	$_SESSION['cat_id'] = $cat_id;
-		// 	$_SESSION['cat_name'] = $cat_name;
-		// 	//echo  "<script>window.history.go(-1); </script>";
-		// 	return;
-		// };
-		//var_dump (  $catInfo);die;
-		$sql = "INSERT INTO  [tblDMNhomHangBan] ( [Ma], [Ten] ) VALUES ( '$cat_id', N'$cat_name' )";
-		try
-		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-			$_SESSION['add_success'] = 1;
-			return $rs;
-		}
-		catch( Exception $e )
-		{
-			echo $e->getMessage();
-		}
-	}
-
-	protected function checkCatID($cat_id)
+	public function them() 
 	{
-		$sql = "SELECT * FROM [tblDMNhomHangBan] WHERE [Ma] = '$cat_id' ";
-		try {
-			$rs = $this->conn->query($sql)->fetch();
-			//var_dump($rs);die;	
-			if($rs) 
-				return true;
-			else
-				return false;
-			
-		}
-		catch ( PDOException $error ) {
-			echo $error->getMessage();
-		}
-	}
+		$flag = true;
 
-	protected function checkCatName($cat_name)
-	{	//var_dump($cat_name);die;
-		$sql = "SELECT * FROM [tblDMNhomHangBan]";
-		try 
+		$cat_id = htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8');
+		$cat_name = htmlentities(trim(strip_tags($_POST['cat_name'])),ENT_QUOTES,'utf-8');
+
+		if( empty($cat_id) )
 		{
-			$rs = $this->conn->query($sql)->fetchAll();//var_dump( $this->conn->query($sql));die;
-			foreach ($rs as $r)
-			{
-				if ($r['Ten'] == $cat_name ){
-					var_dump($cat_name);die;
-					return true;
-				}
-				
-			}
-
-			return false;
-			
+			$_SESSION['error']['empty_catID'] = "Category ID is empty!";
+			$flag = false;
 		}
-		catch ( PDOException $error ) {
-			echo $error->getMessage();
+		elseif( $this->general->checkCatID($cat_id) == true)
+		{	
+			$_SESSION['error']['duplicate_CatID'] = "Category ID already existed!";
+			$flag = false;
+		};
+
+		if( empty($cat_name) )
+		{
+			$_SESSION['error']['empty_catName'] = "Category name is empty!";
+			$flag = false;
+		}
+		elseif( $this->general->checkCatName($cat_name) == true)
+		{
+			$_SESSION['error']['duplicate_CatName'] = "Category name already existed!";
+			$flag = false;
+		};
+
+		$_SESSION['cat_id'] = $cat_id;
+		$_SESSION['cat_name'] = $cat_name;
+
+		if ( $flag === true )
+		{
+			$sql = "INSERT INTO  [tblDMNhomHangBan] ( [Ma], [Ten] ) VALUES ( '$cat_id', N'$cat_name' )";
+			try
+			{	
+
+				$rs = $this->conn->query($sql);
+				$_SESSION['add_success'] = " <strong>Success!</strong> Add category name successfully...";
+
+			}
+			catch( Exception $e )
+			{
+				echo $e->getMessage();
+			}
 		}
 	}
 
+	public function edit() 
+	{
+		$flag = true;
+
+		$cat_id = htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8');
+		$cat_name = htmlentities(trim(strip_tags($_POST['cat_name'])),ENT_QUOTES,'utf-8');
+
+		if( empty($cat_name) )
+		{
+			$_SESSION['fail']['empty_catName'] = "Category name is empty!";
+			$flag = false;
+		}
+		elseif( $this->general->checkCatName($cat_name) == true)
+		{
+			$_SESSION['fail']['duplicate_CatName'] = "Category name already existed!";
+			$flag = false;
+		};
+
+		$_SESSION['cat_id_edit'] = $cat_id;//var_dump($_SESSION['cat_id']);die;
+		$_SESSION['cat_name'] = $cat_name;
+
+		if ( $flag === true )
+		{
+			$sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] = N'$cat_name'  Where [Ma] ='$cat_id'";
+			try
+			{
+				$rs = $this->conn->query($sql);
+				$_SESSION['add_success'] = " <strong>Success!</strong> Add category name successfully...";
+			}
+			catch( Exception $e )
+			{
+				echo $e->getMessage();
+			}
+		}
+	}
+
+	
 	public function xoaCat($cat_id)
 	{	
-	
 		$sql = "DELETE FROM  [tblDMNhomHangBan] where [Ma] = '$cat_id'";
-		try{
+
+		try
+		{
 			$rs = $this->conn->query($sql);
-			$_SESSION['delete_success'] = 1;//var_dump ($rs);die;
-			return $rs;	
-			//echo  "<script>window.history.go(-1); </script>";
+			$_SESSION['del_success'] = "Category item deleted successfully!";
+			//var_dump ( $_SESSION['del_success'] );die;
 		}
-		catch ( PDOException $error ){
-			$_SESSION['delete_success'] = -1;
+		catch ( PDOException $error )
+		{
 			echo $error->getMessage();
 		}
 	}

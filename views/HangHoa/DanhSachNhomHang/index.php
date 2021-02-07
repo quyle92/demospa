@@ -29,67 +29,102 @@ thead th{
 
 </style>
 
-
-
-<h3 class="title">Danh Sách Nhóm Hàng</h3>
 <?php
-if(  isset($_SESSION['delete_success']) && $_SESSION['delete_success'] == 1 ) 
-    {
-     echo "<div class='alert alert-success'>
-          <strong>Success!</strong> Category name deleted successfully...
-    </div>";unset($_SESSION['delete_success']);  var_dump($_SESSION['delete_success']);
-    }
-elseif(  isset($_SESSION['duplicate_cat_name']) && $_SESSION['duplicate_cat_name'] == -1 ) 
-    {
-     echo "<div class='alert alert-danger'>
-          <strong>Alert!</strong> Something went wrong! Category name could not be deleted...
-    </div>";unset($_SESSION['duplicate_cat_name']);
-    }
+if(  isset($_SESSION['add_success']) )
+{
+    echo "<div class='alert alert-success'>" .
+         $_SESSION['add_success']
+        . "</div>";
+    unset($_SESSION['add_success']); 
+}
 
-if(  isset($_SESSION['duplicate_cat_id']) && $_SESSION['duplicate_cat_id'] == -1 ) 
-    {
-     echo "<div class='alert alert-warning'>
-          <strong>Alert!</strong> Category ID already existed...
-    </div>";unset($_SESSION['duplicate_cat_id']); 
-    }
+if(  isset($_SESSION['edit_success']) )
+{
+    echo "<div class='alert alert-success'>" .
+         $_SESSION['edit_success']
+        . "</div>";
+    unset($_SESSION['edit_success']); 
+}
 
-elseif(  isset($_SESSION['duplicate_cat_name']) && $_SESSION['duplicate_cat_name'] == -1 ) 
-    {
-     echo "<div class='alert alert-warning'>
-          <strong>Alert!</strong> Category name already existed...
-    </div>";unset($_SESSION['duplicate_cat_name']);
-    }
-elseif(  isset($_SESSION['add_success']) && $_SESSION['add_success'] == 1 )
-    {
-    echo "<div class='alert alert-success'>
-          <strong>Success!</strong> Add category name successfully...
-        </div>";unset($_SESSION['add_success']); 
-    }
+if(  isset($_SESSION['del_success']) )
+{
+    echo "<div class='alert alert-success'>" .
+         $_SESSION['del_success']
+        . "</div>";
+    unset($_SESSION['del_success']); 
+}
+
+if( isset($_SESSION['error']) )
+{
+  echo "<div id=\"error\"></div>";
+
+}
+if( isset($_SESSION['fail']) )
+{
+  echo "<div id=\"fail\"></div>";
+
+}   
+?>
+<?php  
+include('add_cat_modal.php');
+unset($_SESSION['error']);
 ?>
 <div class="container">
     <div class="row col-md-6 col-md-offset-2 custyle">
-    <table class="table table-striped custab">
-    <thead>
-        <tr><button class="btn btn-primary pull-left" style="margin-bottom: 5px" data-toggle="modal" data-target="#new_cat"><b>+</b> Add</button>
-            <th>Mã</th>
-            <th>Tên</th>
-            <th ></th>
-            <th class="text-center">Action</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <?php
-    $rs = $productCat->getAllProductCats();
-    foreach($rs as $r)
-    { ?>
-        <tr>
-            <td><?=$r['Ma']?></td>
-            <td nowrap="nowrap"><?=$r['Ten']?></td>
-            <td class="text-center" colspan="4"><a class="btn btn-info btn-xs " href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="<?=BASE_URL?>views/<?=$p?>XoaCat/index.php?xoaCat=<?=$r['Ma']?>" class="btn btn-danger btn-xs "><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-        </tr>
-     <?php } ?>
-    </table>
-    <?php require_once('new_cat.php');?>
+        <h3 class="col-md-offset-3">Danh Sách Nhóm Hàng</h3>
+        <table class="table table-striped custab">
+        <thead>
+            <tr><button class="btn btn-primary pull-left" style="margin-bottom: 5px" data-toggle="modal" data-target="#addNewCat"><b>+</b> Add</button>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th ></th>
+                <th class="text-center">Action</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <?php
+        $rs = $productCat->getAllProductCats();
+        foreach($rs as $r)
+        { ?>
+            <tr>
+                <td><?=$r['Ma']?></td>
+                <td nowrap="nowrap"><?=$r['Ten']?></td>
+                <td class="text-center" colspan="4"><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editCat_<?=$r['Ma']?>"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action/delete_action.php?xoaCat=<?=$r['Ma']?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+            </tr>
+         <?php //require_once('edit_cat_modal.php'); 
+        } ?>
+        </table>
     </div>
 </div>
+<?php
+$cat_list = $productCat->getAllProductCats(); //var_dump($cat_list);die;
+foreach ( $cat_list as $r ) 
+  { ?>
+                              
+<!-- Modal Edit Cat -->
+<?php
+include('edit_cat_modal.php');
+
+?>
+  <!-- End Modal Edit Cat -->
+
+
+<?php } 
+unset($_SESSION['fail']);
+?>
+<script type="text/javascript">
+
+var error = $('div#error');console.log(error);
+if( error.length > 0 ){
+  $('#addNewCat').modal('show');
+}
+
+var catID = '<?=isset($_SESSION['cat_id_edit'] ) ? $_SESSION['cat_id_edit']  : '';?>';
+var fail = $('div#fail');
+if( fail.length > 0 ){
+  $('#editCat_' +  catID).modal('show');
+  //$('#editCat_NN001').modal('show');
+}
+
+</script>

@@ -1134,12 +1134,7 @@ h2.modal-title {
 .modal-body p img{
 	margin:1em 0;
 }
-.form-horizontal .control-label {
-  text-align: right;
-  color: #000;
-  font-weight: 300;
-  font-size: 0.85em;
-}
+
 .checkbox-inline1{
   position: relative;
   display:block;
@@ -1263,10 +1258,6 @@ select[multiple] {
   padding: 0!important;
 }
 .input-group {
-  position: relative;
-  display: table;
-  width: 100%;
-  border-collapse: separate;
   margin-bottom: 1em;
 }
 .has-success .input-group-addon {

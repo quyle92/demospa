@@ -2,6 +2,7 @@
 require('lib/db.php');
 require('lib/clsKhachHang.php');
 require('functions/lichsuphieu.php');
+require_once('helper/custom-functions.php');
 $sgDep = new clsKhachHang($conn);
 require('lib/General.php');
 $general = new General($conn);

@@ -30,6 +30,7 @@ if( isset($_GET["p"]) ){
 
 <!-- Custom CSS -->
 <link href="<?=BASE_URL?>css/style1.css" rel='stylesheet' type='text/css' />
+<link href="<?=BASE_URL?>css/q_style.css" rel='stylesheet' type='text/css' />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"> 
 <link href="<?=BASE_URL?>css/search-form-home.css" rel='stylesheet' type='text/css' />
 <link href="<?=BASE_URL?>css/custom.css" rel="stylesheet">

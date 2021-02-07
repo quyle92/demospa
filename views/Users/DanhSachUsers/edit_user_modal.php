@@ -11,32 +11,35 @@
                   <input type="hidden" class="form-control" name="username" id="username" value="<?=$r['TenSD']?>" >
 
                   <div class="password_group">
-                      <div class="form-group">
+                        <div class="form-group">
                           <label class="col-md-4 control-label">* Đổi mật khẩu</label>
                           <div class="col-md-8">
-                            <input type="checkbox" class="" name="changePassword" id="changePassword">
+                            <input type="checkbox" class="" name="changePassword" id="changePassword_<?=$r['TenSD']?>">
+                            
                           </div>
                         </div>
 
                         <div class="form-group">
                             <label for="password" class="col-md-3 control-label">Password:</label>
-                              <div class="col-md-8">
-                                <input type="text" class="form-control" name="password" id="password" value="" disabled required>
+                              <div class="col-md-8 input-group">
+                                <input type="password" class="form-control" name="password" id="password" value="" disabled >
+                                <?=isset($_SESSION['fail']['empty_password']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['empty_password'] . '</small>' : "" ?>
                               </div>
                         </div>
 
                         <div class="form-group">
                             <label for="confirm_password" class="col-md-3 control-label">Confirm Password:</label>
-                              <div class="col-md-8">
-                                <input type="text" class="form-control" name="confirm_password" id="confirm_password" disabled required>
-                                <span id='message'></span>
+                              <div class="col-md-8 input-group">
+                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" disabled >
+                                <?=isset($_SESSION['fail']['empty_confirm_password']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['empty_confirm_password'] . '</small>' : "" ?>
+                                <?=isset($_SESSION['fail']['password_mismatch']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['password_mismatch'] . '</small>' : "" ?>  
                               </div>
                         </div>
                   </div>
 
                   <div class="form-group">
                       <label for="staff_card" class="col-md-3 control-label">Tên NV:</label>
-                        <div class="col-md-8">
+                        <div class="col-md-8 input-group">
                           <select name="maNV" id="maNV" class="form-control input-lg" required="required" >
                               <option value="" disabled selected> Tên NV</option>
                               <?php

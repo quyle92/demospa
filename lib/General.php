@@ -24,4 +24,62 @@ class General {
 		}
 	}
 
+	protected function checkUser($username)
+	{	//var_dump($username);die;
+		$sql = "SELECT * FROM [tblDSNguoiSD] WHERE [TenSD] = '$username' ";
+		try {
+			$rs = $this->conn->query($sql)->fetch();
+				
+			if($rs) 
+				return true;
+			else
+				return false;
+			
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
+
+	protected function checkCatID($cat_id)
+	{
+		$sql = "SELECT * FROM [tblDMNhomHangBan] WHERE [Ma] = '$cat_id' ";
+		try {
+			$rs = $this->conn->query($sql)->fetch();
+			//var_dump($rs);die;	
+			if($rs) 
+				return true;
+			else
+				return false;
+			
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
+
+	protected function checkCatName($cat_name)
+	{	//var_dump($cat_name);die;
+		$sql = "SELECT * FROM [tblDMNhomHangBan]";
+		try 
+		{
+			$rs = $this->conn->query($sql)->fetchAll();//var_dump( $this->conn->query($sql));die;
+			foreach ($rs as $r)
+			{
+				if ($r['Ten'] == $cat_name ){
+					
+					return true;
+				}
+				
+			}
+
+			return false;
+			
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
+
+
 }

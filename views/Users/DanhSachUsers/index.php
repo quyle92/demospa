@@ -3,6 +3,7 @@
 require_once('./lib/Users.php');
 $user = new Users($conn); 
 
+
 ?>
 <style>
 .form-horizontal{
@@ -18,73 +19,38 @@ small.field-msg.error{
   color:red;
 
 }
+
+
 </style>
+
 <?php 
-//Add status message
+if(  isset($_SESSION['add_success']) )
+{
+	echo "<div class='alert alert-success'>" .
+		 $_SESSION['add_success']
+		. "</div>";
+	unset($_SESSION['add_success']); 
+}
+
+if(  isset($_SESSION['edit_success']) )
+{
+	echo "<div class='alert alert-success'>" .
+		 $_SESSION['edit_success']
+		. "</div>";
+	unset($_SESSION['edit_success']); 
+}
+
+
 if( isset($_SESSION['error']) )
 {
   echo "<div id=\"error\"></div>";
 
 }
 
-// if ( isset($_SESSION['add_success']) && $_SESSION['add_success'] == 0  )
-// {
-// echo "<div class='alert alert-danger'>
-//       <strong>Alert!</strong> Add user failed...
-// </div>";unset($_SESSION['add_success']); 
-// }
-
-// if(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
-// {
-//  echo "<div class='alert alert-warning'>
-//       <strong>Alert!</strong> Password mismatch...
-// </div>";unset($_SESSION['password_mismatch']); 
-// }
-
-// if(  isset($_SESSION['duplicate_username']) && $_SESSION['duplicate_username'] == -1 ) 
-// {
-//  echo "<div class='alert alert-warning'>
-//       <strong>Alert!</strong> Username already existed...
-// </div>";unset($_SESSION['duplicate_username']);
-// }
-
-// if(  isset($_SESSION['add_success']) && $_SESSION['add_success'] == 1 )
-// {
-// echo "<div class='alert alert-success'>
-//       <strong>Success!</strong> Add user successfully...
-//     </div>";unset($_SESSION['add_success']); 
-// }
-
-
-//Edit status message
-
-if ( isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == 0  )
+if( isset($_SESSION['fail']) )
 {
-echo "<div class='alert alert-danger'>
-      <strong>Alert!</strong> Edited fail...
-</div>";unset($_SESSION['edit_success']); 
-}
+  echo "<div id=\"fail\"></div>";
 
-if(  isset($_SESSION['password_mismatch']) && $_SESSION['password_mismatch'] == -1 ) 
-{
- echo "<div class='alert alert-warning'>
-      <strong>Alert!</strong> Password mismatch...
-</div>";unset($_SESSION['password_mismatch']); 
-}
-
-if(  isset($_SESSION['edit_success']) && $_SESSION['edit_success'] == 1 )
-{
-echo "<div class='alert alert-success'>
-      <strong>Success!</strong> Edited successfully...
-    </div>";unset($_SESSION['edit_success']); 
-}
-
-//Delete status message
-if(  isset($_SESSION['del_success']) && $_SESSION['del_success'] == 1 )
-{
-echo "<div class='alert alert-success'>
-      <strong>Success!</strong> Deleted successfully...
-    </div>";unset($_SESSION['del_success']); 
 }
 
 ?>
@@ -92,7 +58,7 @@ echo "<div class='alert alert-success'>
     <button class="btn btn-primary" data-toggle="modal" data-target="#them_user">Thêm User </button> 
     <a href="../../views/Users/ExcelExport/index.php" class="btn btn-warning pull-right" >Export Spreadsheet </a> 
   </div>
-<?php
+<?php 
 require_once ('add_user_modal.php'); 
 unset($_SESSION['error']);
 ?>
@@ -158,30 +124,26 @@ unset($_SESSION['error']);
         </tbody>
       </table>
   </div> 
-<?php
+<?php 
 $users_list = $user->getUsersList(); //var_dump($users_list);die;
 foreach ( $users_list as $r ) 
   { ?>
                               
 <!-- Modal Edit User -->
-<?php 
+<?php
 include('edit_user_modal.php');
+
 ?>
   <!-- End Modal Edit User -->
 
 
-<?php } ?>
-
+<?php } 
+unset($_SESSION['fail']);
+?>
 <script type="text/javascript">
-$('#password, #confirm_password').on('keyup', function () {
-  if ( $('#password').val() == $('#confirm_password').val() && $('#password').val() !== '') {
-    $('#message').html('Matching').css('color', 'green');
-  } else
-    $('#message').html('Not Matching').css('color', 'red');
-});
 
 
-$(document).on('change', '#changePassword', function(){
+$(document).on('change', 'input[name="changePassword"]', function(){console.log(11);
     if($(this).is(':checked'))
     { 
       $(this).parent().parent().parent().find('#password').removeAttr("disabled");
@@ -195,21 +157,23 @@ $(document).on('change', '#changePassword', function(){
     }
 });
 
-$(function(){
-  $('.them_user').on('submit', 'button', function(){e.preventDefault();
-      pass = $('#password').val();
-      passAgain = $('#confirm_password').val();
-      if( pass !== passAgain ){
-        alert('password not matched');
-        
-      }
-  });
-
-});
-
 var error = $('div#error');
-if(error.length >0){
+if( error.length > 0 ){
   $('#them_user').modal('show');
 }
+
+// $('#changePassword').prop('checked', true);
+var username = '<?=isset($_SESSION['username_edit']) ? $_SESSION['username_edit'] : '';?>';
+var fail = $('div#fail');
+  if(fail.length >0){ 
+    $('#edit_user_' + username).modal('show');
+    //$('#changePassword').attr('checked');
+    $('#changePassword_' + username).prop('checked',true);
+   // document.getElementById('changePassword').setAttribute("checked", "checked");
+   let checkbox = $('#changePassword_' + username) ;
+      checkbox.parent().parent().parent().find('#password').removeAttr("disabled");
+      checkbox.parent().parent().parent().find('#confirm_password').removeAttr("disabled");
+  }
+
 
   </script>
