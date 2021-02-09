@@ -127,9 +127,171 @@ class HangHoa  extends General {
 			echo $error->getMessage();
 		}
 	}
-	
+
+	/**
+	 * Product
+	 */
+	public function getAllProducts()
+	{	
+		$sql = "SELECT a.*, b.Ten FROM [tblDMHangBan] a LEFT JOIN [tblDMNhomHangBan] b ON a.MaNhomHangBan = b.Ma  order by [MaHangBan]";
+		try
+		{
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+		}
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function getDonViTinh()
+	{
+		$sql = "SELECT distinct [MaDVTCoBan] from [tblDMHangBan]";
+		try
+		{
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+		}
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function themProd() 
+	{
+		$flag = true;
+		//var_dump ( $_POST);die;
+		$prod_id = htmlentities(trim(strip_tags($_POST['prod_id'])),ENT_QUOTES,'utf-8');
+		$prod_name = htmlentities(trim(strip_tags($_POST['prod_name'])),ENT_QUOTES,'utf-8');
+		$cat_id = isset($_POST['cat_id']) ? htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8') : "";
+		$donViTinh = isset($_POST['donViTinh']) ? htmlentities(trim(strip_tags($_POST['donViTinh'])),ENT_QUOTES,'utf-8') : "";
+
+		if( empty($prod_id) )
+		{
+			$_SESSION['error']['empty_ProdID'] = "Product ID is empty!";
+			$flag = false;
+		}
+		elseif( $this->general->checkProdID($prod_id) == true)
+		{	
+			$_SESSION['error']['duplicate_ProdID'] = "Product ID already existed!";
+			$flag = false;
+		};
+
+		if( empty($prod_name) )
+		{
+			$_SESSION['error']['empty_ProdName'] = "Product name is empty!";
+			$flag = false;
+		}
+		elseif( $this->general->checkProdName($prod_name) == true)
+		{
+			$_SESSION['error']['duplicate_ProdName'] = "Product name already existed!";
+			$flag = false;
+		};
+
+		if( empty($cat_id) )
+		{
+			$_SESSION['error']['empty_CatID'] = "Category ID is empty!";
+			$flag = false;
+		}
+
+		if( empty($donViTinh) )
+		{
+			$_SESSION['error']['donViTinh'] = "MaDVT is empty!";
+			$flag = false;
+		}
+
+		$_SESSION['prod_id'] = $prod_id;//var_dump($_SESSION['prod_id']);die;
+		$_SESSION['prod_name'] = $prod_name;
+		$_SESSION['cat_id'] = $cat_id;
+		$_SESSION['donViTinh'] = $donViTinh;
+
+		if ( $flag === true )
+		{
+			$sql = "INSERT INTO [tblDMHangBan] ( [MaHangBan], [TenHangBan], [MaNhomHangBan], [MaDVTCoBan] ) VALUES ( '$prod_id', N'$prod_name', '$cat_id', '$donViTinh')";
+			try
+			{	
+
+				$rs = $this->conn->query($sql);
+				$_SESSION['add_success'] = " <strong>Success!</strong> Product name added successfully...";
+
+			}
+			catch( Exception $e )
+			{
+				echo $e->getMessage();
+			}
+		}
+	}
+
+	public function editProd() 
+	{
+		$flag = true;
+		//var_dump ( $_POST);die;
+		$prod_id = htmlentities(trim(strip_tags($_POST['prod_id'])),ENT_QUOTES,'utf-8');
+		$prod_name = isset($_POST['prod_name']) ? htmlentities(trim(strip_tags($_POST['prod_name'])),ENT_QUOTES,'utf-8') : "";
+		$cat_id = isset($_POST['cat_id']) ? htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8') : "";
+		$donViTinh = isset($_POST['donViTinh']) ? htmlentities(trim(strip_tags($_POST['donViTinh'])),ENT_QUOTES,'utf-8') : "";
 
 
+		if( empty($prod_name) )
+		{
+			$_SESSION['fail']['empty_ProdName'] = "Product name is empty!";
+			$flag = false;
+		}
+		elseif( $this->general->checkProdName($prod_name) == true)
+		{
+			$_SESSION['fail']['duplicate_ProdName'] = "Product name already existed!";
+			$flag = false;
+		};
+
+		if( empty($cat_id) )
+		{
+			$_SESSION['fail']['empty_CatID'] = "Category ID is empty!";
+			$flag = false;
+		}
+
+		if( empty($donViTinh) )
+		{
+			$_SESSION['fail']['donViTinh'] = "MaDVT is empty!";
+			$flag = false;
+		}
+
+		$_SESSION['prod_id_edit'] = $prod_id;
+		$_SESSION['prod_name'] = $prod_name;//var_dump($_SESSION['prod_name']);die;
+		$_SESSION['cat_id'] = $cat_id;
+		$_SESSION['donViTinh'] = $donViTinh;
+
+		if ( $flag === true )
+		{
+			$sql = "UPDATE [tblDMHangBan] SET (  [TenHangBan] = N'$prod_name', [MaNhomHangBan] = '$cat_id', [MaDVTCoBan] = '$donViTinh' ) WHERE [MaHangBan] = '$prod_id' ";
+			try
+			{	
+				$rs = $this->conn->query($sql);
+				$_SESSION['add_success'] = "<strong>Success!</strong> Product name added successfully...";
+			}
+			catch( Exception $e )
+			{
+				echo $e->getMessage();
+			}
+		}
+	}
+
+	public function xoaProd($prod_id)
+	{	
+		$sql = "DELETE FROM  [tblDMHangBan] where [MaHangBan] = '$prod_id'";
+
+		try
+		{
+			$rs = $this->conn->query($sql);
+			$_SESSION['del_success'] = "Item deleted successfully!";
+			//var_dump ( $_SESSION['del_success'] );die;
+		}
+		catch ( PDOException $error )
+		{
+			echo $error->getMessage();
+		}
+	}
 
 
 

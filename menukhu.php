@@ -51,19 +51,19 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/DoanhThuBanHang"><i class="fas fa-chart-pie"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/DoanhThuBanHang/"><i class="fas fa-chart-pie"></i>
                         Doanh thu bán hàng</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/DoanhThuKhachLeThe"><i class="fa fa-signal nav_icon"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/DoanhThuKhachLeThe/"><i class="fa fa-signal nav_icon"></i>
                         Doanh thu khách lẻ, thẻ </a>
                     </li>     
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/DoPhu"><i class="fas fa-address-card"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/DoPhu/"><i class="fas fa-address-card"></i> 
                         Độ phủ</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/KhachHang"><i class="fas fa-handshake"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBieuDo/KhachHang/"><i class="fas fa-handshake"></i>
                         Khách hàng</a>
                     </li>          
                 </ul>
@@ -75,23 +75,23 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThutheoKhu"><i class="fas fa-chart-area"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThutheoKhu/"><i class="fas fa-chart-area"></i>
                         Doanh thu theo khu</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuHangBan"><i class="fas fa-shopping-cart"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuHangBan/"><i class="fas fa-shopping-cart"></i>
                         Doanh thu hàng bán</a>
                     </li>     
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuKhachHang"><i class="fas fa-gopuram"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuKhachHang/"><i class="fas fa-gopuram"></i>
                         Doanh thu khách hàng</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuNhanVien"><i class="fas fa-male"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuNhanVien/"><i class="fas fa-male"></i>
                         Doanh thu nhân viên</a>
                     </li>  
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/BaoCaoTonKho"><i class="fas fa-warehouse"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/BaoCaoTonKho/"><i class="fas fa-warehouse"></i>
                         Báo cáo tồn kho</a>
                     </li>        
                 </ul>
@@ -103,15 +103,15 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachNhomHang"><i class="fas fa-th-list"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachNhomHang/"><i class="fas fa-th-list"></i>
                         Danh sách nhóm hàng</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachHangBan"><i class="fas fa-list-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachHangBan/"><i class="fas fa-list-alt"></i>
                         Danh sách hàng bán</a>
                     </li>  
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/GiaHangBan"><i class="fas fa-tags"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/GiaHangBan/"><i class="fas fa-tags"></i>
                         Giá bán hàng</a>
                     </li>    
                 </ul>
@@ -123,11 +123,11 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhapXuatKho/PhieuNhapHang"><i class="fas fa-file-invoice"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/NhapXuatKho/PhieuNhapHang/"><i class="fas fa-file-invoice"></i>
                         Phiếu nhập hàng</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhapXuatKho/PhieuXuatHang"><i class="fas fa-file-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/NhapXuatKho/PhieuXuatHang/"><i class="fas fa-file-alt"></i>
                         Phiếu xuất hàng</a>
                     </li>  
                 </ul>
@@ -139,11 +139,11 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/KhachHang/DanhSachKhachHangThe"><i class="fab fa-cc-visa"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/KhachHang/DanhSachKhachHangThe/"><i class="fab fa-cc-visa"></i>
                         Danh sách khách hàng, thẻ</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/KhachHang/DanhSachLichHen"><i class="fas fa-calendar-check"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/KhachHang/DanhSachLichHen/"><i class="fas fa-calendar-check"></i> 
                         Danh sách lịch hẹn</a>
                     </li>  
                 </ul>
@@ -155,19 +155,19 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/BaoCaoTourKTV"><i class="fas fa-fingerprint"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/DanhSachNhanVien/"><i class="fas fa-fingerprint"></i> 
                         Danh sách nhân viên</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/DanhSachNhanVien"><i class="fas fa-book-open"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/BaoCaoTourKTV/"><i class="fas fa-book-open"></i>
                         Báo cáo Tour KTV</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/LichSuRaVao"><i class="fas fa-door-open"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/LichSuRaVao/"><i class="fas fa-door-open"></i> 
                         Lịch sử ra vào</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/TongHopChamCong"><i class="fas fa-notes-medical"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/TongHopChamCong/"><i class="fas fa-notes-medical"></i>
                         Tổng hợp chấm công</a>
                     </li>
                 </ul>
@@ -179,11 +179,11 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/Users/DanhSachUsers"><i class="fa fa-apple-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/Users/DanhSachUsers/"><i class="fa fa-apple-alt"></i>
                         Danh sách users</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/Users/DoiMatKhau"><i class="fa fa-apple-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/Users/DoiMatKhau/"><i class="fa fa-apple-alt"></i>
                         Đổi mật khẩu</a>
                     </li>
                 </ul>

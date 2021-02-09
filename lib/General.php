@@ -81,5 +81,44 @@ class General {
 		}
 	}
 
+	protected function checkProdID($prod_id)
+	{
+		$sql = "SELECT * FROM [tblDMHangBan] WHERE [MaHangBan] = '$prod_id' ";
+		try {
+			$rs = $this->conn->query($sql)->fetch();
+			//var_dump($rs);die;	
+			if($rs) 
+				return true;
+			else
+				return false;
+			
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
+
+	protected function checkProdName($prod_name)
+	{	//var_dump($prod_name);die;
+		$sql = "SELECT * FROM [tblDMHangBan]";
+		try 
+		{
+			$rs = $this->conn->query($sql)->fetchAll();//var_dump( $this->conn->query($sql));die;
+			foreach ($rs as $r)
+			{
+				if ($r['TenHangBan'] == $prod_name ){
+					
+					return true;
+				}
+				
+			}
+
+			return false;
+			
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
 
 }

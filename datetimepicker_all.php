@@ -1,6 +1,6 @@
 <?php
-$tuNgay = isset( $_POST['tuNgay'] ) ? $_POST['tuNgay'] :  date('d-m-Y');
-$denNgay = isset( $_POST['denNgay'] ) ? $_POST['denNgay'] : date('d-m-Y', strtotime('+1 day'));
+$tuNgay = isset( $_POST['tuNgay'] ) ? $_POST['tuNgay'] :  date('d-m-Y', strtotime('-1 day'));
+$denNgay = isset( $_POST['denNgay'] ) ? $_POST['denNgay'] : date('d-m-Y');
 $tuGio =  isset( $_POST['tuGio'] ) ? $_POST['tuGio'] :"08:00";
 $denGio =  isset( $_POST['denGio'] ) ? $_POST['denGio'] :"08:00";
 
@@ -19,11 +19,11 @@ $denGio =  isset( $_POST['denGio'] ) ? $_POST['denGio'] :"08:00";
               </div>
             </div>
           </div>
-	        <div class="col-md-2" >Từ giờ: </div>
-            <div class="col-md-3" >
+	        <div class="col-md-2 tuGio" >Từ giờ: </div>
+            <div class="col-md-3 tuGio" >
   	          <div class="form-group">
                 <div class='input-group date'  >
-                   <input type='text' class="form-control"  id='tuGio' name="tuGio" value="<?=isset($tuGio) ? $tuGio : ""?>"/>
+                   <input type='text' class="form-control tuGio"  id='tuGio' name="tuGio" value="<?=isset($tuGio) ? $tuGio : ""?>"/>
                    <span class="input-group-addon">
                    <span class="glyphicon glyphicon-time"></span>
                    </span>
@@ -44,8 +44,8 @@ $denGio =  isset( $_POST['denGio'] ) ? $_POST['denGio'] :"08:00";
               </div>
             </div>
           </div>
-	        <div class="col-md-2" >Đến giờ: </div>
-	        <div class="col-md-3" >
+	        <div class="col-md-2 denGio" >Đến giờ: </div>
+	        <div class="col-md-3 denGio" >
               <div class="form-group">
                 <div class='input-group date'   >
                    <input type='text' class="form-control"  id='denGio'  name="denGio" value="<?=isset($denGio) ? $denGio : ""?>"/>

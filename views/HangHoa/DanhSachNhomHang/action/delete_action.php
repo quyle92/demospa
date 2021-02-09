@@ -7,7 +7,7 @@ $productCat = new HangHoa($conn);
 
 if(!empty($_GET['xoaCat']) )
 { 	
-   $add_user = $productCat->xoaCat($_GET['xoaCat']);
+   $productCat->xoaCat($_GET['xoaCat']);
    echo  "<script>window.history.go(-1); </script>";
 
 }

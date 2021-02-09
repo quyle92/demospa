@@ -5,10 +5,9 @@ require_once('lib/db.php');
 require_once('lib/HangHoa.php');
 $product = new HangHoa($conn);
 
-// var_dump($_POST['add_cat']); die;
-if( !empty($_POST['add_prod']) )
-{ 
-  	$product->themProd();//var_dump ( $_SESSION['error'] );die;
+if(!empty($_GET['xoaProd']) )
+{ 	
+   $product->xoaProd($_GET['xoaProd']);
    echo  "<script>window.history.go(-1); </script>";
 
 }

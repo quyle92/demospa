@@ -139,7 +139,7 @@ function strToInt( array $input ){
 
 
 function removeOuterArr( array $input) {
-
+	//pr($input);//die;
     $output = [];
     foreach($input as $item)
     { //pr($item[0]); die;

@@ -12,9 +12,10 @@ session_start();
 date_default_timezone_set('Asia/Bangkok'); 
 //$p = $_SERVER['REQUEST_URI'];var_dump($p);
 if( isset($_GET["p"]) ){
-    $p = substr($_GET["p"], -1)!== '/' ?  $_GET["p"] . '/' : $_GET["p"];
+   $p = substr($_GET["p"], -1) !== '/' ?  $_GET["p"] . '/' : $_GET["p"];
+    //$p =$_GET["p"];
 }
-//var_dump ($p);
+//var_dump($p);
 ?>
 <!DOCTYPE HTML>
 <html>

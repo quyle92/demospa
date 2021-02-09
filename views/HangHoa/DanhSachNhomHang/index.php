@@ -1,13 +1,8 @@
 <?php
-//require_once('helper/security.php');
+$page_name = "BaoCaoHangHoa";
+require_once('helper/security.php');
 require_once('lib/HangHoa.php');
 $productCat = new HangHoa($conn);
-if ( isset($_POST['cat_add_new']) )
-{
-	$newCat = $productCat->addNewCat($_POST);
-}
-
-
 
 ?>
 <style type="text/css">

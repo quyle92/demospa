@@ -245,6 +245,43 @@ class KhachHang {
 		}
 	}
 
+	public function getClientsWithCard( $tungay, $denngay, $tugio, $dengio )
+	{
+		   $sql = " SELECT a.*, b.*, c.* FROM  [tblTheVIP_GhiNoDV] a
+		 	JOIN [tblKhachHang_TheVip] b ON a.MaTheVip = b.MaTheVip
+		 	JOIN [tblDMKHNCC] c ON b.MaKhachHang = c.[MaDoiTuong]
+			Where substring( Convert(varchar,isnull([NgayQuanHe],getdate()),126),0,17 ) BETWEEN '{$tungay}T{$tugio}' AND 
+				'{$denngay}T{$dengio}'";
+
+		try
+		{
+
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+		}
+		catch ( PDOException $error ){
+			echo $error->getMessage();
+		}
+	}
+
+	public function getClientAppointments( $tungay, $denngay, $tugio, $dengio )
+	{
+		  $sql = " SELECT a.*, b.* FROM [tblKhachHangBooking] a JOIN tblDMNhanVien b ON a.MaNV = b.MaNV
+			Where substring( Convert(varchar,isnull(GioBatDau,getdate()),126),0,17 ) BETWEEN '{$tungay}T{$tugio}' AND 
+				'{$denngay}T{$dengio}'
+			";
+
+		try
+		{
+
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+		}
+		catch ( PDOException $error ){
+			echo $error->getMessage();
+		}
+	}
+
 	
 
 }

@@ -26,9 +26,9 @@
                   <div class="form-group">
                       <label for="cat_name" class="col-md-3 control-label">Tên:</label>
                       <div class="col-md-6">
-                        <input type="text" class="form-control" name="cat_name" id="cat_name" value="<?php echo isset($_SESSION['cat_name']) ? $_SESSION['cat_name'] : ""; //unset($_SESSION['cat_name']); ?>" >
-                        <?=isset($_SESSION['fail']['empty_catName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['empty_catName'] . '</small>' : "" ?>
-                        <?=isset($_SESSION['fail']['duplicate_CatName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['duplicate_CatName'] . '</small>' : "" ?>
+                        <input type="text" class="form-control" name="cat_name" id="cat_name" value="<?php echo isset($_SESSION['cat_name'])  ? $_SESSION['cat_name'] : $r['Ten']; unset($_SESSION['cat_name']); ?>" >
+                        <?=( isset($_SESSION['cat_id_edit']) && $_SESSION['cat_id_edit'] !== $r['Ma'] ) ? '' : ( isset($_SESSION['fail']['empty_catName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['empty_catName'] . '</small>' : "" )?>
+                        <?=( isset($_SESSION['cat_id_edit']) && $_SESSION['cat_id_edit'] !== $r['Ma'] ) ? '' : ( isset($_SESSION['fail']['duplicate_CatName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['duplicate_CatName'] . '</small>' : "" )?>
                         </div>
                         <div class="col-md-3 control-label">
                           <button type="button" class="btn btn-xs btn-warning pull-left clearField"> <span class="glyphicon glyphicon-remove"></span></button>
