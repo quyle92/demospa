@@ -40,7 +40,7 @@
                   <div class="form-group">
                       <label for="staff_card" class="col-md-3 control-label">Tên NV:</label>
                         <div class="col-md-8 input-group">
-                          <select name="maNV" id="maNV" class="form-control input-lg" required="required" >
+                          <select name="maNV" id="maNV" class="form-control" required="required" >
                               <option value="" disabled selected> Tên NV</option>
                               <?php
                               $list_NV_arr =  $user->getUsersList();

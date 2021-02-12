@@ -1,5 +1,6 @@
 <?php
-ini_set('mssql.charset', 'UTF-8');
+require('helper/ForceUTF8/Encoding.php');
+use \ForceUTF8\Encoding;
 class DbConnection {
 
 		protected $conn;
@@ -11,6 +12,7 @@ class DbConnection {
 				$this->conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
 				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
 				$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+				$conn->setAttribute( PDO::ODBC_ATTR_ASSUME_UTF8 , true );
 			}
 			catch(Exception $e){
                 throw new Exception($e->getMessage());   
@@ -48,13 +50,14 @@ class clsKhachHang{
 
 	public function searchCustomer( $client_code, $client_name, $client_tel )
 	{	
+
 		if( $client_tel != NULL )
 		{
 			$sql = "SELECT * FROM [tblDMKHNCC] WHERE LaKH = 1 AND MaDoiTuong = '$client_code' OR TenDoiTuong = '$client_name' OR DienThoai = '$client_tel' ";
 		}
 		else
 		{
-			$sql = "SELECT * FROM [tblDMKHNCC] WHERE LaKH = 1 AND MaDoiTuong = '$client_code' OR TenDoiTuong = '$client_name'  ";
+			 $sql = "SELECT * FROM [tblDMKHNCC] WHERE LaKH = 1 AND MaDoiTuong = '$client_code' OR TenDoiTuong = '$client_name'";
 		}
 
 		try
@@ -65,6 +68,21 @@ class clsKhachHang{
 		catch( Exception $e )
 		{
 			echo $e->getMessage();
+		}
+	}
+
+	public function getClientInfo( $ma_doi_tuong )
+	{
+		$sql = "SELECT a.*, b.* FROM [tblDMKHNCC] a LEFT JOIN [tblKhachHang_TheVip] b ON a.MaDoiTuong = b.MaKhachHang
+			 Where  LaKH = 1 AND [MaDoiTuong]='$ma_doi_tuong'";
+		try
+		{
+			$rs = $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+			return $rs;
+		}
+		catch( PDOException $e )
+		{
+			die("Failed to connect to DB: ". $e->getMessage());
 		}
 	}
 
@@ -104,20 +122,7 @@ class clsKhachHang{
 		}
 	}
 
-	public function getClientInfo( $ma_doi_tuong )
-	{
-		$sql = "SELECT a.*, b.* FROM [tblDMKHNCC] a LEFT JOIN [tblKhachHang_TheVip] b ON a.MaDoiTuong = b.MaKhachHang
-			 Where  LaKH = 1 AND [MaDoiTuong]='$ma_doi_tuong'";
-		try
-		{
-			$rs = $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
-			return $rs;
-		}
-		catch( PDOException $e )
-		{
-			die("Failed to connect to DB: ". $e->getMessage());
-		}
-	}
+	
 
 	public function getClientInfo_LSPhieu( $malichsuphieu )
 	{

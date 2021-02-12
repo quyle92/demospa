@@ -6,7 +6,7 @@ if( !isset($_SESSION['MaNV'])  )
    die('<script> alert("Bạn ko được quyền truy cập vào đây!"); window.history.go(-1); </script>');
 }
 
-if( !in_array($page_name, $bao_cao_duoc_xem) )
+if( $_SESSION['MaNV'] !== 'HDQT' && !in_array($page_name, $bao_cao_duoc_xem) )
 {
 	die('<script> alert("Bạn ko được quyền truy cập vào đây!"); window.history.go(-1); </script>');
 }

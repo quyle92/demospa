@@ -96,7 +96,7 @@ class Users extends General {
 		$_SESSION['username'] = $username;
 		$_SESSION['maNV'] = $maNV;
 		$_SESSION['report_arr'] = ( !empty($report_arr) ) ? unserialize($report_arr) : "";
-		//var_dump($_POST);die;
+		var_dump($_SESSION);die;
 		if ( $flag === true )
 		{
 			$sql="INSERT INTO [tblDSNguoiSD] ( [TenSD], [MaNhanVien],
@@ -135,7 +135,7 @@ class Users extends General {
 
 			try{
 			 		$rs = $this->conn->query($sql);
-			 		$_SESSION['edit_success'] = "New  user added successfully...";
+			 		$_SESSION['edit_success'] = "User edited successfully...";
 							
 				}
 

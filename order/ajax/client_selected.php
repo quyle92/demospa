@@ -14,7 +14,6 @@ $r = $sgDep->getClientInfo( $client_code );//var_dump($rs);
 
 array_push( $data, $r['MaDoiTuong'], ($r['TenDoiTuong']), $r['DienThoai'], ($r['DiaChi']), ($r['MaTheVip']), $r['LoaiTheVip'] );
 
-
 $data = array_map("utf8_encode",$data);
-//var_dump($data);
+
 echo json_encode($data );

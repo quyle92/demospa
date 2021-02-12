@@ -15,7 +15,11 @@ if( isset($_GET["p"]) ){
    $p = substr($_GET["p"], -1) !== '/' ?  $_GET["p"] . '/' : $_GET["p"];
     //$p =$_GET["p"];
 }
-//var_dump($p);
+else
+{
+  $p = "Home/";
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>

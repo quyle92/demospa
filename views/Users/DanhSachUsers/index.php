@@ -6,8 +6,7 @@ $user = new Users($conn);
 
 ?>
 <style>
-.form-horizontal{
-  width: 78%;
+.form-horizontalp  width: 78%;
 }
 
 
@@ -56,7 +55,7 @@ if( isset($_SESSION['fail']) )
 ?>
   <div class="btn-toolbar" style="margin-bottom:10px"> 
     <button class="btn btn-primary" data-toggle="modal" data-target="#them_user">Thêm User </button> 
-    <a href="../../views/Users/ExcelExport/index.php" class="btn btn-warning pull-right" >Export Spreadsheet </a> 
+    <a href="<?=BASE_URL?>views/Users/ExcelExport/index.php" class="btn btn-warning pull-right" >Export Spreadsheet </a> 
   </div>
 <?php 
 require_once ('add_user_modal.php'); 
