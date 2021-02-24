@@ -15,6 +15,7 @@ if(!empty($_POST['edit_user']) &&  !empty($_POST['password']))
 else
 { 
    $add_user = $user->edit();//var_dump($_SESSION['error']['password_mismatch']);die();
+   //var_dump($_SESSION['edit_success']);die;
    echo  "<script>window.history.go(-1); </script>";
 
 }

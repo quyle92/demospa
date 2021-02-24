@@ -126,7 +126,7 @@ class Users extends General {
 		$username =  htmlentities(trim(strip_tags($_POST['username'])),ENT_QUOTES,'utf-8');
 		$maNV = htmlentities(trim(strip_tags($_POST['maNV'])),ENT_QUOTES,'utf-8');
 
-		$report_arr = isset( $_POST['report_arr'] ) ? serialize( $_POST['report_arr'] )  : array(); 
+		$report_arr = isset( $_POST['report_arr'] ) ? serialize( $_POST['report_arr'] )  : ''; 
 		
 		if ( $report_arr != "" )
 		{//var_dump("INSERT_INTO: " .$password);die;
@@ -136,12 +136,13 @@ class Users extends General {
 			try{
 			 		$rs = $this->conn->query($sql);
 			 		$_SESSION['edit_success'] = "User edited successfully...";
+
 							
 				}
 
 			catch(Exception $e) 
 				{ 	
-					echo $e->getMessage();
+					echo $e->getMessage();//var_dump($_SESSION['edit_success']);die;	
 				}
 
 		} else {//var_dump("signup_success = 0: " .$password);die;

@@ -61,7 +61,8 @@ class BaoCaoSoLieu extends General{
 
 	public function getTopTenItems( $tungay, $denngay, $tugio, $dengio, &$totalQty, &$totalMoney)
 	{
-		$sql = "IF OBJECT_ID(N'tempdb..#temp_t1') IS NOT NULL BEGIN DROP TABLE #temp_t1 END 
+		$sql = "SET NOCOUNT ON;
+		IF OBJECT_ID(N'tempdb..#temp_t1') IS NOT NULL BEGIN DROP TABLE #temp_t1 END 
 				SELECT * into #temp_t1 FROM 
 				( SELECT distinct MaHangBan, TenHangBan, MaDVT, DonGia, TongSoLuong = sum(SoLuong) 
 				over (Partition by MaHangBan), ThanhTien = 
@@ -86,8 +87,9 @@ class BaoCaoSoLieu extends General{
 			    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			} while ($stmt->nextRowset());
-			//var_dump ($rowset);die;
+			
 			return $rowset;
+
 		}
 		catch ( PDOException $error ){
 			echo $error->getMessage();
@@ -125,13 +127,14 @@ class BaoCaoSoLieu extends General{
 
 	public function getTopTenClients( $tungay, $denngay, $tugio, $dengio)
 	{
-		$sql = "IF OBJECT_ID(N'tempdb..#temp_t1') IS NOT NULL BEGIN DROP TABLE #temp_t1 END 
+		$sql = "SET NOCOUNT ON;
+		IF OBJECT_ID(N'tempdb..#temp_t1') IS NOT NULL BEGIN DROP TABLE #temp_t1 END 
 			SELECT * into #temp_t1 FROM
 			(
 				SELECT distinct MaKhachHang, TenDoiTuong, DiaChi, DienThoai, NgayQuanHe, TenNV,
 				TongTien = SUM(TienThucTra) OVER (Partition By MaKhachHang)
 				FROM tblLichSuPhieu a JOIN tblDMKHNCC b ON a.MaKhachHang = b.MaDoiTuong
-		 		JOIN tblDMNhanVien c ON b.MaNhanVien1 = c.MaNV
+		 		LEFT JOIN tblDMNhanVien c ON b.MaNhanVien1 = c.MaNV
 		 		WHERE 
 				substring( Convert(varchar,isnull(NgayQuanHe,getdate()),126),0,17 ) BETWEEN '{$tungay}T{$tugio}' AND 
 				'{$denngay}T{$dengio}'
@@ -141,7 +144,7 @@ class BaoCaoSoLieu extends General{
 			SELECT isnull( sum(TongTien), 0 ) AS TotalMoney FROM ( SELECT Top 10 * FROM #temp_t1 ORDER BY TongTien DESC ) t1
 				
 			";
-		$sql .= "SELECT Top 10 * FROM #temp_t1 ORDER BY TongTien DESC
+		 $sql .= "SELECT Top 10 * FROM #temp_t1 ORDER BY TongTien DESC
 				drop table #temp_t1";
 
 		try{
@@ -168,7 +171,7 @@ class BaoCaoSoLieu extends General{
 		 	( SELECT distinct MaKhachHang, TenDoiTuong, DiaChi, DienThoai, NgayQuanHe, TenNV,
 				TongTien = SUM(TienThucTra) OVER (Partition By MaKhachHang)
 				FROM tblLichSuPhieu a JOIN tblDMKHNCC b ON a.MaKhachHang = b.MaDoiTuong
-		 		JOIN tblDMNhanVien c ON b.MaNhanVien1 = c.MaNV
+		 		LEFT JOIN tblDMNhanVien c ON b.MaNhanVien1 = c.MaNV
 		 		WHERE 
 				substring( Convert(varchar,isnull(NgayQuanHe,getdate()),126),0,17 ) BETWEEN '{$tungay}T{$tugio}' AND 
 				'{$denngay}T{$dengio}'
@@ -192,6 +195,8 @@ class BaoCaoSoLieu extends General{
 			echo $error->getMessage();
 		}
 	}
+
+
 
 	public function getSalesByStaff( $tungay, $denngay, $tugio, $dengio, &$totalMoney ) {
 		

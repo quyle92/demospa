@@ -15,23 +15,16 @@
     </div>
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
-<?php 
-    $khu = $general->getKhu();
-    foreach($khu as $r1)
-    {
-?>
-    <li style="list-style-type: none;" class="li-level1">
-        <a class="menu-level1" href="<?=BASE_URL?>home.php?makhu=<?php echo $r1['MaKhu']; ?>"><i class="fa fa-home nav_icon"></i><?php echo $r1['MoTa']; ?></a>
-    </li>
-<?php
-    }
-
-    
-?>          <div class="menu_item">
+         <div class="menu_item">
                 <button class="dropdown-btn" data-report="BaoCaoBanHang"><i class="fas fa-store"></i> Bán hàng
                     <span class="fa fa-caret-down"></span>
                 </button>
                 <ul class="dropdown-container">
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=BASE_URL?>views/Dashboard/Home/">
+                            <i class="fas fa-landmark"></i>
+                       Tầng Trệt</a>
+                    </li>
                     <li style="list-style-type: none;">
                         <a class="menu-level2" href="<?=BASE_URL?>views/BanHang/Khu1/">
                             <i class="fas fa-landmark"></i>
@@ -75,7 +68,7 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThutheoKhu/"><i class="fas fa-chart-area"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoSoLieu/DoanhThuTheoKhu/"><i class="fas fa-chart-area"></i>
                         Doanh thu theo khu</a>
                     </li>
                     <li style="list-style-type: none;">
@@ -110,10 +103,6 @@
                         <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachHangBan/"><i class="fas fa-list-alt"></i>
                         Danh sách hàng bán</a>
                     </li>  
-                    <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/GiaHangBan/"><i class="fas fa-tags"></i>
-                        Giá bán hàng</a>
-                    </li>    
                 </ul>
             </div>
 

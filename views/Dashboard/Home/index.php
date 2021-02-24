@@ -499,7 +499,8 @@ aside.floating section.inside > a {
 						$malichsuphieutemp = $r1['MaLichSuPhieu'];	
 						$ghichu = $r1['GhiChu'];
             $tongtien = $r1['TongTien'];
-            $tenkhachhang = mb_convert_encoding($r1['TenKhachHang'],'UTF-8', 'UTF-8');
+            //$tenkhachhang = mb_convert_encoding($r1['TenKhachHang'],'UTF-8', 'UTF-8');
+            $tenkhachhang =$r1['TenKhachHang']  ;
 					}
 				}
 			}

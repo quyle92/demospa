@@ -46,20 +46,14 @@
     event.preventDefault();
     var formValues= $(this).serialize();
     $.ajax({
-      url:"../views/BaoCaoBieuDo/DoanhThuBanHang/ajax/process-year.php",
+      url:"ajax/process-year.php",
       method:"POST",
       data:formValues,
       dataType:"json",
       success:function(data)
       {
-        //var result = [];
-        // json_data=JSON.parse(data);  
-        // for(var i in json_data)
-        //   result.push([i, json_data [i]]);
-        // console.log(json_data['doanhthu_t8']);
-        // var t1 = json_data['doanhthu_t8'];
+        
         var  anotherYearSales = document.getElementById('others');
-
 
         var data = {
              labels :["Jan", "Feb", "Mar", "Apr", "May", "June", "July","Aug","Sep","Oct","Nov","Dec"], 

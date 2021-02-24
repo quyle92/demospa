@@ -1,5 +1,6 @@
 <?php
 ini_set('mssql.charset', 'UTF-8');
+//require('helper/ForceUTF8/Encoding.php');
 
 // $dbConSMS = new PDO('odbc:Driver={SQL Server}; Server=14.161.35.228; Port=14331; Database=zSMS; TDS_Version=8.0; Client Charset=UTF-8', 'sa', 'P@ssw0rd123');
 // $dbCon = new PDO('odbc:Driver={SQL Server}; Server=DELL-PC\SQLEXPRESS; Port=14330; Database=sgDep_Q3; TDS_Version=8.0; Client Charset=UTF-8', 'sa', '123', $opt);

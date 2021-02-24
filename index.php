@@ -2,9 +2,10 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+//require('helper/ForceUTF8/Encoding.php');
 require('lib/db.php');
 require('lib/General.php');
-require('helper/ForceUTF8/Encoding.php');
+
 $general = new General($conn);
 require_once('helper/custom-functions.php');
 require_once('helper/portable-utf8-master/src/voku/helper/UTF8.php');
@@ -17,7 +18,7 @@ if( isset($_GET["p"]) ){
 }
 else
 {
-  $p = "Home/";
+  $p = "Dashboard/Home/";
 }
 
 ?>
@@ -369,7 +370,8 @@ aside.floating section.inside > a {
         <div class="col-md-12"></div>
         <div class="col-md-12 ">
           <?php
-               require "views/" . $p . "index.php";
+             require "views/" . $p . "index.php";
+
           ?>
         </div>
     </div>

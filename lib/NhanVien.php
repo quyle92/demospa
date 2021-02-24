@@ -97,7 +97,7 @@ class NhanVien extends General {
 		--, Sum(CongNgay) as CongNgay
 		--, Sum(DiTreVeSom) as DiTreVeSom
 		--, Sum(TangCa) as TangCa 
-		FROM [SPA_SENVANG].[dbo].tblHR_ChamCong a, [SPA_SENVANG].[dbo].tblDMNhanVien b WHERE a.MaNV = b.MaNV ";
+		FROM tblHR_ChamCong a, tblDMNhanVien b WHERE a.MaNV = b.MaNV ";
 		$sql .= "and Ngay >= ? and Thang = ? and Nam = ? ";//(1)
 		$sql .= "and Ngay <= ? and Thang = ? and Nam = ?";
 		$sql .= " Group by a.MaNV, b.TenNV, a.Thang, a.Nam";

@@ -443,7 +443,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 			=  DATEADD(DAY, 5, @StartDate) Then 1 Else 0 END)  As Int) as T7,
 			CAST( SUM(CASE WHEN substring(Convert(varchar,[NgayQuanHe],111),0,11) 
 			=  DATEADD(DAY, 6, @StartDate) Then 1 Else 0 END)  As Int) as CN
-			FROM [SPA_SENVANG].[dbo].[tblDMKHNCC]";
+			FROM [tblDMKHNCC]";
 
 		try 
 			{

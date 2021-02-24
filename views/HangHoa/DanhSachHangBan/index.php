@@ -97,9 +97,8 @@ unset($_SESSION['error']);
                 <th>Tên Hàng Bán</th>
                 <th>Nhóm Hàng Bán</th>
                 <th>Mã DVT</th>
+                <th>Giá</th>
                 <th class="text-center">Action</th>
-<!--                 <th ></th>
-                <th ></th> -->
             </tr>
         </thead>
         <?php
@@ -111,6 +110,7 @@ unset($_SESSION['error']);
                 <td><div><?=$r['TenHangBan']?></div></td>
                 <td><div><?=$r['Ten']?></div></td>
                 <td><?=$r['MaDVTCoBan']?></td>
+                <td><?=number_format($r['Gia'],0,",",".")?></td>
                 <td class="text-center" nowrap="nowrap"><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editProd_<?=( $r['MaHangBan'] =='!KM' ) ? 'khuyenMai' : ( ($r['MaHangBan'] =='!lt') ? 'dichVuKhac' :  $r['MaHangBan'] )?>"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action/delete_action.php?xoaProd=<?=$r['MaHangBan']?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
             </tr>
          <?php 

@@ -1,5 +1,6 @@
 <?php
 require_once('lib/General.php');
+use \ForceUTF8\Encoding;
 class HangHoa  extends General {
 
 	/* Properties */
@@ -26,12 +27,13 @@ class HangHoa  extends General {
 		}
 	}
 
-	public function them() 
+	public function themCat() 
 	{
 		$flag = true;
 
 		$cat_id = htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8');
 		$cat_name = htmlentities(trim(strip_tags($_POST['cat_name'])),ENT_QUOTES,'utf-8');
+		
 
 		if( empty($cat_id) )
 		{
@@ -57,7 +59,7 @@ class HangHoa  extends General {
 
 		$_SESSION['cat_id'] = $cat_id;
 		$_SESSION['cat_name'] = $cat_name;
-
+//var_dump($_SESSION['cat_id']);die;
 		if ( $flag === true )
 		{
 			$sql = "INSERT INTO  [tblDMNhomHangBan] ( [Ma], [Ten] ) VALUES ( '$cat_id', N'$cat_name' )";
@@ -80,7 +82,7 @@ class HangHoa  extends General {
 		$flag = true;
 
 		$cat_id = htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8');
-		$cat_name = htmlentities(trim(strip_tags($_POST['cat_name'])),ENT_QUOTES,'utf-8');
+		$cat_name =  htmlentities(trim(strip_tags($_POST['cat_name'])),ENT_QUOTES,'utf-8');
 
 		if( empty($cat_name) )
 		{
@@ -98,11 +100,12 @@ class HangHoa  extends General {
 
 		if ( $flag === true )
 		{
-			$sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] = N'$cat_name'  Where [Ma] ='$cat_id'";
+			//echo $sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] = N'$cat_name'  Where [Ma] ='$cat_id'";//die;
+			echo $sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] =  cast(N'$cat_name' as nvarchar(max))  Where [Ma] ='$cat_id'";//die;
 			try
 			{
 				$rs = $this->conn->query($sql);
-				$_SESSION['add_success'] = " <strong>Success!</strong> Add category name successfully...";
+				$_SESSION['add_success'] = " <strong>Success!</strong> Edit category name successfully...";
 			}
 			catch( Exception $e )
 			{
@@ -133,7 +136,9 @@ class HangHoa  extends General {
 	 */
 	public function getAllProducts()
 	{	
-		$sql = "SELECT a.*, b.Ten FROM [tblDMHangBan] a LEFT JOIN [tblDMNhomHangBan] b ON a.MaNhomHangBan = b.Ma  order by [MaHangBan]";
+		$sql = "SELECT a.*, b.Ten, c.Gia FROM [tblDMHangBan] a LEFT JOIN [tblDMNhomHangBan] b ON a.MaNhomHangBan = b.Ma  
+		LEFT JOIN tblGiaBanHang c on a.MaHangBan = c.MaHangBan
+		order by a.[MaHangBan]";
 		try
 		{
 			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -239,11 +244,11 @@ class HangHoa  extends General {
 			$_SESSION['fail']['empty_ProdName'] = "Product name is empty!";
 			$flag = false;
 		}
-		elseif( $this->general->checkProdName($prod_name) == true)
-		{
-			$_SESSION['fail']['duplicate_ProdName'] = "Product name already existed!";
-			$flag = false;
-		};
+		// elseif( $this->general->checkProdName($prod_name) == true )
+		// {
+		// 	$_SESSION['fail']['duplicate_ProdName'] = "Product name already existed!";
+		// 	$flag = false;
+		// };
 
 		if( empty($cat_id) )
 		{
@@ -258,17 +263,17 @@ class HangHoa  extends General {
 		}
 
 		$_SESSION['prod_id_edit'] = $prod_id;
-		$_SESSION['prod_name'] = $prod_name;//var_dump($_SESSION['prod_name']);die;
-		$_SESSION['cat_id'] = $cat_id;
-		$_SESSION['donViTinh'] = $donViTinh;
-
+		$_SESSION['prod_name_edit'] = $prod_name;//var_dump($_SESSION['prod_name']);die;
+		$_SESSION['cat_id_edit'] = $cat_id;
+		$_SESSION['donViTinh_edit'] = $donViTinh;
+		// var_dump($flag);die;
 		if ( $flag === true )
 		{
-			$sql = "UPDATE [tblDMHangBan] SET (  [TenHangBan] = N'$prod_name', [MaNhomHangBan] = '$cat_id', [MaDVTCoBan] = '$donViTinh' ) WHERE [MaHangBan] = '$prod_id' ";
+			 $sql = "UPDATE [tblDMHangBan] SET  [TenHangBan] = N'$prod_name', [MaNhomHangBan] = '$cat_id', [MaDVTCoBan] = '$donViTinh'  WHERE [MaHangBan] = '$prod_id' ";
 			try
 			{	
 				$rs = $this->conn->query($sql);
-				$_SESSION['add_success'] = "<strong>Success!</strong> Product name added successfully...";
+				$_SESSION['add_success'] = "<strong>Success!</strong> Product name edited successfully...";
 			}
 			catch( Exception $e )
 			{

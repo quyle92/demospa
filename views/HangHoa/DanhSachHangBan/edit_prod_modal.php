@@ -25,9 +25,9 @@
 
 
                   <div class="form-group">
-                      <label for="prod_name" class="col-md-3 control-label">Tên Hàng Bán:</label>
+                      <label for="prod_name_edit" class="col-md-3 control-label">Tên Hàng Bán:</label>
                       <div class="col-md-6">
-                        <input type="text" class="form-control" name="prod_name"  value="<?php echo isset($_SESSION['prod_name']) ? $_SESSION['prod_name'] : $r['TenHangBan']; unset($_SESSION['prod_name']); ?>" />
+                        <input type="text" class="form-control" name="prod_name"  value="<?php echo isset($_SESSION['prod_name_edit']) ? $_SESSION['prod_name_edit'] : $r['TenHangBan']; unset($_SESSION['prod_name_edit']); ?>" />
                         <?=( isset($_SESSION['prod_id_edit']) && $_SESSION['prod_id_edit'] !== $r['MaHangBan'] ) ? '' : ( (isset($_SESSION['fail']['empty_ProdName'])) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['empty_ProdName'] . '</small>' : "" )?>
                         <?=isset($_SESSION['fail']['duplicate_ProdName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['duplicate_ProdName'] . '</small>' : "" ?>
                         </div>
@@ -45,7 +45,7 @@
                               $productCats = $product->getAllProductCats();
                               foreach ( $productCats as $cat ) 
                               {
-                                if( isset( $_SESSION['cat_id'] ) && $_SESSION['cat_id'] == $cat['Ma'] )
+                                if( isset( $_SESSION['cat_id_edit'] ) && $_SESSION['cat_id_edit'] == $cat['Ma'] )
                                 {
                                     echo '<option value="' . $cat["Ma"] . '" selected="selected">' . $cat['Ten'] . '</option>';
                                 }
@@ -59,7 +59,7 @@
                                 }
 
                                
-                              } unset($_SESSION['cat_id']); 
+                              } unset($_SESSION['cat_id_edit']); 
                               ?>
 
                             </select>
@@ -76,7 +76,7 @@
                               $donViTinh = $product->getDonViTinh();
                               foreach ( $donViTinh as $unit ) 
                               {
-                                if( isset( $_SESSION['donViTinh'] ) && $_SESSION['donViTinh'] == $unit['MaDVTCoBan'] )
+                                if( isset( $_SESSION['donViTinh_edit'] ) && $_SESSION['donViTinh_edit'] == $unit['MaDVTCoBan'] )
                                 {
                                     echo '<option value="' . $r["MaDVTCoBan"] . '" selected="selected">' . $r['MaDVTCoBan'] . '</option>';
                                 }
@@ -90,7 +90,7 @@
                                 }
 
                                
-                              } unset($_SESSION['donViTinh']); 
+                              } unset($_SESSION['donViTinh_edit']); 
                               ?>
 
                             </select>
@@ -121,7 +121,7 @@
   $('#editProd_<?=( $r['MaHangBan'] =='!KM' ) ? 'khuyenMai' : ( ($r['MaHangBan'] =='!lt') ? 'dichVuKhac' :  $r['MaHangBan'] )?>').on('click','.clearAll', function(){
     let modal = $(this).parentsUntil('#editProd_<?=( $r['MaHangBan'] =='!KM' ) ? 'khuyenMai' : ( ($r['MaHangBan'] =='!lt') ? 'dichVuKhac' :  $r['MaHangBan'] )?>');
 
-      $(modal).find('form.editForm input[name="prod_name"]').val('');
+      $(modal).find('form.editForm input[name="prod_name_edit"]').val('');
 
       $(modal).find('select.cat_id option').each(function(){
           if($(this).is(':selected'))

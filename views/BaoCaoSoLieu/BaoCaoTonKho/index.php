@@ -3,7 +3,7 @@ $page_name = "BaoCaoSoLieu";
 require_once('helper/security.php');
 require_once('lib/BaoCaoSoLieu.php');
 $product = new BaoCaoSoLieu($conn);
-
+//tblTonKhoPhatSinh
 ?>
 
 <style>
@@ -20,7 +20,7 @@ $product = new BaoCaoSoLieu($conn);
    ?> 
 </form> 
 
-<h3 class="title">TOP 10 HÀNG BÁN CHẠY</h3>
+<h3 class="title">Báo Cáo Tồn Kho</h3>
   	<div class="bs-example4" data-example-id="contextual-table">
     <table class="table">
       <thead>
@@ -63,43 +63,3 @@ foreach($topTenItems[1] as $food)
     </table>
    </div>
 		
-    <h3 class="title">Báo cáo doanh thu hàng bán</h3>
-  	<div class="bs-example4" data-example-id="contextual-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Tên Hàng Bán</th>
-          <th>Mã DVT</th>
-		      <th>Số Lượng</th>
-          <th>Thành Tiền</th>
-        </tr>
-      </thead>
-      <tbody>
-<?php
-$salesByFood = $product->getFoodSoldDetails( $tuNgay, $denNgay, $tuGio, $denGio , $totalQty, $totalMoney );
-$totalQty = number_format($totalQty,0,',','.');
-$totalMoney = number_format($totalMoney,0,',','.'); 
-?>  
-		<tr class="success">
-			<td>Tổng cộng</td>
-			<td></td>
-			<td><?php echo $totalQty?></td>
-          	<td><?php echo $totalMoney;?></td>
-        </tr>
-<?php
-	
-foreach($salesByFood as $food)
-{
-?>  
-		<tr class="success">
-			<td><?php echo $food['TenHangBan'];?></td>
-			<td><?php echo $food['MaDVT'];?></td>
-			<td><?php echo number_format($food['SoLuong'],0,',','.');?></td>
-          	<td><?php echo number_format($food['ThanhTien'],0,',','.');?></td>
-        </tr>
-<?php 		
-}
-
-  ?>
-      </tbody>
-    </table>

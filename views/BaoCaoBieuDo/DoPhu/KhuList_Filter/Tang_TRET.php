@@ -20,7 +20,7 @@
     var formValues= $(this).serialize();console.log(formValues);
     var fileNameAjax = "<?=basename($file_name_ajax); ?>";//alert(fileNameAjax);//Tang_TRET.php
     $.ajax({
-    url: '../views/BaoCaoBieuDo/DoPhu/KhuList_Filter/ajax/' + fileNameAjax,
+    url: 'KhuList_Filter/ajax/' + fileNameAjax,
     method:"POST",
     //data:{'tu-ngay' : tuNgay, 'den-ngay' : denNgay},
     data:formValues + "&ma_khu="  + maKhu,

@@ -86,7 +86,8 @@ unset($_SESSION['error']);
             <td><?=$r['TenNV']?></td>
             <td><ul style="padding-left:0px">
               <?php 
-                  $bao_cao_duoc_xem_arr = ( !empty( $r['BaoCaoDuocXem'] )   ?  unserialize(str_replace('&quot;','"',$r['BaoCaoDuocXem'])) :"" ); 
+                  $bao_cao_duoc_xem_arr = ( !empty( $r['BaoCaoDuocXem'] )   ?  unserialize(str_replace('&quot;','"',$r['BaoCaoDuocXem'])) :"" ); //var_dump(unserialize($r['BaoCaoDuocXem']) );
+                  //$bao_cao_duoc_xem_arr = ( !empty( $r['BaoCaoDuocXem'] )   ?  unserialize($r['BaoCaoDuocXem']) :"" ); 
                   $ten_bao_cao = "";
                   $report_name = "";
                   if ( !empty($bao_cao_duoc_xem_arr ) )

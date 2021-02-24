@@ -51,17 +51,17 @@ $totalMoney = number_format($topTenClient[0][0]['TotalMoney'],0,',','.');
     </tr>
 <?php
 	
-foreach($topTenClient[1] as $client)
+foreach($topTenClient[1] as $r)
 {
 ?>  
 		<tr class="success">
-      <td><?php echo $client['MaKhachHang'];?></td>
-      <td><?php echo $client['TenDoiTuong'];?></td>
-      <td><?php echo $client['DiaChi'];?></td>
-      <td><?php echo $client['DienThoai'];?></td>
-      <td><?php echo $client['NgayQuanHe'];?></td>
-      <td><?php echo $client['TenNV'];?></td>
-      <td><?php echo number_format($client['TongTien'],0,',','.');?></td>
+      <td><?php echo $r['MaKhachHang'];?></td>
+      <td><?php echo $r['TenDoiTuong'];?></td>
+      <td><?php echo $r['DiaChi'];?></td>
+      <td><?php echo $r['DienThoai'];?></td>
+      <td><?php echo $r['NgayQuanHe'];?></td>
+      <td><?php echo $r['TenNV'];?></td>
+      <td><?php echo number_format($r['TongTien'],0,',','.');?></td>
     </tr>
 <?php 		
 }
@@ -88,6 +88,7 @@ foreach($topTenClient[1] as $client)
       <tbody>
 <?php
 $salesByClient = $client->getSalesByClient( $tuNgay, $denNgay, $tuGio, $denGio ,$totalMoney );
+
 $totalMoney = number_format($totalMoney,0,',','.'); 
 ?>  
     <tr class="success">
@@ -105,7 +106,7 @@ foreach($salesByClient as $client)
 {
 ?>  
 		<tr class="success">
-      <td><?php echo $client['MaDoiTuong'];?></td>
+      <td><?php echo $client['MaKhachHang'];?></td>
       <td><?php echo $client['TenDoiTuong'];?></td>
       <td><?php echo $client['DiaChi']?></td>
       <td><?php echo $client['DienThoai']?></td>

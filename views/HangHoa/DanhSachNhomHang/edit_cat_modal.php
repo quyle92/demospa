@@ -19,14 +19,14 @@
             </div>
             <div class="modal-body">
               
-                <form class="form-horizontal" id="editForm_<?=$r['Ma']?>" role="form" action="action/edit_action.php" method="post">
+                <form accept-charset="UTF-8" class="form-horizontal" id="editForm_<?=$r['Ma']?>" role="form" action="action/edit_action.php" method="post">
 
                   <input type="hidden" name="cat_id" id="cat_id" value="<?=$r['Ma']?>" />
 
                   <div class="form-group">
                       <label for="cat_name" class="col-md-3 control-label">Tên:</label>
                       <div class="col-md-6">
-                        <input type="text" class="form-control" name="cat_name" id="cat_name" value="<?php echo isset($_SESSION['cat_name'])  ? $_SESSION['cat_name'] : $r['Ten']; unset($_SESSION['cat_name']); ?>" >
+                        <input type="text" class="form-control" name="cat_name" id="cat_name" value="<?=( empty($_SESSION['cat_name']) )  ? $r['Ten']  : ( (  !empty($_SESSION['cat_id_edit']) && !empty($_SESSION['cat_name']) ) ? $_SESSION['cat_name'] : '' ); unset($_SESSION['cat_name']); ?>" >
                         <?=( isset($_SESSION['cat_id_edit']) && $_SESSION['cat_id_edit'] !== $r['Ma'] ) ? '' : ( isset($_SESSION['fail']['empty_catName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['empty_catName'] . '</small>' : "" )?>
                         <?=( isset($_SESSION['cat_id_edit']) && $_SESSION['cat_id_edit'] !== $r['Ma'] ) ? '' : ( isset($_SESSION['fail']['duplicate_CatName']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['fail']['duplicate_CatName'] . '</small>' : "" )?>
                         </div>
