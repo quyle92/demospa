@@ -47,22 +47,6 @@ function formatDate( date ){
 
 }
 
-function addCommas(nStr)
-{    
-    nStr += ''; 
-    x = nStr.split('.');
-    x1 = x[0];//console.log(x1);
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;var i = 0;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');//console.log(++i);
-       //console.log(x1);      
-    }
-    //console.log(i);
-    //console.log(x1);console.log(x2);
-    return x1 + x2;
-}
-
 Date.prototype.addDays = function(days){
     d = new Date(this.getTime());//(1)
     d.setDate(d.getDate() + days);
@@ -117,4 +101,35 @@ function addData_BarChart(chart, label, bgColor, data, labels ) {
       }); 
     }
 }
+
+
+function addCommas(nStr)
+{    
+    nStr += ''; 
+    x = nStr.split('.');
+    x1 = x[0];//console.log(x1);
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;var i = 0;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');//console.log(++i);
+       //console.log(x1);      
+    }
+    //console.log(i);
+    //console.log(x1);console.log(x2);
+    return x1 + x2;
+}
+
+function formatAmount( obj ) {
+
+    // remove all the characters except the numeric values
+    number = obj.value.replace( /[^0-9]/g, '' );
+
+    var rgx = /(\d+)(\d{3})/;
+    while( rgx.test( number ) ) {
+        number = number.replace( rgx, '$1' + '.' + '$2' );
+    }
+    obj.value = number;
+}
+//ref: https://jsfiddle.net/dcardoso/CkqzL/
+//https://codepen.io/559wade/pen/LRzEjj
 

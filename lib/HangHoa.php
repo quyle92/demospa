@@ -170,6 +170,8 @@ class HangHoa  extends General {
 		//var_dump ( $_POST);die;
 		$prod_id = htmlentities(trim(strip_tags($_POST['prod_id'])),ENT_QUOTES,'utf-8');
 		$prod_name = htmlentities(trim(strip_tags($_POST['prod_name'])),ENT_QUOTES,'utf-8');
+		$prod_price = str_replace('.', '', $_POST['prod_price']);
+		$prod_price = htmlentities(trim(strip_tags($_POST['prod_price'])),ENT_QUOTES,'utf-8');
 		$cat_id = isset($_POST['cat_id']) ? htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8') : "";
 		$donViTinh = isset($_POST['donViTinh']) ? htmlentities(trim(strip_tags($_POST['donViTinh'])),ENT_QUOTES,'utf-8') : "";
 
@@ -195,6 +197,12 @@ class HangHoa  extends General {
 			$flag = false;
 		};
 
+		if( empty($prod_price) )
+		{
+			$_SESSION['error']['empty_ProdPrice'] = "Product price  is empty!";
+			$flag = false;
+		}
+
 		if( empty($cat_id) )
 		{
 			$_SESSION['error']['empty_CatID'] = "Category ID is empty!";
@@ -209,22 +217,23 @@ class HangHoa  extends General {
 
 		$_SESSION['prod_id'] = $prod_id;//var_dump($_SESSION['prod_id']);die;
 		$_SESSION['prod_name'] = $prod_name;
+		$_SESSION['prod_price'] = $prod_price;
 		$_SESSION['cat_id'] = $cat_id;
 		$_SESSION['donViTinh'] = $donViTinh;
 
 		if ( $flag === true )
 		{
-			$sql = "INSERT INTO [tblDMHangBan] ( [MaHangBan], [TenHangBan], [MaNhomHangBan], [MaDVTCoBan] ) VALUES ( '$prod_id', N'$prod_name', '$cat_id', '$donViTinh')";
+			$sql = "INSERT INTO [tblDMHangBan] ( [MaHangBan], [TenHangBan], [MaNhomHangBan], [MaDVTCoBan] ) VALUES ( '$prod_id', N'$prod_name', '$cat_id', '$donViTinh')
+				INSERT INTO [tblGiaBanHang] ( [ID], [MaHangBan], [MaTienTe], [NgayApDung], [MaKhu], [Gia], [MaDonViTinh], [GiaNoiBo], [ChoKhuCon] ) VALUES ( '01-$prod_id', '$prod_id', 'VND',  GETDATE(), '01-SPA', $prod_price, '$donViTinh', 0, 0 )
+			";
 			try
 			{	
-
 				$rs = $this->conn->query($sql);
 				$_SESSION['add_success'] = " <strong>Success!</strong> Product name added successfully...";
-
 			}
 			catch( Exception $e )
 			{
-				echo $e->getMessage();
+				echo $e->getMessage();die;
 			}
 		}
 	}
@@ -232,9 +241,12 @@ class HangHoa  extends General {
 	public function editProd() 
 	{
 		$flag = true;
-		//var_dump ( $_POST);die;
+		// var_dump ( $_POST['prod_price'] );die;
 		$prod_id = htmlentities(trim(strip_tags($_POST['prod_id'])),ENT_QUOTES,'utf-8');
 		$prod_name = isset($_POST['prod_name']) ? htmlentities(trim(strip_tags($_POST['prod_name'])),ENT_QUOTES,'utf-8') : "";
+		$prod_price = isset($_POST['prod_price'])  ? str_replace('.', '', $_POST['prod_price']) : "";
+		// var_dump ( $prod_price );die;
+		$prod_price = htmlentities(trim(strip_tags($prod_price)),ENT_QUOTES,'utf-8');
 		$cat_id = isset($_POST['cat_id']) ? htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8') : "";
 		$donViTinh = isset($_POST['donViTinh']) ? htmlentities(trim(strip_tags($_POST['donViTinh'])),ENT_QUOTES,'utf-8') : "";
 
@@ -250,6 +262,12 @@ class HangHoa  extends General {
 		// 	$flag = false;
 		// };
 
+		if( ($prod_price) == ''  )
+		{var_dump ( $prod_price );die;
+			$_SESSION['fail']['empty_ProdPrice'] = "Product price  is empty!";
+			$flag = false;
+		}
+
 		if( empty($cat_id) )
 		{
 			$_SESSION['fail']['empty_CatID'] = "Category ID is empty!";
@@ -264,12 +282,17 @@ class HangHoa  extends General {
 
 		$_SESSION['prod_id_edit'] = $prod_id;
 		$_SESSION['prod_name_edit'] = $prod_name;//var_dump($_SESSION['prod_name']);die;
+		$_SESSION['prod_price_edit'] = $prod_price;
 		$_SESSION['cat_id_edit'] = $cat_id;
 		$_SESSION['donViTinh_edit'] = $donViTinh;
 		// var_dump($flag);die;
 		if ( $flag === true )
 		{
-			 $sql = "UPDATE [tblDMHangBan] SET  [TenHangBan] = N'$prod_name', [MaNhomHangBan] = '$cat_id', [MaDVTCoBan] = '$donViTinh'  WHERE [MaHangBan] = '$prod_id' ";
+			$sql = "
+			UPDATE [tblDMHangBan] SET  [TenHangBan] = N'$prod_name', [MaNhomHangBan] = '$cat_id', [MaDVTCoBan] = '$donViTinh'  WHERE [MaHangBan] = '$prod_id'
+			UPDATE [tblGiaBanHang] SET [ID] = '01-$prod_id', [MaHangBan] =  '$prod_id', [MaTienTe] = 'VND', [NgayApDung] = GETDATE(), [MaKhu] = '01-SPA', [Gia] = $prod_price, [MaDonViTinh] = '$donViTinh' , [GiaNoiBo] = 0, [ChoKhuCon] = 0  WHERE [MaHangBan] = '$prod_id'
+			 ";
+
 			try
 			{	
 				$rs = $this->conn->query($sql);
@@ -279,6 +302,7 @@ class HangHoa  extends General {
 			{
 				echo $e->getMessage();
 			}
+
 		}
 	}
 

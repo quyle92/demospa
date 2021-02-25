@@ -1,4 +1,5 @@
 <?php
+$page_name = "DoanhThuBanHang";
 include('./helper/security.php');
 include('./lib/BaoCaoBieuDo.php');
 $dophu = new BaoCaoBieuDo($conn);

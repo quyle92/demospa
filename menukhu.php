@@ -11,7 +11,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand"><?php echo $_SESSION['TenTrungTam']; ?></a> 
+        <a class="navbar-brand"><?=isset($_SESSION['TenTrungTam']) ? $_SESSION['TenTrungTam'] : ""; ?></a> 
     </div>
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
@@ -199,7 +199,8 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
 
 <script>
    // var baoCaoDuocXem ="";
-    var baoCaoDuocXem= <?=json_encode($bao_cao_duoc_xem);?>;
+    var baoCaoDuocXem = <?=json_encode($bao_cao_duoc_xem);?>;
+    if (baoCaoDuocXem.lenth < 1)  baoCaoDuocXem = [];
 
     var baoCaoBanHang = $('button[data-report="BaoCaoBanHang"]').attr('data-report');
     var baoCaoBieuDo = $('button[data-report="BaoCaoBieuDo"]').attr('data-report');
@@ -219,15 +220,15 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
     let hiddenReports = reportArr.filter(function (report) {
             return !baoCaoDuocXem.includes(report);
     });
-   // console.log(hiddenReports);
+    //ref:https://flaviocopes.com/how-to-remove-item-from-array/
    
     if( admin != 'HDQT' )
     {  
         for ( var i = 0; i < hiddenReports.length; i++ )
         {   
 
-            // $('button[data-report="' + hiddenReports[i] + '"]').css({display:'none'});
-            // $('button[data-report="' + hiddenReports[i] + '"] + div.dropdown-container').html('');
+            $('button[data-report="' + hiddenReports[i] + '"]').css({display:'none'});
+            $('button[data-report="' + hiddenReports[i] + '"] + div.dropdown-container').html('');
 
         }
     }

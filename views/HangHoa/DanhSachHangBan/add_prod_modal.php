@@ -47,6 +47,18 @@
                   </div>
 
                   <div class="form-group">
+                      <label for="prod_price" class="col-md-3 control-label">Giá Hàng Bán:</label>
+                      <div class="col-md-4 input-group priceTag">
+                        <span class="input-group-addon">VND</span>
+                        <input type="text" class="form-control" name="prod_price" id="prod_price" value="<?php echo isset($_SESSION['prod_price']) ? $_SESSION['prod_price'] : ""; unset($_SESSION['prod_price']); ?>" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"  onkeyup="formatAmount(this)">
+                        <?=isset($_SESSION['error']['empty_ProdPrice']) ? '<small class="field-msg error"  >'.  $_SESSION['error']['empty_ProdPrice'] . '</small>' : "" ?>
+                        </div>
+                        <div class="col-md-3 control-label">
+                          <button type="button" class="btn btn-xs btn-warning pull-left clearField"> <span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                  </div>
+
+                  <div class="form-group">
                       <label for="staff_card" class="col-md-3 control-label">Nhóm Hàng Bán:</label>
                         <div class="col-md-8">
                           <select name="cat_id" id="cat_id" class="form-control"  >
@@ -69,7 +81,7 @@
                               ?>
 
                             </select>
-                            <?=isset($_SESSION['error']['empty_CatID']) ? '<small class="field-msg error" data-error="invalidName" >'.  $_SESSION['error']['empty_CatID'] . '</small>' : "" ?>
+                            <?=isset($_SESSION['error']['empty_CatID']) ? '<small class="field-msg error"  >'.  $_SESSION['error']['empty_CatID'] . '</small>' : "" ?>
                         </div>
                   </div>
 
@@ -140,6 +152,9 @@
       //   return this.defaultSelected;
       // });
   });
+
+
+
 </script>
 <?php
 /**

@@ -1,4 +1,6 @@
 <?php 
+$page_name = "BaoCaoBanHang";
+require_once('helper/security.php');
 require('lib/clsKhachHang.php');
 require('functions/lichsuphieu.php');
 $sgDep = new clsKhachHang($conn);

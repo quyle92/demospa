@@ -21,7 +21,7 @@ thead th{
 	background-color: #fff;
 }
 
-.table thead th:not(:nth-of-type(5)):not(:nth-of-type(6)):not(:nth-of-type(7)) 
+.table thead th
 {
   border-top: 1px solid #DDDDDD!important;
   border-bottom: 1px solid #DDDDDD!important;
@@ -39,6 +39,11 @@ thead th{
 td div { 
   width: 48vh; 
   overflow-wrap: break-word; 
+}
+
+.priceTag.input-group{
+  float: left;
+  margin-left: 14px;
 }
 </style>
 <script type="text/javascript">
@@ -141,7 +146,7 @@ if( error.length > 0 ){
   $('#addNewProd').modal('show');
 }
 
-var prodID = '<?=$_SESSION['prod_id_edit']?>';console.log(prodID);
+var prodID = '<?=$_SESSION['prod_id_edit']?>';//console.log(prodID);
 var fail = $('div#fail');
 if( fail.length > 0 ){
   $('#editProd_' +  prodID).modal('show');

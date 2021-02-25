@@ -1,4 +1,5 @@
 <?php
+$page_name = "DoanhThuBanHang";
 require_once('./helper/security.php');
 require_once('./lib/BaoCaoBieuDo.php');
 require_once('./helper/custom-functions.php');

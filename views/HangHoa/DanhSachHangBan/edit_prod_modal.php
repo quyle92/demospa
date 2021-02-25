@@ -2,6 +2,7 @@
 .removeIcon{
   margin-top: 9px;
 }
+
 </style>
 
   <div class="modal fade" id="editProd_<?=( $r['MaHangBan'] =='!KM' ) ? 'khuyenMai' : ( ($r['MaHangBan'] =='!lt') ? 'dichVuKhac' :  $r['MaHangBan'] )?>">
@@ -11,7 +12,7 @@
                 <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span>
                 </a>
                 <div class="row">
-                  <h3 class="modal-title col-md-8">Thông Tin  Hàng Bán</h3><?php //var_dump($_SESSION['error']); ?>
+                  <h3 class="modal-title col-md-8">Thông Tin  Hàng Bán</h3><?php //var_dump($_SESSION['fail']); ?>
                   <div class="col-md-2 col-md-offset-1 removeIcon">
                     <button type="button" class="btn btn-sm btn-warning clearAll"> <span class="glyphicon glyphicon-trash"></span></button>
                   </div>
@@ -34,6 +35,18 @@
                         <div class="col-md-3 control-label">
                           <button type="button" class="btn btn-xs btn-warning pull-left clearField"> <span class="glyphicon glyphicon-remove"></span></button>
                         </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="prod_price_edit" class="col-md-3 control-label">Giá Hàng Bán:</label>
+                      <div class="col-md-4 input-group priceTag">
+                        <span class="input-group-addon">VND</span>
+                        <input type="text" class="form-control" name="prod_price" value="<?php echo isset($_SESSION['prod_price_edit']) ? $_SESSION['prod_price_edit'] : number_format($r['Gia'],0,",","."); unset($_SESSION['prod_price_edit']); ?>" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" onkeyup="formatAmount(this)" >
+                        <?=isset($_SESSION['fail']['empty_ProdPrice']) ? '<small class="field-msg error"  >'.  $_SESSION['fail']['empty_ProdPrice'] . '</small>' : "" ?>
+                      </div>
+                      <div class="col-md-3 control-label">
+                          <button type="button" class="btn btn-xs btn-warning pull-left clearField"> <span class="glyphicon glyphicon-remove"></span></button>
+                      </div>
                   </div>
 
                   <div class="form-group">
@@ -101,7 +114,7 @@
 
                   <div class="form-group">
                     <div class="col-md-3 col-md-offset-3">
-                      <button class="btn btn-primary signup-btn" type="submit" name="add_prod" value="submit">
+                      <button class="btn btn-primary signup-btn" type="submit" name="edit_prod" value="submit">
                        Submit</button>
                     </div>
                   </div>
@@ -135,4 +148,6 @@
       $(modal).find('select.donViTinh option[class="default"]').prop('selected', true);
 
   });
+
+
 </script>
