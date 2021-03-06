@@ -125,3 +125,16 @@
      --s: 0.5;
   }
 }
+
+#userSetting .dropdown-toggle{
+  color: #fff;
+  background-color: inherit;
+}
+
+#userSetting ul.dropdown-menu li a {
+  color: #333;
+}
+
+#userSetting a.dropdown-toggle:focus {
+  background-color: #3f94bd;
+}

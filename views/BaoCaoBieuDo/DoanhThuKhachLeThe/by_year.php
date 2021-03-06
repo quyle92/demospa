@@ -148,7 +148,7 @@ $('form#yearSelected').on('submit', function (event){
     var formValues= $(this).serialize();
     //console.log(formValues);
     $.ajax({
-      url:"../views/BaoCaoBieuDo/DoanhThuKhachLeThe/ajax/process_year.php",
+      url:"ajax/process_year.php",
       method:"POST",
       data:formValues,
       dataType:"json",

@@ -20,7 +20,7 @@ session_start();
 		<script>
 			window.onload=function(){
 		alert("Đăng nhập không thành công. Sai email hoặc mật khẩu");
-			setTimeout('window.location="login.php"',0);
+			setTimeout('window.location="./login.php"',0);
 		}
 		</script>
 <?php
@@ -31,7 +31,7 @@ session_start();
  
 		if($r['IsDungMatKhau'])
 		{
-			$_SESSION['MaNV']=$r['MaNV'];
+			$_SESSION['MaNV']=$r['MaNV']; $_SESSION['CREATED'] = time();
 			$_SESSION['TenNV']=$r['TenNV'];
 			$_SESSION['TenSD']=$r['TenSD'];
 			$_SESSION['MaTrungTam']=$r['MaTrungTam'];
@@ -39,7 +39,7 @@ session_start();
 			//$_SESSION['MaKhu'] = "";
 			$_SESSION['BaoCaoDuocXem'] = unserialize( $r['BaoCaoDuocXem'] );//var_dump($_SESSION['BaoCaoDuocXem'] );die;
 
-			header('location:home.php');
+			header('location:views/BaoCaoBanHang/TangTret/');
 		}
 		else
 		{
@@ -47,7 +47,7 @@ session_start();
 			<script>
 				window.onload=function(){
 				alert("Đăng nhập không thành công. Sai mật khẩu");
-				setTimeout('window.location="login.php"',0);
+				setTimeout('window.location="./login.php"',0);
 				}
 			</script>
 <?php

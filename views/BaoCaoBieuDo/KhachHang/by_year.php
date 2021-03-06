@@ -178,7 +178,7 @@ $('form#yearSelected').on('submit', function (event){
     $('#yearlyChart_First').remove();
 
     $.ajax({
-      url:"../views/BaoCaoBieuDo/KhachHang/ajax/process_year.php",
+      url:"ajax/process_year.php",
       method:"POST",
       data:formValues,
       dataType:"json",

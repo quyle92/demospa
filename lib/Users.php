@@ -218,15 +218,22 @@ class Users extends General {
 
 	}
 
-	public function doiMatKhau($user_info)
+	public function doiMatKhau()
     {	
-    	$username =  htmlentities(trim(strip_tags($user_info['username'])),ENT_QUOTES,'utf-8');
-		$password = htmlentities(trim(strip_tags($user_info['password'])),ENT_QUOTES,'utf-8');
-		$confirm_password = htmlentities(trim(strip_tags($user_info['confirm_password'])),ENT_QUOTES,'utf-8');
+    	$username =  htmlentities(trim(strip_tags($_POST['username'])),ENT_QUOTES,'utf-8');
+		$password = htmlentities(trim(strip_tags($_POST['password'])),ENT_QUOTES,'utf-8');
+		$confirm_password = htmlentities(trim(strip_tags($_POST['confirm_password'])),ENT_QUOTES,'utf-8');
+
+		if( empty( $password )  ){//var_dump("confirm_password: " . $password);die;
+
+			$_SESSION['password_mismatch'] = -1;
+
+			return;
+		}
 
 		if( empty( $password ) || $password !== $confirm_password ){//var_dump("confirm_password: " . $password);die;
 
-			$_SESSION['password_mismatch'] = -1;
+			$_SESSION['password_mismatch'] = -2;
 
 			return;
 		}

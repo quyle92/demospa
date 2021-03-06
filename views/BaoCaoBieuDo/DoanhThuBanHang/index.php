@@ -1,6 +1,4 @@
 <?php
-$page_name = "DoanhThuBanHang";
-require_once('./helper/security.php');
 require_once('./lib/BaoCaoBieuDo.php');
 $chartReport = new BaoCaoBieuDo($conn);
 ?>

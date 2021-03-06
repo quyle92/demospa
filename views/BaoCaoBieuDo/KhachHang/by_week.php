@@ -149,7 +149,7 @@ $('form#weekSelected').on('submit', function (event){
        start = moment(start).format('YYYY-MM-DD');
 
     $.ajax({
-      url:"../views/BaoCaoBieuDo/KhachHang/ajax/process_week.php",
+      url:"ajax/process_week.php",
       method:"POST",
       data:{start: start},
       dataType:"json",

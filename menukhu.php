@@ -13,6 +13,15 @@
         </button>
         <a class="navbar-brand"><?=isset($_SESSION['TenTrungTam']) ? $_SESSION['TenTrungTam'] : ""; ?></a> 
     </div>
+    <ul class="nav navbar-nav navbar-right" id="userSetting">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> User Preferences <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?=BASE_URL?>views/User/DoiMatKhau/"><span class="glyphicon glyphicon-wrench"> Đổi mật khẩu</a></li>
+            <li><a href="<?=BASE_URL?>logout.php"><span class="glyphicon glyphicon-off"> Logout</a></li>
+          </ul>
+        </li>
+      </ul>
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
          <div class="menu_item">
@@ -21,17 +30,17 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/Dashboard/Home/">
-                            <i class="fas fa-landmark"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBanHang/TangTret/">
+                            <span class="glyphicon glyphicon-home"></span>
                        Tầng Trệt</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BanHang/Khu1/">
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBanHang/Khu1/">
                             <i class="fas fa-landmark"></i>
                         Khu 1</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/BanHang/Khu2/">
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoBanHang/Khu2/">
                             <i class="fas fa-mosque"></i>
                         Khu 2</a>
                     </li>              
@@ -96,11 +105,11 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachNhomHang/"><i class="fas fa-th-list"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoHangHoa/DanhSachNhomHang/"><i class="fas fa-th-list"></i>
                         Danh sách nhóm hàng</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/HangHoa/DanhSachHangBan/"><i class="fas fa-list-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoHangHoa/DanhSachHangBan/"><i class="fas fa-list-alt"></i>
                         Danh sách hàng bán</a>
                     </li>  
                 </ul>
@@ -112,11 +121,11 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhapXuatKho/PhieuNhapHang/"><i class="fas fa-file-invoice"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoHangHoa/PhieuNhapHang/"><i class="fas fa-file-invoice"></i>
                         Phiếu nhập hàng</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhapXuatKho/PhieuXuatHang/"><i class="fas fa-file-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoHangHoa/PhieuXuatHang/"><i class="fas fa-file-alt"></i>
                         Phiếu xuất hàng</a>
                     </li>  
                 </ul>
@@ -128,11 +137,11 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/KhachHang/DanhSachKhachHangThe/"><i class="fab fa-cc-visa"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoKhachHang/DanhSachKhachHangThe/"><i class="fab fa-cc-visa"></i>
                         Danh sách khách hàng, thẻ</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/KhachHang/DanhSachLichHen/"><i class="fas fa-calendar-check"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoKhachHang/DanhSachLichHen/"><i class="fas fa-calendar-check"></i> 
                         Danh sách lịch hẹn</a>
                     </li>  
                 </ul>
@@ -144,49 +153,49 @@
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/DanhSachNhanVien/"><i class="fas fa-fingerprint"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoNhanVien/DanhSachNhanVien/"><i class="fas fa-fingerprint"></i> 
                         Danh sách nhân viên</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/BaoCaoTourKTV/"><i class="fas fa-book-open"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoNhanVien/BaoCaoTourKTV/"><i class="fas fa-book-open"></i>
                         Báo cáo Tour KTV</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/LichSuRaVao/"><i class="fas fa-door-open"></i> 
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoNhanVien/LichSuRaVao/"><i class="fas fa-door-open"></i> 
                         Lịch sử ra vào</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/NhanVien/TongHopChamCong/"><i class="fas fa-notes-medical"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoNhanVien/TongHopChamCong/"><i class="fas fa-notes-medical"></i>
                         Tổng hợp chấm công</a>
                     </li>
                 </ul>
             </div>
 
             <div class="menu_item">
-                <button class="dropdown-btn" data-report="BaoCaoNhanVien"><i class="fas fa-address-card"></i> Users
+                <button class="dropdown-btn" data-report="UserList"><i class="fas fa-address-card"></i> Users
                     <span class="fa fa-caret-down"></span>
                 </button>
                 <ul class="dropdown-container">
                     <li style="list-style-type: none;">
-                        <a class="menu-level2" href="<?=BASE_URL?>views/Users/DanhSachUsers/"><i class="fa fa-apple-alt"></i>
+                        <a class="menu-level2" href="<?=BASE_URL?>views/UserList/DanhSachUsers/"><i class="fa fa-apple-alt"></i>
                         Danh sách users</a>
                     </li>
-                    <li style="list-style-type: none;">
+                   <!--  <li style="list-style-type: none;">
                         <a class="menu-level2" href="<?=BASE_URL?>views/Users/DoiMatKhau/"><i class="fa fa-apple-alt"></i>
                         Đổi mật khẩu</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 
-            <li style="list-style-type: none;" class="li-level1">
+          <!--   <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>KTV_list.php"><i class="fa fa-upload nav_icon"></i>QUẢN LÝ KTV</a>
             </li>
             <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>KH_list.php"><i class="fa fa-upload nav_icon"></i>KHÁCH HÀNG</a>
-            </li>
-            <li style="list-style-type: none;" class="li-level1">
-                <a class="menu-level1" href="<?=BASE_URL?>logout.php"><i class="fa fa-sign-out nav_icon"></i>THOÁT</a>
-            </li>
+            </li> -->
+            <!-- <li style="list-style-type: none;" class="li-level1">
+                <a class="menu-level1" href="<?=BASE_URL?>logout.php"><span class="glyphicon glyphicon-off"> THOÁT</a>
+            </li> -->
         </div>
     </div>
 </nav>
@@ -209,11 +218,12 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
     var baoCaoNhanVien = $('button[data-report="BaoCaoNhanVien"]').attr('data-report');
     var baoCaoNhapXuat = $('button[data-report="BaoCaoNhapXuat"]').attr('data-report');
     var baoCaoSoLieu = $('button[data-report="BaoCaoSoLieu"]').attr('data-report');
+    var userList = $('button[data-report="UserList"]').attr('data-report');
 
     var admin = '<?=isset($_SESSION['MaNV']) ? $_SESSION['MaNV'] : '';?>';
 
     var reportArr = []; 
-    reportArr = [baoCaoBanHang, baoCaoBieuDo, baoCaoHangHoa, baoCaoKhachHang, baoCaoNhanVien, baoCaoNhapXuat, baoCaoSoLieu];
+    reportArr = [baoCaoBanHang, baoCaoBieuDo, baoCaoHangHoa, baoCaoKhachHang, baoCaoNhanVien, baoCaoNhapXuat, baoCaoSoLieu, userList];
     //console.log(baoCaoDuocXem);
 
     // return report array not in baoCaoDuocXem
@@ -221,15 +231,15 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
             return !baoCaoDuocXem.includes(report);
     });
     //ref:https://flaviocopes.com/how-to-remove-item-from-array/
-   
+   console.log(hiddenReports);
     if( admin != 'HDQT' )
     {  
+
+        //$('button[data-report="Users"]').parent().hide();
         for ( var i = 0; i < hiddenReports.length; i++ )
         {   
-
             $('button[data-report="' + hiddenReports[i] + '"]').css({display:'none'});
             $('button[data-report="' + hiddenReports[i] + '"] + div.dropdown-container').html('');
-
         }
     }
 
@@ -274,8 +284,6 @@ $(document).ready( function() {
           }
 
         });
-
-
 
          $("ul.dropdown-container ").on('click', function(e) {
               e.stopPropagation(); 

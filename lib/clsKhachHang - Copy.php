@@ -11,6 +11,7 @@ class DbConnection {
 }
 class clsKhachHang extends DbConnection {
 
+	
 	public function getCustomersList()
 	{
 		$sql = "SELECT * FROM [tblDMKHNCC] ";

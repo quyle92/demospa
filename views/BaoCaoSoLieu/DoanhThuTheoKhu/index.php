@@ -1,6 +1,4 @@
 <?php
-$page_name = "BaoCaoSoLieu";
-require_once('helper/security.php');
 require_once('lib/BaoCaoSoLieu.php');
 $stats = new BaoCaoSoLieu($conn);
 

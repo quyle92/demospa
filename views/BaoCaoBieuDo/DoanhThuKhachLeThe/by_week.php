@@ -153,7 +153,7 @@ $('form#weekSelected').on('submit', function (event){
 
     
     $.ajax({
-      url:"../views/BaoCaoBieuDo/DoanhThuKhachLeThe/ajax/process_week.php",
+      url:"ajax/process_week.php",
       method:"POST",
       data:{start: start},
       dataType:"json",

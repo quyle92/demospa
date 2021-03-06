@@ -1,7 +1,7 @@
 RewriteEngine On
-#Enable this one will make url go directly to folder (https://www.youtube.com/watch?v=UXPLuDXeUTA)
+#Enable this one will make url go directly to folder (https://www.youtube.com/watch?v=UXPLuDXeUTA)->10:30
 #RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-f #if the file not existed in the url path, then  use RewriteRule, else go directly to it.
 
 RewriteRule ^views/(.+)$ index.php?p=$1
 

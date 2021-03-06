@@ -1,7 +1,18 @@
 <?php 
+session_start();
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+if( isset($_GET["p"]) ){
+   $p = substr($_GET["p"], -1) !== '/' ?  $_GET["p"] . '/' : $_GET["p"];
+}
+else
+{
+  $p = "BaoCaoBanHang/TangTret/";
+}
+
+$page_name = explode('/', $p)[0];
+require_once('helper/security.php');
 //require('helper/ForceUTF8/Encoding.php');
 require('lib/db.php');
 require('lib/General.php');
@@ -9,17 +20,11 @@ require('lib/General.php');
 $general = new General($conn);
 require_once('helper/custom-functions.php');
 require_once('helper/portable-utf8-master/src/voku/helper/UTF8.php');
-session_start();
+
 date_default_timezone_set('Asia/Bangkok'); 
 //$p = $_SERVER['REQUEST_URI'];var_dump($p);
-if( isset($_GET["p"]) ){
-   $p = substr($_GET["p"], -1) !== '/' ?  $_GET["p"] . '/' : $_GET["p"];
-    //$p =$_GET["p"];
-}
-else
-{
-  $p = "Dashboard/Home/";
-}
+
+
 
 ?>
 <!DOCTYPE HTML>
