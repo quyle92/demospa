@@ -326,6 +326,28 @@ class KhachHang extends General {
 			$_SESSION['error']['empty_clientGroup'] = "Client group was not selected!";
 			$flag = false;
 		}
+
+		$_SESSION['client_name'] = $client_name;
+		$_SESSION['client_tel'] = $client_tel;
+		$_SESSION['client_address'] = $client_address;
+		$_SESSION['client_group'] = $client_group;
+		$_SESSION['client_notes'] = $client_notes;
+
+		if ( $flag === true )
+		{
+			$sql = "INSERT INTO  [tblDMNhomHangBan] ( [Ma], [Ten] ) VALUES ( '$cat_id', N'$cat_name' )";
+			try
+			{	
+
+				$rs = $this->conn->query($sql);
+				$_SESSION['add_success'] = " <strong>Success!</strong> Add category name successfully...";
+
+			}
+			catch( Exception $e )
+			{
+				echo $e->getMessage();
+			}
+		}
 	}
 
 
