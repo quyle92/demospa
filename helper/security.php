@@ -7,7 +7,7 @@ if( !isset($_SESSION['MaNV'])  )
    	alert("Bạn ko được quyền truy cập vào đây!");
    	 setTimeout(
         function(){
-            window.location = "../../../login.php" 
+            window.location = "login.php" 
         },
     100);
    	</script>');
@@ -26,7 +26,7 @@ if( $_SESSION['MaNV'] !== 'HDQT' && !in_array($page_name, $bao_cao_duoc_xem) )
    	alert("Bạn ko được quyền truy cập vào đây!");
    	 setTimeout(
         function(){
-            window.location = "../../../login.php" 
+            window.location = "login.php" 
         },
     100);
    	</script>');

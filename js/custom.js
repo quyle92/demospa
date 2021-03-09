@@ -133,3 +133,29 @@ function formatAmount( obj ) {
 //ref: https://jsfiddle.net/dcardoso/CkqzL/
 //https://codepen.io/559wade/pen/LRzEjj
 
+function is_phonenumber( number ){
+    var mobile = 0 + number.value;
+    // remove all the characters except the numeric values
+    mobile  = mobile.replace( /[^0-9]/g, '' );
+    var phoneNo =/((09|03|07|08|05)+([0-9]{8})\b)/g;
+
+    if ( mobile.length > 0 && phoneNo.test( mobile ) === false ) 
+    { 
+        $('small.field-msg.error').removeClass('hiddenError');
+    }
+    else
+    {
+        $('small.field-msg.error').addClass('hiddenError');
+    }
+}
+
+function formatTel( obj ) {
+  // remove all the characters except the numeric values
+    number = obj.value.replace( /[^0-9]/g, '' );
+
+    var rgx = /(\d+)(\d{3})/;
+    while( rgx.test( number ) ) {
+        number = number.replace( rgx, '$1' + ' ' + '$2' );
+    }
+    obj.value = number;
+}

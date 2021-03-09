@@ -15,7 +15,7 @@
     </div>
     <ul class="nav navbar-nav navbar-right" id="userSetting">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> User Preferences <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Hello <?=$_SESSION['TenSD']?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<?=BASE_URL?>views/User/DoiMatKhau/"><span class="glyphicon glyphicon-wrench"> Đổi mật khẩu</a></li>
             <li><a href="<?=BASE_URL?>logout.php"><span class="glyphicon glyphicon-off"> Logout</a></li>
@@ -143,6 +143,10 @@
                     <li style="list-style-type: none;">
                         <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoKhachHang/DanhSachLichHen/"><i class="fas fa-calendar-check"></i> 
                         Danh sách lịch hẹn</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoKhachHang/QuanLyKhachHang/"><i class="fas fa-calendar-check"></i> 
+                        Quản lý Khách Hàng</a>
                     </li>  
                 </ul>
             </div>
@@ -168,6 +172,10 @@
                         <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoNhanVien/TongHopChamCong/"><i class="fas fa-notes-medical"></i>
                         Tổng hợp chấm công</a>
                     </li>
+                    <li style="list-style-type: none;">
+                        <a class="menu-level2" href="<?=BASE_URL?>views/BaoCaoNhanVien/QuanLyKTV/"><i class="fas fa-female"></i>
+                        Quản lý KTV</a>
+                    </li>
                 </ul>
             </div>
 
@@ -187,12 +195,12 @@
                 </ul>
             </div>
 
-          <!--   <li style="list-style-type: none;" class="li-level1">
+            <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>KTV_list.php"><i class="fa fa-upload nav_icon"></i>QUẢN LÝ KTV</a>
             </li>
             <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>KH_list.php"><i class="fa fa-upload nav_icon"></i>KHÁCH HÀNG</a>
-            </li> -->
+            </li>
             <!-- <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>logout.php"><span class="glyphicon glyphicon-off"> THOÁT</a>
             </li> -->
@@ -208,7 +216,7 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
 
 <script>
    // var baoCaoDuocXem ="";
-    var baoCaoDuocXem = <?=json_encode($bao_cao_duoc_xem);?>;
+    var baoCaoDuocXem =  <?=json_encode($bao_cao_duoc_xem);?>.length > 0 ? <?=json_encode($bao_cao_duoc_xem);?> : [];//console.log(baoCaoDuocXem);
     if (baoCaoDuocXem.lenth < 1)  baoCaoDuocXem = [];
 
     var baoCaoBanHang = $('button[data-report="BaoCaoBanHang"]').attr('data-report');
@@ -227,11 +235,13 @@ $bao_cao_duoc_xem = ( isset( $_SESSION['BaoCaoDuocXem'] ) ? $_SESSION['BaoCaoDuo
     //console.log(baoCaoDuocXem);
 
     // return report array not in baoCaoDuocXem
-    let hiddenReports = reportArr.filter(function (report) {
-            return !baoCaoDuocXem.includes(report);
-    });
+    if( typeof baoCaoDuocXem !== 'undefined' && baoCaoDuocXem.length > 0 ){
+        var hiddenReports = reportArr.filter(function (report) {
+                return !baoCaoDuocXem.includes(report);
+        });
+    }
     //ref:https://flaviocopes.com/how-to-remove-item-from-array/
-   console.log(hiddenReports);
+   
     if( admin != 'HDQT' )
     {  
 

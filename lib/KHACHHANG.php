@@ -21,8 +21,9 @@ class DbConnection {
 
 
 }
+require_once('lib/General.php');
 
-class KhachHang {
+class KhachHang extends General {
 
 	/* Properties */
     private $conn;
@@ -266,7 +267,7 @@ class KhachHang {
 
 	public function getClientAppointments( $tungay, $denngay, $tugio, $dengio )
 	{
-		  $sql = " SELECT a.*, b.* FROM [tblKhachHangBooking] a JOIN tblDMNhanVien b ON a.MaNV = b.MaNV
+		$sql = " SELECT a.*, b.* FROM [tblKhachHangBooking] a JOIN tblDMNhanVien b ON a.MaNV = b.MaNV
 			Where substring( Convert(varchar,isnull(GioBatDau,getdate()),126),0,17 ) BETWEEN '{$tungay}T{$tugio}' AND 
 				'{$denngay}T{$dengio}'
 			";
@@ -282,6 +283,51 @@ class KhachHang {
 		}
 	}
 
-	
+	public function getMaNhomKH()
+	{
+		$sql = "SELECT * from tblDMNhomKH";
+
+		try
+		{
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+		}
+		catch ( PDOException $error ){
+			echo $error->getMessage();
+		}
+	}
+
+
+	public function addClient()
+	{	
+		$flag = true;
+
+		$client_id      = $this->generateClientID();	
+		$client_name    = htmlentities(trim(strip_tags($_POST['client_name'])),ENT_QUOTES,'utf-8');
+		$client_tel     = htmlentities(trim(strip_tags($_POST['client_tel'])),ENT_QUOTES,'utf-8');
+		$client_address = htmlentities(trim(strip_tags($_POST['client_address'])),ENT_QUOTES,'utf-8');
+		$client_group   = htmlentities(trim(strip_tags($_POST['client_group'])),ENT_QUOTES,'utf-8');
+		$client_notes   = htmlentities(trim(strip_tags($_POST['client_notes'])),ENT_QUOTES,'utf-8');
+
+		if( empty($client_name) )
+		{
+			$_SESSION['error']['empty_clientName'] = "Client name was missing!";
+			$flag = false;
+		}
+
+		if( empty($client_tel) )
+		{
+			$_SESSION['error']['empty_clientTel'] = "Client phone number was missing!";
+			$flag = false;
+		}
+
+		if( empty($client_group) )
+		{
+			$_SESSION['error']['empty_clientGroup'] = "Client group was not selected!";
+			$flag = false;
+		}
+	}
+
+
 
 }

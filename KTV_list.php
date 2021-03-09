@@ -609,23 +609,23 @@ window.onclick = function(event) {
 ?>
 <div class="row">
 </div>
-	         <div class="row">
-		          <div class="col-md-12">
-                <table class="table" id="ktv_list">
-                <thead>
-                  <tr>
-                    <th>Mã</th>           
-                    <th>KTV</th>    
-                    <th>Nhóm</th>
-                    <th>Thứ tự làm</th>
-                    <th>Số tour theo lượt</th>
-                    <th>Số tour yêu cầu</th>          
-                    <th>Giờ vào</th>             
-                    <th>Giờ ra</th>              
-                    <th>Action</th>             
-                  </tr>
-            </thead>
-            <tbody>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table" id="ktv_list">
+      <thead>
+        <tr>
+          <th>Mã</th>           
+          <th>KTV</th>    
+          <th>Nhóm</th>
+          <th>Thứ tự làm</th>
+          <th>Số tour theo lượt</th>
+          <th>Số tour yêu cầu</th>          
+          <th>Giờ vào</th>             
+          <th>Giờ ra</th>              
+          <th>Action</th>             
+        </tr>
+      </thead>
+      <tbody>
 <?php 
 $ktv_list = $ktv->getAllKTV();
 $ktv_arr = array();

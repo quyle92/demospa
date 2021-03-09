@@ -555,22 +555,23 @@ window.onclick = function(event) {
 <button type="button" class="btn btn-large btn-info pull-right"><a href="excel-export.php" style="color:#fff" >Export CSV</a></button>
 </form>
 </div>
-	         <div class="row">
-		          <div class="col-md-12">
-                <table class="table" id="kh_list">
-                  <thead>
-                    <tr>
-                      <th>Mã</th>           
-                      <th>Tên</th>    
-                      <th>Điện thoại</th>
-                      <th>Địa chỉ</th>
-                      <th>Nhóm</th>
-                      <th>Ghi chú</th>          
-                      <th>Chỉnh sửa</th>       
-                      <th>Xóa</th>       
-                    </tr>
-                  </thead>
-                <tbody>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table" id="kh_list">
+      <thead>
+        <tr>
+          <th>Mã</th>           
+          <th>Tên</th>    
+          <th>Điện thoại</th>
+          <th>Địa chỉ</th>
+          <th>Nhóm</th>
+          <th>Ghi chú</th>          
+          <th>Chỉnh sửa</th>       
+          <th>Xóa</th>       
+        </tr>
+      </thead>
+    <tbody>
 <?php 
 $client_list = $client->getAllClients();
 $clients = array(); 

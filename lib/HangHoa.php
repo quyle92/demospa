@@ -101,7 +101,7 @@ class HangHoa  extends General {
 		if ( $flag === true )
 		{
 			//echo $sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] = N'$cat_name'  Where [Ma] ='$cat_id'";//die;
-			echo $sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] =  cast(N'$cat_name' as nvarchar(max))  Where [Ma] ='$cat_id'";//die;
+			 $sql = "UPDATE  [tblDMNhomHangBan] SET  [Ten] =  cast(N'$cat_name' as nvarchar(max))  Where [Ma] ='$cat_id'";//die;
 			try
 			{
 				$rs = $this->conn->query($sql);

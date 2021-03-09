@@ -10,7 +10,7 @@ else
 {
   $p = "BaoCaoBanHang/TangTret/";
 }
-
+// echo $p;
 $page_name = explode('/', $p)[0];
 require_once('helper/security.php');
 //require('helper/ForceUTF8/Encoding.php');

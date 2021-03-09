@@ -130,6 +130,51 @@ class NhanVien extends General {
 		}
 	}
 
+	public function getKTVGroup() {
+		$sql = 'select Ma, Ten from tblDMNhomNhanVien where IsDieuTour = 1';
+		try
+		{
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+	
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+
+	}
+
+	public function getAllKTV()
+	{
+
+		$sql="with t1 as ( select 
+				b.Ten as TenNhomNV, a.MaNV, a.TenNV, NhomNhanVien, MaThe, 
+				GhiChuNV, 
+				--SourceHinhAnh, HinhAnhTemp, 
+				GhiChuDichVu, ThuTuDieuTour, c.GioBatDau, c.GioKetThuc, c.GhiChu, d.MaPhieuDieuTour, d.MaBanPhong, d.TenHangBan, d.GioThucHien, e.SoLanPhucVu, e.SoSaoDuocYeuCau   
+				from tblDMNhanVien a
+				left join tblDMNhomNhanVien b on a.NhomNhanVien = b.Ma		
+				left join (Select MaNV, ThuTuDieuTour, GioBatDau, GioKetThuc, GhiChu from tblHR_LichDieuTour where ThuTuDieuTour > 0 and Ngay = '".intval(date('d'))."' and Thang = '".intval(date('m'))."' and Nam = '".intval(date('Y'))."') c on c.MaNV = a.MaNV 
+				left join (Select * from tblTheoDoiPhucVuSpa_ChiTiet Where Ngay like '".date('Y-m-d')."') d On a.MaNV = d.MaNV 
+				left join (Select * from tblTheoDoiPhucVuSpa Where Ngay like '".date('Y-m-d')."') e On a.MaNV = e.MaNV 
+				where NhomNhanVien in (Select Ma from tblDMNhomNhanVien where IsDieuTour = 1)
+				)
+				SELECT * from t1 Order by NhomNhanVien";
+		try
+		{
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
 }
 
 /**

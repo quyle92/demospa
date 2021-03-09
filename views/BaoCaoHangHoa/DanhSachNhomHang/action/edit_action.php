@@ -7,7 +7,8 @@ $productCat = new HangHoa($conn);
 //var_dump($_POST['edit_user']);die;
 if( !empty($_POST['edit_cat']) )
 { 
-  $productCat->edit();
+  $productCat->edit();//var_dump ( $_SESSION['error'] );
+  //die;
   echo  "<script>window.history.go(-1); </script>";
 }
 

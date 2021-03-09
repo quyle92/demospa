@@ -70,10 +70,10 @@ unset($_SESSION['error']);
             <tr><button class="btn btn-primary pull-left" style="margin-bottom: 5px" data-toggle="modal" data-target="#addNewCat"><b>+</b> Add</button>
                 <th>Mã</th>
                 <th>Tên</th>
-                <th ></th>
-                <th class="text-center">Action</th>
-                <th></th>
-                <th></th>
+                <th class="action"></th>
+                <th class="text-center action">Action</th>
+                <th class="action"></th>
+                <th class="action"></th>
             </tr>
         </thead>
         <?php
@@ -83,7 +83,7 @@ unset($_SESSION['error']);
             <tr>
                 <td><?=$r['Ma']?></td>
                 <td nowrap="nowrap"><?=$r['Ten']?></td>
-                <td class="text-center" colspan="4"><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editCat_<?=$r['Ma']?>"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action/delete_action.php?xoaCat=<?=$r['Ma']?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <td class="text-center action" colspan="4"><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editCat_<?=$r['Ma']?>"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action/delete_action.php?xoaCat=<?=$r['Ma']?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
             </tr>
          <?php //require_once('edit_cat_modal.php'); 
         } ?>
@@ -108,7 +108,7 @@ unset($_SESSION['fail']);
 ?>
 <script type="text/javascript">
 
-var error = $('div#error');console.log(error);
+var error = $('div#error');
 if( error.length > 0 ){
   $('#addNewCat').modal('show');
 }
@@ -120,4 +120,9 @@ if( fail.length > 0 ){
   //$('#editCat_NN001').modal('show');
 }
 
+var admin = '<?=isset($_SESSION['MaNV']) ? $_SESSION['MaNV'] : '';?>';
+if( admin !== 'HDQT' )
+ {
+  $('.action').remove();
+ }
 </script>

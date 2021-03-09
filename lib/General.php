@@ -121,4 +121,28 @@ class General {
 		}
 	}
 
+	protected function generateClientID()
+	{
+		$sql = "
+		SELECT ISNULL(
+			--expression to test
+			(SELECT  '01-' + ( SELECT REPLACE( SUBSTRING( (CONVERT(varchar, getdate(), 126)) , 1, 7 ), '-', '' ) ) + '-' + MAX(CAST(SUBSTRING(MaDoiTuong, 11, LEN(MaDoiTuong)-10) AS char)) from tblDMKHNCC
+			where MaDoiTuong like '%' + ( SELECT REPLACE( SUBSTRING( (CONVERT(varchar, getdate(), 126)) , 1, 7 ), '-', '' ) ) + '%')
+			, 
+			--value to return if expression is NULL
+			( SELECT '01-' + REPLACE( SUBSTRING( (CONVERT(varchar, getdate(), 126)) , 1, 7 ), '-', '' ) + '-001') 
+		)
+		";
+		try 
+		{
+			$rs = $this->conn->query($sql)->fetchColumn();//var_dump( $this->conn->query($sql));die;
+
+			return $rs;
+			
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
+
 }

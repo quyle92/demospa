@@ -101,7 +101,7 @@ unset($_SESSION['error']);
                 <th>Nhóm Hàng Bán</th>
                 <th>Mã DVT</th>
                 <th>Giá</th>
-                <th class="text-center">Action</th>
+                <th class="text-center action">Action</th>
             </tr>
         </thead>
         <?php
@@ -114,7 +114,7 @@ unset($_SESSION['error']);
                 <td><div><?=$r['Ten']?></div></td>
                 <td><?=$r['MaDVTCoBan']?></td>
                 <td><?=number_format($r['Gia'],0,",",".")?></td>
-                <td class="text-center" nowrap="nowrap"><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editProd_<?=( $r['MaHangBan'] =='!KM' ) ? 'khuyenMai' : ( ($r['MaHangBan'] =='!lt') ? 'dichVuKhac' :  $r['MaHangBan'] )?>"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action/delete_action.php?xoaProd=<?=$r['MaHangBan']?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <td class="text-center action" nowrap="nowrap"><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editProd_<?=( $r['MaHangBan'] =='!KM' ) ? 'khuyenMai' : ( ($r['MaHangBan'] =='!lt') ? 'dichVuKhac' :  $r['MaHangBan'] )?>"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action/delete_action.php?xoaProd=<?=$r['MaHangBan']?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
             </tr>
          <?php 
         } ?>
@@ -144,11 +144,16 @@ if( error.length > 0 ){
   $('#addNewProd').modal('show');
 }
 
-var prodID = '<?=$_SESSION['prod_id_edit']?>';//console.log(prodID);
+var prodID = '<?=isset( $_SESSION['prod_id_edit'] ) ?  $_SESSION['prod_id_edit'] : ''?>';//console.log(prodID);
 var fail = $('div#fail');
 if( fail.length > 0 ){
   $('#editProd_' +  prodID).modal('show');
   //$('#editCat_NN001').modal('show');
 }
 
+var admin = '<?=isset($_SESSION['MaNV']) ? $_SESSION['MaNV'] : '';?>';//console.log($('.action'));
+if( admin !== 'HDQT' )
+ {
+  $('.action').remove();
+ }
 </script>
