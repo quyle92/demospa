@@ -10,13 +10,6 @@ if(  isset($_SESSION['add_success']) )
     unset($_SESSION['add_success']); 
 }
 
-if(  isset($_SESSION['edit_success']) )
-{
-    echo "<div class='alert alert-success'>" .
-         $_SESSION['edit_success']
-        . "</div>";
-    unset($_SESSION['edit_success']); 
-}
 
 if(  isset($_SESSION['del_success']) )
 {
@@ -31,11 +24,7 @@ if( isset($_SESSION['error']) )
   echo "<div id=\"error\"></div>";
 
 }
-if( isset($_SESSION['fail']) )
-{
-  echo "<div id=\"fail\"></div>";
 
-} 
 
 $rs = $client->getMaNhomKH();
 $nhomKH = [];
@@ -72,6 +61,10 @@ foreach($rs as $r)
   padding: 3px 10px;
   border: 1px solid #999999;
   text-align: center;
+}
+
+.editable-click{
+  border-bottom: none;
 }
 </style>
 <div class="row" style="margin:10px 0">
@@ -192,6 +185,14 @@ foreach( $client_list as $client )
 <?php
 
 ?>
+
+          </tbody>
+        </table> 
+      </div>
+		          <!-- /#col-md-12 -->
+	         
+
+</div>
 <script>
 var source = <?=json_encode($nhomKH);?>;
 var error = $('div#error');
@@ -250,13 +251,22 @@ $(document).ready(function() {
     container:'body',
     selector:'td.TenDoiTuong',
     url:'action/edit_action.php',
+    toggle: 'dblclick',
     title:'Name',
+    emptytext: "",
     validate:function(value){
       if($.trim(value) == '')
       {
         return 'This field is required';
       }
 
+    },
+    success: function(response, newValue) {
+      if ( response.length > 0 ){
+        let output = JSON.parse(response) ;
+        if(output.success == false) 
+          return output.msg;
+      }
     }
   });
 
@@ -264,8 +274,10 @@ $(document).ready(function() {
     container:'body',
     selector:'td.DienThoai',
     url:'action/edit_action.php',
+    toggle: 'dblclick',
     title:'Tel  No.',
     type:'POST',
+    emptytext: "",
     validate:function(value){
       let phoneNo = $.trim(value);
       let phoneRegex =/((09|03|07|08|05)+([0-9]{8})\b)/g;
@@ -275,17 +287,17 @@ $(document).ready(function() {
         return 'This field is required';
       }
 
-      // if(phoneNo.length > 10 || phoneRegex.test( phoneNo ) === false  )
-      // {  
-      //   return 'Invalid phone number';
-      // }
+      if(phoneNo.length > 10 || phoneRegex.test( phoneNo ) === false  )
+      {  
+        return 'Invalid phone number';
+      }
     },
     success: function(response, newValue) {
-        //response = JSON.parse(JSON.stringify(response));
-         console.log(response  );
-        // (console.log(response.msg ))
-        //if(response.status == false) 
-          return response; //msg will be shown in editable form
+      if ( response.length > 0 ){
+        let output = JSON.parse(response) ;
+        if(output.success == false) 
+          return output.msg; //msg will be shown in editable form
+      }
     }
 
 
@@ -295,6 +307,7 @@ $(document).ready(function() {
     container:'body',
     selector:'td.DiaChi1',
     url:'action/edit_action.php',
+    toggle: 'dblclick',
     title:'Address',
     emptytext: ""
   });
@@ -303,22 +316,46 @@ $(document).ready(function() {
     container:'body',
     selector:'td.MaNhomKH',
     url:'action/edit_action.php',
-    title:'Group',   
-    source:source
+    toggle: 'dblclick',
+    source:source,
+    emptytext: "",
+    validate:function(value){
+      if($.trim(value) == '')
+      {
+        return 'This field is required';
+      }
+
+    },
+    success: function(response, newValue) {
+       if ( response.length > 0 ){
+        let output = JSON.parse(response) ;
+        if(output.success == false) 
+          return output.msg; //msg will be shown in editable form
+        }
+    }
     });
 
    $('#kh_list').editable({
     container:'body',
     selector:'td.DiaChi1',
     url:'action/edit_action.php',
+    toggle: 'dblclick',
     title:'Address',
     emptytext: ""
   });
 </script>
-                </tbody>
-              </table> 
-		        </div>
-		          <!-- /#col-md-12 -->
-	         
-
+<div id="app">
+  <input v-model="message" placeholder="edit me">
+  <p>Message is: {{ message }}</p>
 </div>
+<script type="text/javascript">
+  const app = new Vue({
+    el: '#app',
+    data:{
+      message: '',
+
+    }
+  });
+
+  app.message = 'Dean'
+</script>

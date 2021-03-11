@@ -366,17 +366,33 @@ class KhachHang extends General { //(1)
 	{	
 		$flag = true;
 		
+		if ( $params['name'] == 'TenDoiTuong' )
+		{
+			$client_name = $params['value'];
+			$result = [];
+			if( empty($client_name) )
+			{
+				$result['success'] = false;
+				$result['msg'] = 'This field is required!';
+				$flag = false;
+				//var_dump($result);
+				echo json_encode($result);
+			}
+
+		}
+
 		if ( $params['name'] == 'DienThoai' )
 		{
 			$client_tel = $params['value'];
 			$result = [];
+
 			if( empty($client_tel) )
 			{
 				$result['success'] = false;
 				$result['msg'] = 'Missing phone number!';
 				$flag = false;
-				var_dump('empty($client_tel)');
-				return json_encode($result);
+				
+				echo json_encode($result);
 			}
 			$phoneRegex = "/((09|03|07|08|05)+([0-9]{8})\b)/im";
 			if( preg_match_all( $phoneRegex, $client_tel ) != 1 || strlen($client_tel) > 10 )
@@ -385,8 +401,23 @@ class KhachHang extends General { //(1)
 				$result['msg'] = "Invalid phone number!";
 				$flag = false;
 
-				return json_encode($result);
+				echo json_encode($result);
 			}
+		}
+
+		if ( $params['name'] == 'MaNhomKH' )
+		{
+			$client_group = $params['value'];
+			$result = [];
+			if( empty($client_group) )
+			{
+				$result['success'] = false;
+				$result['msg'] = 'This field is required!';
+				$flag = false;
+				
+				echo json_encode($result);
+			}
+
 		}
 
 
@@ -401,8 +432,7 @@ class KhachHang extends General { //(1)
 			{	
 
 				$rs = $this->conn->query($sql);
-				$_SESSION['add_success'] = " <strong>Success!</strong> Client added successfully...";
-
+				// var_dump($rs);
 			}
 			catch( Exception $e )
 			{
