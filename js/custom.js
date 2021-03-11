@@ -134,12 +134,12 @@ function formatAmount( obj ) {
 //https://codepen.io/559wade/pen/LRzEjj
 
 function is_phonenumber( number ){
-    var mobile = 0 + number.value;
+    var phoneNo = 0 + number.value;
     // remove all the characters except the numeric values
-    mobile  = mobile.replace( /[^0-9]/g, '' );
-    var phoneNo =/((09|03|07|08|05)+([0-9]{8})\b)/g;
+    phoneNo  = phoneNo.replace( /[^0-9]/g, '' );
+    var phoneRegex =/((09|03|07|08|05)+([0-9]{8})\b)/g;
 
-    if ( mobile.length > 0 && phoneNo.test( mobile ) === false ) 
+    if ( phoneNo.length > 0 && phoneRegex.test( phoneNo ) === false ) 
     { 
         $('small.field-msg.error').removeClass('hiddenError');
     }

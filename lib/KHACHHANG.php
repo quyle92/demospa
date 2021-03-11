@@ -23,15 +23,19 @@ class DbConnection {
 }
 require_once('lib/General.php');
 
-class KhachHang extends General {
+class KhachHang extends General { //(1)
+
 
 	/* Properties */
     private $conn;
+    private $general;
 
     /* Get database access */
     public function __construct(\PDO $dbCon) {
         $this->conn = $dbCon;
+        $this->general = new General( $dbCon ); //(2)
 	}
+
 
 	function order_chitiet( $orderID )
 	{
@@ -301,10 +305,11 @@ class KhachHang extends General {
 	public function addClient()
 	{	
 		$flag = true;
-
-		$client_id      = $this->generateClientID();	
+		
+		$client_id      = $this->general->generateClientID();
 		$client_name    = htmlentities(trim(strip_tags($_POST['client_name'])),ENT_QUOTES,'utf-8');
 		$client_tel     = htmlentities(trim(strip_tags($_POST['client_tel'])),ENT_QUOTES,'utf-8');
+		$client_tel     = 0 . str_replace(" ", "", $client_tel)	;
 		$client_address = htmlentities(trim(strip_tags($_POST['client_address'])),ENT_QUOTES,'utf-8');
 		$client_group   = htmlentities(trim(strip_tags($_POST['client_group'])),ENT_QUOTES,'utf-8');
 		$client_notes   = htmlentities(trim(strip_tags($_POST['client_notes'])),ENT_QUOTES,'utf-8');
@@ -321,6 +326,13 @@ class KhachHang extends General {
 			$flag = false;
 		}
 
+		$phoneRegex = "/((09|03|07|08|05)+([0-9]{8})\b)/im";
+		if( preg_match_all( $phoneRegex, $client_tel ) != 1 || strlen($client_tel) > 10 )
+		{
+			$_SESSION['error']['invalidTel'] = "Invalid phone number!";
+			$flag = false;
+		}
+
 		if( empty($client_group) )
 		{
 			$_SESSION['error']['empty_clientGroup'] = "Client group was not selected!";
@@ -334,13 +346,62 @@ class KhachHang extends General {
 		$_SESSION['client_notes'] = $client_notes;
 
 		if ( $flag === true )
-		{
-			$sql = "INSERT INTO  [tblDMNhomHangBan] ( [Ma], [Ten] ) VALUES ( '$cat_id', N'$cat_name' )";
+		{	
+			$sql = "INSERT INTO  [tblDMKHNCC] ( [MaDoiTuong], [TenDoiTuong], [DienThoai] , [DiaChi1], [MaNhomKH], [GhiChu]) VALUES ( '$client_id', N'$client_name', '$client_tel', '$client_address', '$client_group', '$client_notes' )";
 			try
 			{	
 
 				$rs = $this->conn->query($sql);
-				$_SESSION['add_success'] = " <strong>Success!</strong> Add category name successfully...";
+				$_SESSION['add_success'] = " <strong>Success!</strong> Client added successfully...";
+
+			}
+			catch( Exception $e )
+			{
+				echo $e->getMessage();
+			}
+		}
+	}
+
+	public function editClient($params)
+	{	
+		$flag = true;
+		
+		if ( $params['name'] == 'DienThoai' )
+		{
+			$client_tel = $params['value'];
+			$result = [];
+			if( empty($client_tel) )
+			{
+				$result['success'] = false;
+				$result['msg'] = 'Missing phone number!';
+				$flag = false;
+				var_dump('empty($client_tel)');
+				return json_encode($result);
+			}
+			$phoneRegex = "/((09|03|07|08|05)+([0-9]{8})\b)/im";
+			if( preg_match_all( $phoneRegex, $client_tel ) != 1 || strlen($client_tel) > 10 )
+			{	
+				$result['success'] = false;
+				$result['msg'] = "Invalid phone number!";
+				$flag = false;
+
+				return json_encode($result);
+			}
+		}
+
+
+		if ( $flag === true )
+		{	
+			$sql = "
+				UPDATE tblDMKHNCC 
+				SET ".$params["name"]." = '".$params["value"]."' 
+				WHERE MaDoiTuong = '".$params["pk"]."'
+				";
+			try
+			{	
+
+				$rs = $this->conn->query($sql);
+				$_SESSION['add_success'] = " <strong>Success!</strong> Client added successfully...";
 
 			}
 			catch( Exception $e )
@@ -352,4 +413,10 @@ class KhachHang extends General {
 
 
 
+
 }
+
+
+
+/**Note*/
+//(1) nểu chỉ extends General class ko thôi sẽ ko chạy đc protected function trong General vì nó cần phải có $dbCon mới chạy đc, mà khi extends ko thôi thì chả có ai pass $dbCon cho nó cả. Cho nên để gọi hàm trong General thì phải dùng thêm (2). Tuy nhiên, Nếu function trong General mà public thì ko cần extends

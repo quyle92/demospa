@@ -135,7 +135,10 @@ class General {
 		";
 		try 
 		{
-			$rs = $this->conn->query($sql)->fetchColumn();//var_dump( $this->conn->query($sql));die;
+			$rs = trim($this->conn->query($sql)->fetchColumn());//var_dump( $this->conn->query($sql));die;
+			$number = substr($rs, 10, 3); 
+			$plusOne = str_pad($number + 1, strlen($number), '0', STR_PAD_LEFT);
+			$rs = substr($rs, 0, 10) . $plusOne;
 
 			return $rs;
 			

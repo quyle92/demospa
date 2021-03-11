@@ -1,6 +1,48 @@
 <?php
 require_once('lib/KhachHang.php');
 $client = new KhachHang($conn);
+
+if(  isset($_SESSION['add_success']) )
+{
+    echo "<div class='alert alert-success'>" .
+         $_SESSION['add_success']
+        . "</div>";
+    unset($_SESSION['add_success']); 
+}
+
+if(  isset($_SESSION['edit_success']) )
+{
+    echo "<div class='alert alert-success'>" .
+         $_SESSION['edit_success']
+        . "</div>";
+    unset($_SESSION['edit_success']); 
+}
+
+if(  isset($_SESSION['del_success']) )
+{
+    echo "<div class='alert alert-success'>" .
+         $_SESSION['del_success']
+        . "</div>";
+    unset($_SESSION['del_success']); 
+}
+
+if( isset($_SESSION['error']) )
+{
+  echo "<div id=\"error\"></div>";
+
+}
+if( isset($_SESSION['fail']) )
+{
+  echo "<div id=\"fail\"></div>";
+
+} 
+
+$rs = $client->getMaNhomKH();
+$nhomKH = [];
+foreach($rs as $r)
+{
+  $nhomKH[] =  [ $r['Ma'] => $r['Ten'] ];
+}
 ?>
 <style>
 /**
@@ -38,7 +80,8 @@ $client = new KhachHang($conn);
 	<button type="button" class="btn btn-large btn-info pull-right"><a href="excel-export.php" style="color:#fff" >Export CSV</a></button>
 	
 </div>
-<?php include_once('add_client_modal.php'); ?>
+<?php include_once('add_client_modal.php'); 
+unset($_SESSION['error']);?>
 <div class="row">
 
   <div class="col-md-12">
@@ -47,6 +90,7 @@ $client = new KhachHang($conn);
         <tr>
           <th>Mã</th>           
           <th>Tên</th>    
+          <th></th>
           <th>Điện thoại</th>
           <th>Địa chỉ</th>
           <th>Nhóm</th>
@@ -82,16 +126,18 @@ foreach( $client_list as $client )
 ?>
           <tr class="success">
               <td><?php echo $client->MaDoiTuong;?></td>            
-              <td><?php echo $client->TenDoiTuong;?>
+              <td><?php echo $client->TenDoiTuong;?>                
+              </td>      
+              <td>
                 <button type="button" class="btn btn-info btn-xs" style="float: right" data-toggle="modal" data-target="#product_view_<?=$client->MaDoiTuong?>" data-target="#product_view">
                   <span class="glyphicon glyphicon-user"></span> History
                 </button>
-              </td>      
+              </td>
               <td><?php echo $client->DienThoai;?></td>
               <td><?php echo $client->DiaChi;?></td>
               <td><?php echo $client->MaNhomKH;?></td>
               <td><?php echo $client->GhiChu;?></td>
-              <td><a href="KTV_list.php?maktv=<?php echo $client->MaNhanVien; ?>&chinhsua=1">Chỉnh sửa</a></td>
+              <td><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editClient_<?=$client->MaDoiTuong?>"><span class="glyphicon glyphicon-edit"></td>
               <td><a href="KTV_list.php?maktv=<?php echo $client->MaNhanVien; ?>&xoa=1">Xóa</a></td>             
           </tr>
 
@@ -143,13 +189,131 @@ foreach( $client_list as $client )
   </div>
 </div>          
 <?php } ?>
+<?php
+
+?>
 <script>
+var source = <?=json_encode($nhomKH);?>;
+var error = $('div#error');
+if( error.length > 0 ){
+  $('#addNewClient').modal('show');
+}
+
 $(document).ready(function() {
   // $.noConflict();
     $('#kh_list').DataTable({
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        createdRow:function(row, data, rowIndex)
+        {
+          $.each($('td', row), function(colIndex){
+            if(colIndex == 1)
+            {
+              $(this).attr('data-name', 'TenDoiTuong');
+              $(this).attr('class', 'TenDoiTuong');
+              $(this).attr('data-type', 'text');
+              $(this).attr('data-pk', data[0]);
+            }
+            if(colIndex == 3)
+            {
+              $(this).attr('data-name', 'DienThoai');
+              $(this).attr('class', 'DienThoai');
+              $(this).attr('data-type', 'text');
+              $(this).attr('data-pk', data[0]);
+            }
+            if(colIndex == 4)
+            {
+              $(this).attr('data-name', 'DiaChi1');
+              $(this).attr('class', 'DiaChi1');
+              $(this).attr('data-type', 'text');
+              $(this).attr('data-pk', data[0]);
+            }
+            if(colIndex == 5)
+            {
+              $(this).attr('data-name', 'MaNhomKH');
+              $(this).attr('class', 'MaNhomKH');
+              $(this).attr('data-type', 'select');
+              $(this).attr('data-pk', data[0]);
+            }
+            if(colIndex == 6)
+            {
+              $(this).attr('data-name', 'GhiChu');
+              $(this).attr('class', 'GhiChu');
+              $(this).attr('data-type', 'text');
+              $(this).attr('data-pk', data[0]);
+            }
+          });
+        }
     });
-} );
+});
+
+ $('#kh_list').editable({
+    container:'body',
+    selector:'td.TenDoiTuong',
+    url:'action/edit_action.php',
+    title:'Name',
+    validate:function(value){
+      if($.trim(value) == '')
+      {
+        return 'This field is required';
+      }
+
+    }
+  });
+
+  $('#kh_list').editable({
+    container:'body',
+    selector:'td.DienThoai',
+    url:'action/edit_action.php',
+    title:'Tel  No.',
+    type:'POST',
+    validate:function(value){
+      let phoneNo = $.trim(value);
+      let phoneRegex =/((09|03|07|08|05)+([0-9]{8})\b)/g;
+
+      if($.trim(value) == '')
+      {
+        return 'This field is required';
+      }
+
+      // if(phoneNo.length > 10 || phoneRegex.test( phoneNo ) === false  )
+      // {  
+      //   return 'Invalid phone number';
+      // }
+    },
+    success: function(response, newValue) {
+        //response = JSON.parse(JSON.stringify(response));
+         console.log(response  );
+        // (console.log(response.msg ))
+        //if(response.status == false) 
+          return response; //msg will be shown in editable form
+    }
+
+
+  });
+
+  $('#kh_list').editable({
+    container:'body',
+    selector:'td.DiaChi1',
+    url:'action/edit_action.php',
+    title:'Address',
+    emptytext: ""
+  });
+
+   $('#kh_list').editable({
+    container:'body',
+    selector:'td.MaNhomKH',
+    url:'action/edit_action.php',
+    title:'Group',   
+    source:source
+    });
+
+   $('#kh_list').editable({
+    container:'body',
+    selector:'td.DiaChi1',
+    url:'action/edit_action.php',
+    title:'Address',
+    emptytext: ""
+  });
 </script>
                 </tbody>
               </table> 
