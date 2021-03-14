@@ -3,8 +3,6 @@ require('lib/db.php');
 require('lib/clsKhachHang.php');
 // require('functions/lichsuphieu.php');
 require('helper/custom-functions.php');
-require('lib/General.php');
-$general = new General($conn);
 require('functions/lichsuphieu.php');
 
 @session_start();

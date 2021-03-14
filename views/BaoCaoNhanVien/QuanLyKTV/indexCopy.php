@@ -4,6 +4,65 @@ $ktv = new NhanVien($conn);
 $themmoi = 0; $chinhsua = "0"; 
 ?>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h1>THÔNG TIN KTV</h1>
+    <form action="KTV_update.php" method="post" >
+      <p>Mã : </p>
+      <p><input type="hidden" name="maktvcu" value="<?php echo @$maktvcu; ?>" style="width:100%;">
+      <input type="text" name="maktvmoi" value="<?php echo @$maktvcu; ?>" style="width:100%;"></p>
+      <p>Tên : </p>
+      <p><input type="text" name="tenktv" value="<?php echo @$tenktv; ?>" style="width:100%;"></p>   
+      <p>Thông tin : </p>
+      <p><input type="text" name="ghichu" value="<?php echo @$ghichu; ?>" style="width:100%;"></p>     
+      <p>Id vân tay : </p>
+      <p><input type="text" name="vantay" value="<?php echo @$mavantay; ?>" style="width:100%;"></p>     
+      <p>Ghi chú DV : </p>
+      <p><input type="text" name="ghichudichvu" value="<?php echo @$ghichudichvu; ?>" style="width:100%;"></p>       
+      <p>Tên Hình : </p>
+      <p><input type="text" name="tenhinh" value="<?php echo @$tenhinh; ?>" style="width:100%;">
+      </p>
+      <p style="padding-top:20px;"></p>
+      <input type="submit" name="btn_update" value="Cập nhật">
+    </form>
+  </div>
+</div>
+
+<?php
+if($chinhsua == "1" || $themmoi == 1)  // co thong tin nhập típ
+{
+  $chinhsua = "0"; // tắt cờ nhập típ
+  $themmoi = 1;
+?>
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+//btn.onclick = function() {
+    modal.style.display = "block";
+//}
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+<?php
+}//end if co danh gia -> hien modal
+?>
+<!-- End The Modal -->
 
 <div  id="ktv_list_selected">
     <div class="form-group" >
@@ -38,28 +97,86 @@ $themmoi = 0; $chinhsua = "0";
     </div>
 </div>
 
-     <div class="row">
-        <div id="app">
-            <api-calling></api-calling>
-        </div>
-     </div>
+
+<div class="row">
+</div>
+	         <div class="row">
+		          <div class="col-md-12">
+                <table class="table" id="ktv_list">
+                <thead>
+                  <tr>
+                    <th>Mã</th>           
+                    <th>KTV</th>    
+                    <th>Nhóm</th>
+                    <th>Thứ tự làm</th>
+                    <th>Số tour theo lượt</th>
+                    <th>Số tour yêu cầu</th>          
+                    <th>Giờ vào</th>             
+                    <th>Giờ ra</th>              
+                    <th>Action</th>             
+                  </tr>
+            </thead>
+            <tbody>
+<?php 
+$ktv_list = $ktv->getAllKTV();
+$ktv_arr = array();
+
+foreach($ktv_list as $r)
+{
+  $ktv_arr[] = [
+          'MaNV' => $r['MaNV'], 
+          'TenNV' => $r['TenNV'], 
+          'NhomNhanVien' => $r['NhomNhanVien'], 
+          'TenNhomNV' => $r['TenNhomNV'], 
+          'ThuTuDieuTour' => $r['ThuTuDieuTour'], 
+          'GhiChuNV' => $r['GhiChuNV'], 
+          //'HinhAnhTemp' => $r['HinhAnhTemp'], 
+          'GioBatDau' => $r['GioBatDau'], 
+          'GioKetThuc' => $r['GioKetThuc'], 
+          'GhiChu' => $r['GhiChu'],
+          'MaPhieuDieuTour' => $r['MaPhieuDieuTour'],
+          'MaBanPhong' => $r['MaBanPhong'],
+          'TenHangBan' => $r['TenHangBan'],
+          'GioThucHien' => $r['GioThucHien'],
+          'SoLanPhucVu' => $r['SoLanPhucVu'],
+          'SoSaoDuocYeuCau' => $r['SoSaoDuocYeuCau']
+  ];
+}
+//var_dump( $ktv_arr[0]['ThuTuDieuTour']);
+$manvtemp = "";
+$ktv_list =  customizeArrayKTV( $ktv_arr );//var_dump(($ktv_list["001"]));die;  
+foreach( $ktv_list as $ktv )
+{
+  $manvtemp = $ktv->MaNV.",".$ktv->NhomNhanVien;
+?>
+    <tr class="success">
+        <td><?php echo $ktv->MaNV;?></td>            
+        <td><?php echo $ktv->TenNV;?>
+        </td>      
+        <td><?php echo $ktv->TenNhomNV;?></td>
+        <td><?php echo $ktv->ThuTuDieuTour;?></td>
+        <td><?php echo $ktv->SoLanPhucVu;?></td>
+        <td><?php echo $ktv->SoSaoDuocYeuCau;?></td>
+        <td><?=isset($ktv->GioBatDau) ? $ktv->GioBatDau : ""?></td>
+        <td><?=isset($ktv->GioKetThuc) ? $ktv->GioKetThuc : ""?></td>
+        <td><?php 
+        if( $ktv->ThuTuDieuTour > 0 )
+            { ?>
+              <button name="raca" id="raca" style="background-color: red;color:white;width:90px" value="<?=$manvtemp?>">Ra ca</button>
+          <?php } else 
+          { ?>
+            <button name="vaoca" id="vaoca" style="background-color: green;color: white;width:90px"  value="<?=$manvtemp?>">Vào ca</button>  
+          <?php } ?></td>
+    </tr>
+          
+<?php } ?>
 
 
+<script>
 
-<script type="text/javascript">
-  Vue.use(VueToast);
-    const app = new Vue({
-    el: '#app',
-    components: {
-      'api-calling': httpVueLoader('components/ApiCalling.vue')
-    }
 
-  });
-</script>
+$(function() {
 
-<script type="text/javascript">
-
-function initDatatable() {//(1)
     var selectedKTV = $('#ktv_list_selected');
    $('#ktv_list_selected').remove();
 
@@ -90,8 +207,8 @@ function initDatatable() {//(1)
               
               if(ktv !== "all")
               {
-                table.column(2).search( ktv ).draw();//(2)
-                table.on( 'search.dt', function () {//(3)
+                table.column(2).search( ktv ).draw();//(1)
+                table.on( 'search.dt', function () {//(2)
                    // console.log('Currently applied global search: '+table.search() );
                  });
               } 
@@ -158,10 +275,19 @@ function initDatatable() {//(1)
               }
 
           });
-    }
+
+
+
+  } );
 
 
 </script>
+              </tbody>
+              </table> 
+		          </div>
+		          <!-- /#col-md-12 -->
+	         </div>
+
 
 <script>
 var first = true; 
@@ -231,9 +357,7 @@ $(document).on("click","#vaoca", function () {
 });
 </script>
 
-
 <!-- Note
-(1):Khi từ trong .then((res) => initDatatable()) mà gọi initDatatable() thì initDatatable() ko dc bỏ vào docuemnt.ready(function(){}), vì nếu bỏ vào thì initDatatable() chỉ run khi document ready, sau khi ready rồi thì function trong  ready() đó sẽ ko chạy nữa nên khi trong .then của Promise mà gọi initDatatable() thì sẽ ko gọi đc (vì initDatatable()  nằm trong ready() mà ready đã chạy rồi thì ko có chạy lại nữa trừ khi reload)
-(2): https://datatables.net/reference/api/draw()
-(3): https://datatables.net/reference/event/search
+(1): this is to avoid jQuery conflict. Ref: https://stackoverflow.com/a/7882412/11297747
+
  -->

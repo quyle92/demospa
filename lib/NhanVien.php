@@ -175,6 +175,48 @@ class NhanVien extends General {
 		}
 	}
 
+	public function getnhomNV()
+	{
+		$sql = "Select * from tblDMNhomNhanVien where IsDieuTour = 1";
+		try
+		{
+			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			return $rs;
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+
+	}
+
+	public function updateKTV( $params )
+	{	
+		$maktv = $params['MaNV'];
+		$TenNV = $params['TenNV'];
+		$NhomNhanVien = $params['NhomNhanVien'];
+		
+		$sql = "UPDATE  [tblDMNhanVien] SET 
+		[TenNV] =  N'$TenNV', 
+		[NhomNhanVien] = '$NhomNhanVien'
+		Where [MaNV] ='$maktv'";
+
+		try
+		{
+			$rs = $this->conn->query($sql);
+			return $rs;
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+
+	}
+
 }
 
 /**

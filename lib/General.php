@@ -1,15 +1,15 @@
 <?php
 class General {
 
-		/* Properties */
-	    private $conn;
+	/* Properties */
+    private $conn;
 
-	    /* Get database access */
-	    public function __construct(\PDO $dbCon) {
-	        $this->conn = $dbCon;
-		}
+    /* Get database access */
+    protected function __construct(\PDO $dbCon) {
+        $this->conn = $dbCon;
+	}
 
-	public function getKhu()
+	protected function getKhu()
 	{
 		$sql="select COUNT(MaKhu) OVER(PARTITION BY MaKhu) AS count, a.* from tblDMKhu a
 		 Where MaKhu in (Select MaKhu from tblDMBan)";

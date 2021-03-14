@@ -15,9 +15,9 @@ $page_name = explode('/', $p)[0];
 require_once('helper/security.php');
 //require('helper/ForceUTF8/Encoding.php');
 require('lib/db.php');
-require('lib/General.php');
+// require('lib/General.php');
 
-$general = new General($conn);
+// $general = new General($conn);
 require_once('helper/custom-functions.php');
 require_once('helper/portable-utf8-master/src/voku/helper/UTF8.php');
 
@@ -35,7 +35,12 @@ date_default_timezone_set('Asia/Bangkok');
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Phần mềm quản lý Spa-Clinic ZinSpa" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.4.2/src/httpVueLoader.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -88,6 +93,8 @@ date_default_timezone_set('Asia/Bangkok');
 <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js">
 </script>
+
+
 <style> 
 .form-group label[for="vip"] + div {
   left: 80px;

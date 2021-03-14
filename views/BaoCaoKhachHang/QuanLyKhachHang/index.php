@@ -88,7 +88,6 @@ unset($_SESSION['error']);?>
           <th>Địa chỉ</th>
           <th>Nhóm</th>
           <th>Ghi chú</th>          
-          <th>Chỉnh sửa</th>       
           <th>Xóa</th>       
         </tr>
       </thead>
@@ -130,8 +129,7 @@ foreach( $client_list as $client )
               <td><?php echo $client->DiaChi;?></td>
               <td><?php echo $client->MaNhomKH;?></td>
               <td><?php echo $client->GhiChu;?></td>
-              <td><a class="btn btn-info btn-xs " data-toggle="modal" data-target="#editClient_<?=$client->MaDoiTuong?>"><span class="glyphicon glyphicon-edit"></td>
-              <td><a href="KTV_list.php?maktv=<?php echo $client->MaNhanVien; ?>&xoa=1">Xóa</a></td>             
+              <td><button type="button" class="btn btn-xs btn-danger pull-left clearField"> <a href="action/delete_action.php?xoaClient=<?=$client->MaDoiTuong?>" onclick="return confirm('Are you sure you want to delete?');" style="color: #fff"> <span class="glyphicon glyphicon-remove clearField"></span></a></button></td>
           </tr>
 
 <div class="modal fade product_view" id="product_view_<?=$client->MaDoiTuong?>">
@@ -344,7 +342,7 @@ $(document).ready(function() {
     emptytext: ""
   });
 </script>
-<div id="app">
+<!-- <div id="app">
   <input v-model="message" placeholder="edit me">
   <p>Message is: {{ message }}</p>
 </div>
@@ -358,4 +356,4 @@ $(document).ready(function() {
   });
 
   app.message = 'Dean'
-</script>
+</script> -->

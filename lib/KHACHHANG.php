@@ -81,7 +81,7 @@ class KhachHang extends General { //(1)
 
 	public function getCustomersList()
 	{
-		$sql = "SELECT * FROM [tblDMKHNCC] ";
+		$sql = "SELECT  * FROM [tblDMKHNCC] ";
 		try
 		{
 			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -438,6 +438,22 @@ class KhachHang extends General { //(1)
 			{
 				echo $e->getMessage();
 			}
+		}
+	}
+
+	public function	xoaClient($prod_id)
+	{
+		$sql = "DELETE FROM  [tblDMKHNCC] where [MaDoiTuong] = '$prod_id'";
+		//var_dump ($prod_id);die;
+		try
+		{
+			$rs = $this->conn->query($sql);
+			$_SESSION['del_success'] = "Item deleted successfully!";
+			//var_dump ( $_SESSION['del_success'] );die;
+		}
+		catch ( PDOException $error )
+		{
+			echo $error->getMessage();
 		}
 	}
 
