@@ -16,7 +16,7 @@ $themmoi = 0; $chinhsua = "0";
         foreach($ktvGroup as $r)
         {
         ?>
-          <option value="<?=$r['Ten']?>"><?=$r['Ten']?></option>
+          <option value="<?=$r['Ma']?>"><?=$r['Ten']?></option>
 
         <?php
         }
@@ -58,11 +58,6 @@ $themmoi = 0; $chinhsua = "0";
 <script type="text/javascript">
 
 function initDatatable() {//(1)
-    var selectedKTV = $('#ktv_list_selected');
-   $('#ktv_list_selected').remove();
-
-   var orderTour = $('#ktv_list_tour_order');
-   $('#ktv_list_tour_order').remove();
 
     // $.noConflict(); 
     function createTable () { 
@@ -71,17 +66,16 @@ function initDatatable() {//(1)
           "columnDefs": [
               { "width": "1%", "targets": [0] },
               { "width": "10%", "targets": [1] },
-              { "width": "10%", "targets": [2] },
+              { "width": "9%", "targets": [2] },
               { "width": "7%", "targets": [3] },
               { "width": "9%", "targets": [ 4,5] },
-              { "width": "17%", "targets": [6,7] }
+              { "width": "18%", "targets": [6,7] }
               
           ],
            "pageLength": 10,
+           "stateSave": true,//(4)
           "drawCallback": function( settings ) {
-             $('#ktv_list_filter').after(selectedKTV);
-             $('#ktv_list_selected').after(orderTour);
-
+              // this.api().state.clear();//(5)
           } 
         });
     }
@@ -243,4 +237,6 @@ $(document).on("click","#vaoca", function () {
 (1):Khi từ trong .then((res) => initDatatable()) mà gọi initDatatable() thì initDatatable() ko dc bỏ vào docuemnt.ready(function(){}), vì nếu bỏ vào thì initDatatable() chỉ run khi document ready, sau khi ready rồi thì function trong  ready() đó sẽ ko chạy nữa nên khi trong .then của Promise mà gọi initDatatable() thì sẽ ko gọi đc (vì initDatatable()  nằm trong ready() mà ready đã chạy rồi thì ko có chạy lại nữa trừ khi reload)
 (2): https://datatables.net/reference/api/draw()
 (3): https://datatables.net/reference/event/search
+(4):  retain-current-page after delete or update: https://stackoverflow.com/a/11400929/11297747
+(5):  clear the state save. ref: https://datatables.net/forums/discussion/49086/clear-statesave-when-page-reloads
  -->

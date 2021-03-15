@@ -7,7 +7,7 @@ ini_set('mssql.charset', 'UTF-8');
 //saigondep, Puor27_1
 try
 {
-	$conn = new PDO("odbc:Driver={SQL Server}; Server=QDELL\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
+	$conn = new PDO("odbc:Driver={SQL Server}; Server=QDELL\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP_BK; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
 	$conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
 	$conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
 	$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );

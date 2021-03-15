@@ -162,6 +162,20 @@ class NhanVien extends General {
 				where NhomNhanVien in (Select Ma from tblDMNhomNhanVien where IsDieuTour = 1)
 				)
 				SELECT * from t1 Order by NhomNhanVien";
+
+		// $sql="with t1 as ( select 
+		// 		b.Ten as TenNhomNV, a.MaNV, a.TenNV, NhomNhanVien, MaThe, 
+		// 		GhiChuNV, 
+		// 		--SourceHinhAnh, HinhAnhTemp, 
+		// 		GhiChuDichVu, ThuTuDieuTour, c.GioBatDau, c.GioKetThuc, c.GhiChu, d.MaPhieuDieuTour, d.MaBanPhong, d.TenHangBan, d.GioThucHien, e.SoLanPhucVu, e.SoSaoDuocYeuCau   
+		// 		from tblDMNhanVien a
+		// 		left join tblDMNhomNhanVien b on a.NhomNhanVien = b.Ma		
+		// 		left join (Select MaNV, ThuTuDieuTour, GioBatDau, GioKetThuc, GhiChu from tblHR_LichDieuTour where ThuTuDieuTour > 0 and Ngay = '2' and Thang = '10' and Nam = '2019') c on c.MaNV = a.MaNV 
+		// 		left join (Select * from tblTheoDoiPhucVuSpa_ChiTiet Where Ngay like '".date('2019-10-01')."') d On a.MaNV = d.MaNV 
+		// 		left join (Select * from tblTheoDoiPhucVuSpa Where Ngay like '".date('2019-10-01')."') e On a.MaNV = e.MaNV 
+		// 		where NhomNhanVien in (Select Ma from tblDMNhomNhanVien where IsDieuTour = 1)
+		// 		)
+		// 		SELECT * from t1 Order by NhomNhanVien";
 		try
 		{
 			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -197,12 +211,31 @@ class NhanVien extends General {
 		$maktv = $params['MaNV'];
 		$TenNV = $params['TenNV'];
 		$NhomNhanVien = $params['NhomNhanVien'];
-		
-		$sql = "UPDATE  [tblDMNhanVien] SET 
-		[TenNV] =  N'$TenNV', 
-		[NhomNhanVien] = '$NhomNhanVien'
-		Where [MaNV] ='$maktv'";
+		$ThuTuDieuTour = $params['ThuTuDieuTour'];
+		$SoLanPhucVu = $params['SoLanPhucVu'];
+		$SoSaoDuocYeuCau = $params['SoSaoDuocYeuCau'];
+		$GioBatDau = $params['GioBatDau'];
+		$GioKetThuc = $params['GioKetThuc'];
+		//var_dump ($GioBatDau);die;
+		$sql = "
+			UPDATE  [tblDMNhanVien] SET 
+			[TenNV] =  N'$TenNV', 
+			[NhomNhanVien] = '$NhomNhanVien'
+			Where [MaNV] ='$maktv'
 
+			UPDATE  [tblTheoDoiPhucVuSpa] SET 
+			[SoLanPhucVu] =  '$SoLanPhucVu', 
+			[SoSaoDuocYeuCau] = '$SoSaoDuocYeuCau'
+			Where [MaNV] ='$maktv'
+			
+		";
+		if( isset($GioBatDau) && isset($GioKetThuc) ){
+			$sql .= "UPDATE  [tblHR_LichDieuTour] SET 
+			[ThuTuDieuTour] = '$ThuTuDieuTour',
+			[GioBatDau] =   CONVERT(DATETIME, '$GioBatDau'), 
+			[GioKetThuc] = CONVERT(DATETIME, '$GioKetThuc')
+			Where [MaNV] ='$maktv'";
+		}
 		try
 		{
 			$rs = $this->conn->query($sql);
@@ -215,6 +248,24 @@ class NhanVien extends General {
 			echo $e->getMessage();
 		}
 
+	}
+
+	public function deleteKTV( $params )
+	{	
+		$maktv = $params['MaNV'];
+		$sql = "DELETE FROM tblDMNhanVien WHERE MaNV = '$maktv'";
+		var_dump ($maktv );die;
+		try
+		{
+			$rs = $this->conn->query($sql);
+			return $rs;
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
 	}
 
 }

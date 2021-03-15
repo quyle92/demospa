@@ -32,16 +32,6 @@ if( isset( $_GET['action'] ) && $_GET['action'] === 'getAllKTV' )
       echo json_encode($output);
 }
 
-if( isset( $_POST['MaNV'] ) )
-{     
-      $params = $_POST;
-	$rs =  $ktv->updateKTV( $params );
-
-      // $output = [];
-      // $output['success'] = false;
-      // $output['msg'] = "Sth Wrong";
-      // echo json_encode($output);
-}
 
 if( isset( $_GET['action'] ) && $_GET['action'] === 'getnhomNV' )
 {
@@ -58,3 +48,21 @@ if( isset( $_GET['action'] ) && $_GET['action'] === 'getnhomNV' )
 }
 
 
+if( isset( $_POST['action'] ) && $_POST['action'] == 'update' )
+{     
+      $params = $_POST;
+      //var_dump ($params);die;
+      $rs =  $ktv->updateKTV( $params );
+
+      // $output = [];
+      // $output['success'] = false;
+      // $output['msg'] = "Sth Wrong";
+      // echo json_encode($output);
+}
+
+if( isset( $_POST['action'] ) && $_POST['action'] == 'delete' )
+{     
+      $params = $_POST;
+      //var_dump ($params);die;
+      $rs =  $ktv->deleteKTV( $params );
+}
