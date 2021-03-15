@@ -141,3 +141,7 @@
 
 
 
+/**boostrap datetiem picker*/
+div[class^="bootstrap-datetimepicker-widget"] ul li .datepicker .datepicker-days{
+  display: block;
+}

@@ -44,8 +44,6 @@ $themmoi = 0; $chinhsua = "0";
         </div>
      </div>
 
-
-
 <script type="text/javascript">
   Vue.use(VueToast);
     const app = new Vue({
@@ -70,6 +68,15 @@ function initDatatable() {//(1)
     function createTable () { 
         $('#ktv_list').DataTable({
           "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+          "columnDefs": [
+              { "width": "1%", "targets": [0] },
+              { "width": "10%", "targets": [1] },
+              { "width": "10%", "targets": [2] },
+              { "width": "7%", "targets": [3] },
+              { "width": "9%", "targets": [ 4,5] },
+              { "width": "17%", "targets": [6,7] }
+              
+          ],
            "pageLength": 10,
           "drawCallback": function( settings ) {
              $('#ktv_list_filter').after(selectedKTV);
