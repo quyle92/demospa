@@ -1,12 +1,10 @@
-<?php //header("Content-Type: application/json; charset=UTF-8");
-require('lib/db.php');
-require('lib/clsKhachHang.php');
-require('helper/custom-functions.php');
-require('helper/ForceUTF8/Encoding.php');
-use \ForceUTF8\Encoding;
+<?php 
+require_once realpath('../../../../../vendor/autoload.php');
+use Lib\clsKhachHang;
+$conn =  DBConnect();
 $sgDep = new clsKhachHang($conn);
-@session_start();	
-
+@session_start();
+use \ForceUTF8\Encoding;
 $client_code = $_POST['client_code'];
 
 $data = [];

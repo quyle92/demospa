@@ -1,8 +1,9 @@
 <?php 
-require('lib/db.php');
-require('lib/clsKhachHang.php');
-require_once('helper/custom-functions.php');
-require('functions/lichsuphieu.php');
+require_once realpath(dirname(__FILE__,4) . '/vendor/autoload.php');
+
+$conn = DBConnect();
+ use Lib\clsKhachHang;
+//var_dump ( UTF8::access() );
 $sgDep = new clsKhachHang($conn);
 @session_start(); //session_destroy();
 //error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
@@ -142,7 +143,7 @@ if(isset($_GET['mahangban']))     //-----lay ma hang ban bang phuong thuc get or
   $mahangban = $_GET['mahangban'];
   
   $l_sql = "Select * from tblDMHangBan WHERE MaHangBan = '$mahangban'";
-  $rs = $conn->query($l_sql)->fetchAll(PDO::FETCH_ASSOC);
+  $rs = $conn->query($l_sql)->fetchAll(\PDO::FETCH_ASSOC);
   foreach($rs as $r7)
   {
     $manhomhangbanmoi = $r7['MaNhomHangBan'];
@@ -155,7 +156,7 @@ if(isset($_POST['mahangban']))      //-----lay ma hang ban bang phuong thuc post
   $mahangban = $_POST['mahangban'];
   
   $l_sql = "Select * from tblDMHangBan WHERE MaHangBan = '$mahangban'";
-  $rs = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+  $rs = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
   foreach($rs as $r7)
   {
     $manhomhangbanmoi = $r7['MaNhomHangBan'];
@@ -220,7 +221,7 @@ if(isset($_GET['inphieu']))
       $sql = "Select a.*, b.MaBep, b.ThoiGianLam, c.NVPhucVu from tblOrderChiTiet a Inner join (select MaBep, f.MaHangBan, ISNULL(f.ThoiGianLam,0) as ThoiGianLam from tblDMKhu_Kho e, tblDMHangBan f Where e.NhomHang = f.MaNhomHangBan and e.NhomHang in ('NN001','NN001B') Group by MaBep,f.MaHangBan,f.ThoiGianLam) b On a.MaHangBan = b.MaHangBan Inner join (Select g.OrderID, h.NVPhucVu from tblLSPhieu_HangBan g, tblLichSuPhieu h where g.MaLichSuPhieu = h.MaLichSuPhieu and g.MaLichSuPhieu like '$malichsuphieu') c On a.OrderID = c.OrderID Order by a.OrderID desc";
       try
         {
-        $rs = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $rs = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
             if($rs != false)
             {
               foreach($rs as $r)
@@ -324,7 +325,7 @@ if(isset($_GET['inbill']))
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"> 
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
 <!-- Custom JavaScript -->
@@ -695,7 +696,7 @@ aside.floating section.inside > a {
   $l_sql="select * from (SELECT *, ROW_NUMBER() OVER (ORDER BY ThuTuTrinhBay) as rowNum FROM tblDMNhomHangBan Where Ma in ('NN001','NN001B')) sub WHERE rowNum >  '$startRowNhomHB' and rowNum <= '$endpoint'"; 
   try
   {
-    $rs = $conn->query($l_sql)->fetchAll(PDO::FETCH_ASSOC);
+    $rs = $conn->query($l_sql)->fetchAll(\PDO::FETCH_ASSOC);
     if(($rs) != false)
     {
       foreach($rs as $r1)
@@ -757,7 +758,7 @@ aside.floating section.inside > a {
   $sql="select MaHangBan, TenHangBan,MaNhomHangBan from (SELECT *, ROW_NUMBER() OVER (ORDER BY ThuTuTrinhBay) as rowNum FROM tblDMHangBan   Where MaNhomHangBan = '$manhomhangbanmoi') sub WHERE rowNum > '$startRowHB' and rowNum <= '$endpoint'";
   try
   {
-    $rs = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    $rs = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     $i = 1;
     foreach($rs as $r2)
     {
@@ -897,7 +898,7 @@ aside.floating section.inside > a {
     {
       $l_sql = "Select a.*, b.Gia from tblDMHangBan a, tblGiaBanHang b Where a.MaHangBan = b.MaHangBan and a.MaHangBan = '$mahangban'";
       $rs = $conn->query($sql);
-      $r3 = $rs->fetch(PDO::FETCH_ASSOC);
+      $r3 = $rs->fetch(\PDO::FETCH_ASSOC);
       
       if($themmonsetmenu == 0)
       {
@@ -915,7 +916,7 @@ aside.floating section.inside > a {
       if($setmenu == 1)
       {
         $l_sql = "Select a.*,b.TenHangBan, b.MaDVTCoBan from tblDMHangBan_Setmenu a, tblDMHangBan b where a.MaHangBan = b.MaHangBan and a.MaHangBanSetMenu = '$mahangban' and a.MacDinh = 1";
-        $rs = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $rs = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
         if(($rs) !== false)
         {
           foreach($rs as $r3)
@@ -972,7 +973,7 @@ aside.floating section.inside > a {
   {
     $sql="SELECT MaLichSuPhieu, MaHangBan, TenHangBan, MaDVT, DonGia, Sum(SoLuong) as SoLuong, Sum(ThanhTien) as ThanhTien from [tblLSPhieu_HangBan] Where Malichsuphieu like '$malichsuphieu' group by MaLichsuphieu, MaHangBan, TenHangBan, MaDVT, DonGia having sum(SoLuong) > 0 Order by Min(ThoiGianBan)";
     //echo $sql;
-    $rs = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    $rs = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     foreach($rs as $r)
     {
       $r["SoLuong"];

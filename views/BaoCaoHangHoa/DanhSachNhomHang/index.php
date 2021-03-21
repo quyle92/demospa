@@ -1,5 +1,7 @@
 <?php
-require_once('lib/HangHoa.php');
+
+use Lib\HangHoa;
+
 $productCat = new HangHoa($conn);
 
 ?>

@@ -1,9 +1,10 @@
 <?php 
+
+use Lib\KhachHang;
 session_start();
-//require_once('./helper/security.php');
-require_once('lib/db.php');
-require_once('lib/KhachHang.php');
-$product = new KhachHang($conn);
-$product->editClient($_POST);
+require_once realpath('../../../../vendor/autoload.php');
+$conn = DBConnect();
+$client = new KhachHang($conn);
+$client->editClient($_POST);
 
 

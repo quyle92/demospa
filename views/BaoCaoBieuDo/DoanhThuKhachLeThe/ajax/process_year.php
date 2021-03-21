@@ -1,8 +1,9 @@
 <?php
-require_once('../../../../lib/db.php');
-require_once('../../../../lib/BaoCaoBieuDo.php');
-require_once('../../../../helper/custom-functions.php');
 session_start();
+use Lib\BaoCaoBieuDo;
+require_once realpath('../../../../vendor/autoload.php');
+
+$conn = DBConnect();
 $client = new BaoCaoBieuDo($conn);
 
 $tuThang = isset($_POST['tuThang']) ? $_POST['tuThang'] : '';

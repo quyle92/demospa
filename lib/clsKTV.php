@@ -9,7 +9,7 @@ class DbConnection {
 				$this->conn = new PDO("odbc:Driver={SQL Server}; Server=DELL-PC\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
 				
 				$this->conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
-				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
+				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC );
 				$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 			}
 			catch(Exception $e){
@@ -28,8 +28,8 @@ class clsKTV  {
     private $conn;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
 	}
 	
 	public function getKTVList()
@@ -37,7 +37,7 @@ class clsKTV  {
 		$sql = "SELECT * FROM tblDMNhanVien Where NhomNhanVien in (Select Ma from tblDMNhomNhanVien Where IsDieuTour = 1)";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -75,7 +75,7 @@ class clsKTV  {
 		$sql = "SELECT * FROM tblDMNhanVien Where MaNV='$ma_nv'";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -151,7 +151,7 @@ class clsKTV  {
 				SELECT * from t1 Order by NhomNhanVien";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 
 		}
@@ -166,7 +166,7 @@ class clsKTV  {
 		$sql = 'select Ma, Ten from tblDMNhomNhanVien where IsDieuTour = 1';
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 	
 		}

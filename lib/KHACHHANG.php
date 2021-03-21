@@ -1,27 +1,6 @@
 <?php
-ini_set('mssql.charset', 'UTF-8');
-class DbConnection {
-
-		protected $conn;
-
-		function __construct() {
-			try{
-				$this->conn = new PDO("odbc:Driver={SQL Server}; Server=DELL-PC\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
-				
-				$this->conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
-				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
-				$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-			}
-			catch(Exception $e){
-                throw new Exception($e->getMessage());   
-            }			
-		
-		}
-		
-
-
-}
-require_once('lib/General.php');
+namespace Lib;
+use Lib\General;
 
 class KhachHang extends General { //(1)
 
@@ -31,9 +10,9 @@ class KhachHang extends General { //(1)
     private $general;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
-        $this->general = new General( $dbCon ); //(2)
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
+        $this->general = new General( $conn ); //(2)
 	}
 
 
@@ -42,7 +21,7 @@ class KhachHang extends General { //(1)
 		$sql = "SELECT  * FROM tblOrderChiTiet where OrderID='$orderID'";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -55,7 +34,7 @@ class KhachHang extends General { //(1)
 		$sql = "SELECT  * FROM [tblOrder] WHERE TrangThai = 0  ORDER BY OrderID ASC";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 			sqlsrv_free_stmt( $rs);
 		}
@@ -69,7 +48,7 @@ class KhachHang extends General { //(1)
 		$sql = "SELECT  * FROM [tblOrderChiTiet] WHERE OrderID = '$orderID' ORDER BY OrderID DESC";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 			sqlsrv_free_stmt( $rs);
 		}
@@ -84,7 +63,7 @@ class KhachHang extends General { //(1)
 		$sql = "SELECT  * FROM [tblDMKHNCC] ";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -97,7 +76,7 @@ class KhachHang extends General { //(1)
 	{	
 		$stt = 0;
 		$sql = "SELECT max(substring(MaDoiTuong,11,5)) FROM [tblDMKHNCC]";
-		$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 		$r = sqlsrv_fetch_array($rs);
 		$stt = ++$r[0];
 
@@ -134,7 +113,7 @@ class KhachHang extends General { //(1)
 		$sql = "SELECT * FROM [tblDMKHNCC] Where [MaDoiTuong]='$ma_doi_tuong'";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -197,7 +176,7 @@ class KhachHang extends General { //(1)
 		$sql="select a.MaDoiTuong, a.TenDoiTuong, a.DienThoai, a.DiaChi, a.MaNhomKH, a.GhiChu from tblDMKHNCC a left join tblDMNhomKH b on a.MaNhomKH = b.Ma Order by a.MaDoiTuong";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
 			return $rs;
 			
@@ -213,7 +192,7 @@ class KhachHang extends General { //(1)
 		$sql = "SELECT  MaLichSuPhieu, substring( Convert(varchar,GioVao,105),0,11 ) as GioVao, TienThucTra FROM [tblLichSuPhieu] WHERE MaKhachHang = '$client_id' ORDER BY substring( Convert(varchar,GioVao,105),0,11 ) DESC";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 			sqlsrv_free_stmt( $rs);
 		}
@@ -239,7 +218,7 @@ class KhachHang extends General { //(1)
 				Order by  MaDoiTuong, GioVao DESC";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 			sqlsrv_free_stmt( $rs);
 		}
@@ -261,7 +240,7 @@ class KhachHang extends General { //(1)
 		try
 		{
 
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch ( PDOException $error ){
@@ -279,7 +258,7 @@ class KhachHang extends General { //(1)
 		try
 		{
 
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch ( PDOException $error ){
@@ -293,7 +272,7 @@ class KhachHang extends General { //(1)
 
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch ( PDOException $error ){
@@ -465,4 +444,4 @@ class KhachHang extends General { //(1)
 
 
 /**Note*/
-//(1) nểu chỉ extends General class ko thôi sẽ ko chạy đc protected function trong General vì nó cần phải có $dbCon mới chạy đc, mà khi extends ko thôi thì chả có ai pass $dbCon cho nó cả. Cho nên để gọi hàm trong General thì phải dùng thêm (2). Tuy nhiên, Nếu function trong General mà public thì ko cần extends
+//(1) nểu chỉ extends General class ko thôi sẽ ko chạy đc protected function trong General vì nó cần phải có $conn mới chạy đc, mà khi extends ko thôi thì chả có ai pass $conn cho nó cả. Cho nên để gọi hàm trong General thì phải dùng thêm (2). Tuy nhiên, Nếu function trong General mà public thì ko cần extends

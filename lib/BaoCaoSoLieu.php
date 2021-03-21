@@ -1,5 +1,7 @@
 <?php 
-//require ('General.php');
+namespace Lib;
+
+use Lib\General;
 
 class BaoCaoSoLieu extends General{
 
@@ -9,9 +11,9 @@ class BaoCaoSoLieu extends General{
 
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
-        $this->general = new General($dbCon);
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
+        $this->general = new General($conn);
 	}
 
 	public function getDoanhThuTheoKhu($tungay, $denngay, $tugio, $dengio)
@@ -47,7 +49,7 @@ class BaoCaoSoLieu extends General{
 
 			do {
 
-			    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
 			} while ($stmt->nextRowset());
 
@@ -84,7 +86,7 @@ class BaoCaoSoLieu extends General{
 
 			do {
 
-			    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
 			} while ($stmt->nextRowset());
 			
@@ -113,11 +115,11 @@ class BaoCaoSoLieu extends General{
 
 		try{
 
-			$rs_1 = $this->conn->query($sql_1)->fetch(PDO::FETCH_ASSOC);
+			$rs_1 = $this->conn->query($sql_1)->fetch(\PDO::FETCH_ASSOC);
 			$totalQty = $rs_1['TotalQty'];
 			$totalMoney = $rs_1['TotalMoney'];
 			
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 				return $rs;
 		}
 		catch ( PDOException $error ){
@@ -154,7 +156,7 @@ class BaoCaoSoLieu extends General{
 
 			do {
 
-			    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 			    
 
 			} while ($stmt->nextRowset());
@@ -188,7 +190,7 @@ class BaoCaoSoLieu extends General{
 			$rs_1 = $this->conn->query($sql_1)->fetchColumn();
 			$totalMoney = $rs_1;
 			
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch ( PDOException $error ){
@@ -214,10 +216,10 @@ class BaoCaoSoLieu extends General{
 
 		try{
 
-			$rs_1 = $this->conn->query($sql_1)->fetch(PDO::FETCH_ASSOC);
+			$rs_1 = $this->conn->query($sql_1)->fetch(\PDO::FETCH_ASSOC);
 			$totalMoney = $rs_1['TotalMoney'];
 			
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch ( PDOException $error ){

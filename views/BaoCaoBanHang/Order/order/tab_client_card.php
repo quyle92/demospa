@@ -198,7 +198,7 @@ $('#clear_info').click(function(){console.log($('#client_vip'));
 
 $('#client_search').on('click', function (event){
     //event.preventDefault();
-    var client_code = $('#client_code').val();console.log(client_code);
+    var client_code = $('#client_code').val();
     var client_name = $('#client_name').val();//console.log(denNgay);
     var client_tel = $('#client_tel').val();
     var k = 0;
@@ -210,7 +210,7 @@ $('#client_search').on('click', function (event){
       dataType:"json",
       success:function(output)
       {
-         console.log(output);
+        
           $('#search_popup table tbody').html(output);
       },
       error: function (xhr, textStatus, errorThrown) {
@@ -219,7 +219,7 @@ $('#client_search').on('click', function (event){
       complete: function() { 
 
           var request = false; console.log(request);
-          $(document).on('click', '#client_selected', function(){
+          $("table#client_info").on('click', '[id^="client_selected"]', function(){
             console.log("click start: " + request);
             let client_code = $(this).parent().parent().find('td.sorting_1').text();
             console.log("loop start: " + request);
@@ -232,7 +232,7 @@ $('#client_search').on('click', function (event){
                   dataType:"json",
                   success:function(output)
                   {   
- 
+                    
                       $("#search_popup").modal("hide");
 
                       console.log(output);

@@ -6,7 +6,8 @@
          "files": [
          	"lib/db.php",
          	"helper/custom-functions.php",
-         	"helper/security.php"
+         	"helper/portable-utf8-master/src/voku/helper/UTF8.php",
+            "helper/ForceUTF8/Encoding.php"
          ]
     }
 }

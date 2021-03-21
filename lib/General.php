@@ -1,21 +1,22 @@
 <?php
+namespace Lib;
 class General {
 
 	/* Properties */
     private $conn;
 
     /* Get database access */
-    protected function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
 	}
 
-	protected function getKhu()
+	public function getKhu()
 	{
 		$sql="select COUNT(MaKhu) OVER(PARTITION BY MaKhu) AS count, a.* from tblDMKhu a
 		 Where MaKhu in (Select MaKhu from tblDMBan)";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )

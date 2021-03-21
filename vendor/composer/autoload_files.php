@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     '2eaf2b3d63f497c99a25bf4b61a5c470' => $baseDir . '/lib/db.php',
     '017259e5355b6b672ed0876bab897b9d' => $baseDir . '/helper/custom-functions.php',
-    '15ffcab70e3575e93a608615ccf12d98' => $baseDir . '/helper/security.php',
+    '0a984322f2ed2dfd8505d73a8420833c' => $baseDir . '/helper/portable-utf8-master/src/voku/helper/UTF8.php',
+    'f80fe0d0644cdb92fdf1a01c0f062f8e' => $baseDir . '/helper/ForceUTF8/Encoding.php',
 );

@@ -9,7 +9,7 @@ class DbConnection {
 				$this->conn = new PDO("odbc:Driver={SQL Server}; Server=DELL-PC\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
 				
 				$this->conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
-				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
+				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC );
 				$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 			}
 			catch(Exception $e){
@@ -28,15 +28,15 @@ class clsOrder_KTV {
     private $conn;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
 	}
 
 	public function getTenKTV( $maktv ){
 		$sql = "select MaNV, TenNV FROM tblDMNhanVien  Where MaNV = '$maktv'";
 		try 
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
 			return $rs;
 			
@@ -244,7 +244,7 @@ class clsOrder_KTV {
 		$sql = "SELECT  [MaNV]  ,[TenNV] ,[SourceHinhAnh] FROM [tblDMNhanVien] where [MaNV] = '$maktv'";
 		try
 			{
-				$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+				$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
 				$hinh_KTV = $r['SourceHinhAnh'];//var_dump($r);
 
@@ -310,7 +310,7 @@ class clsOrder_KTV {
 
 	public function getHangBan(){
 		$sql = "SELECT *  FROM [tblDMHangBan] ";
-		$rs = $rs = sqlsrv_query($this->conn, $sql)->fetchAll( \PDO::FETCH_ASSOC );
+		$rs = $rs = sqlsrv_query($this->conn, $sql)->fetchAll( \\PDO::FETCH_ASSOC );
 		return $rs;
 	}
 }

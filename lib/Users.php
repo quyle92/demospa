@@ -1,5 +1,8 @@
 <?php
-require_once('lib/General.php');
+namespace Lib;
+
+use Lib\General;
+
 class Users extends General {
 
 	/* Properties */
@@ -7,16 +10,16 @@ class Users extends General {
     private $general;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
-        $this->general = new General( $dbCon );
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
+        $this->general = new General( $conn );
 	}
 
 	public function getUsersList()
 	{
-		 $sql = "SELECT  ROW_NUMBER() OVER(ORDER BY TenSD)  AS STT,  TenSD, b.MaNV,b.TenNV, BaoCaoDuocXem FROM [tblDSNguoiSD] a,  [tblDMNhanVien] b where a.MaNhanVien = b.MaNV ";
+		 $sql = "SELECT  ROW_NUMBER() OVER(ORDER BY TenSD)  AS STT,  TenSD, b.MaNV,b.TenNV, BaoCaoDuocXem FROM [tblDSNguoiSD] a,  [tblDMNhanVien] b where a.MaNhanVien = b.MaNV";
 		try{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			
 			return $rs;
 			
@@ -29,7 +32,7 @@ class Users extends General {
 	public function layTatCaBaoCao(){
 		$sql = "SELECT  * FROM [tblDMBaoCao] ";
 		try {
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); 
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC); 
 			
 				return $rs;
 			
@@ -96,7 +99,7 @@ class Users extends General {
 		$_SESSION['username'] = $username;
 		$_SESSION['maNV'] = $maNV;
 		$_SESSION['report_arr'] = ( !empty($report_arr) ) ? unserialize($report_arr) : "";
-		var_dump($_SESSION);die;
+
 		if ( $flag === true )
 		{
 			$sql="INSERT INTO [tblDSNguoiSD] ( [TenSD], [MaNhanVien],

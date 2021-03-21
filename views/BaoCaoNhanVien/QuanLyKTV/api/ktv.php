@@ -1,8 +1,9 @@
 <?php 
+
+use Lib\NhanVien;
 session_start();
-//require_once('./helper/security.php');
-require_once('lib/db.php');
-require_once('lib/NhanVien.php');
+require_once realpath('../../../../vendor/autoload.php');
+$conn = DBConnect();
 $ktv = new NhanVien($conn);
 
 if( isset( $_GET['action'] ) && $_GET['action'] === 'getAllKTV' )

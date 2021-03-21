@@ -6,7 +6,7 @@ class General extends DB {
         try
         {   
             
-            $rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+            $rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
             return $rs  ;
         }
         catch (PDOException $e) {

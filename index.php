@@ -1,8 +1,8 @@
 <?php 
+
+use Lib\General;
+require_once realpath('vendor/autoload.php');
 session_start();
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 if( isset($_GET["p"]) ){
    $p = substr($_GET["p"], -1) !== '/' ?  $_GET["p"] . '/' : $_GET["p"];
 }
@@ -14,12 +14,9 @@ else
 $page_name = explode('/', $p)[0];
 require_once('helper/security.php');
 //require('helper/ForceUTF8/Encoding.php');
-require('lib/db.php');
-// require('lib/General.php');
-
-// $general = new General($conn);
-require_once('helper/custom-functions.php');
-require_once('helper/portable-utf8-master/src/voku/helper/UTF8.php');
+$conn = DBConnect();
+$general = new General($conn);
+//require_once('helper/portable-utf8-master/src/voku/helper/UTF8.php');
 
 date_default_timezone_set('Asia/Bangkok'); 
 //$p = $_SERVER['REQUEST_URI'];var_dump($p);
@@ -55,7 +52,7 @@ date_default_timezone_set('Asia/Bangkok');
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"> 
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
 
 
 <!-- Custom JavaScript -->

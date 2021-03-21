@@ -7,4 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Lib\\BaoCaoBieuDo' => $baseDir . '/lib/BaoCaoBieuDo.php',
+    'Lib\\BaoCaoSoLieu' => $baseDir . '/lib/BaoCaoSoLieu.php',
+    'Lib\\General' => $baseDir . '/lib/General.php',
+    'Lib\\HangHoa' => $baseDir . '/lib/HangHoa.php',
+    'Lib\\NhanVien' => $baseDir . '/lib/NhanVien.php',
+    'Lib\\Users' => $baseDir . '/lib/Users.php',
+    'Lib\\clsKhachHang' => $baseDir . '/lib/clsKhachHang.php',
 );

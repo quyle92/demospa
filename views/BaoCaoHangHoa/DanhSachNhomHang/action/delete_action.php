@@ -1,13 +1,14 @@
 <?php 
+
+use Lib\HangHoa;
 session_start();
-//require_once('./helper/security.php');
-require_once('lib/db.php');
-require_once('lib/HangHoa.php');
-$productCat = new HangHoa($conn);
+require_once realpath('../../../../vendor/autoload.php');
+$conn = DBConnect();
+$product = new HangHoa($conn);
 
 if(!empty($_GET['xoaCat']) )
 { 	
-   $productCat->xoaCat($_GET['xoaCat']);
+   $product->xoaCat($_GET['xoaCat']);
    echo  "<script>window.history.go(-1); </script>";
 
 }

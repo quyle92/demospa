@@ -1,12 +1,13 @@
 <?php 
+namespace Lib;
 class BaoCaoBieuDo  {
 
 	/* Properties */
     private $conn;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
 	}
 
 	public function getSalesThisYear()
@@ -35,7 +36,7 @@ class BaoCaoBieuDo  {
 
 		  try
 		  {
-		    $rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_BOTH );//var_dump($rs);
+		    $rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_BOTH );//var_dump($rs);
 		    if($rs != false)
 		    {
 		     
@@ -91,7 +92,7 @@ class BaoCaoBieuDo  {
 
 		  try
 		  {
-		    $rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_BOTH );//var_dump($rs);
+		    $rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_BOTH );//var_dump($rs);
 		    if($rs != false)
 		    {
 		     
@@ -145,7 +146,7 @@ class BaoCaoBieuDo  {
 
 		  try
 		  {
-		    $rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_BOTH );//var_dump($rs);
+		    $rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_BOTH );//var_dump($rs);
 		    if($rs != false)
 		    {
 		     
@@ -219,7 +220,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 
 				do {
 
-				    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 				    
 				} while ($stmt->nextRowset());
 
@@ -277,7 +278,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 
 			do {
 
-			    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 			    
 			} while ($stmt->nextRowset());
 
@@ -333,7 +334,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 
 			do {
 
-			    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 			    
 			} while ($stmt->nextRowset());
 
@@ -395,7 +396,6 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 	}
 
 	public function getTotalTablesWithBills( $tungay, $denngay, $tugio, $dengio, $ma_khu = NULL) : int {
-		var_dump ($ma_khu);
 		if( !isset($ma_khu) )
 		{
 			echo $sql = "SELECT count(*) FROM
@@ -447,7 +447,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 
 		try 
 			{
-				$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); 
+				$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC); 
 				return $rs;
 
 			}
@@ -482,7 +482,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 
 		try 
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); 
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC); 
 			return $rs;
 
 		}
@@ -515,7 +515,7 @@ SELECT CONVERT(INT, SUM(CASE WHEN substring(Convert(varchar,[GioVao],126),0,11)
 
 		try 
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); 
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC); 
 			return $rs;
 
 		}

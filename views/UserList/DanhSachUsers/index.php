@@ -1,5 +1,6 @@
 <?php 
-require_once('./lib/Users.php');
+
+use Lib\Users;
 $user = new Users($conn); 
 
 
@@ -142,7 +143,7 @@ unset($_SESSION['fail']);
 <script type="text/javascript">
 
 
-$(document).on('change', 'input[name="changePassword"]', function(){console.log(11);
+$(document).on('change', 'input[name="changePassword"]', function(){
     if($(this).is(':checked'))
     { 
       $(this).parent().parent().parent().find('#password').removeAttr("disabled");

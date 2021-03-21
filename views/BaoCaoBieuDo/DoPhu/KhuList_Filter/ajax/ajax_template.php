@@ -1,7 +1,9 @@
-<?php 
-include("lib/db.php");//all of these use set_include_path defined in .htaccess
-include("lib/BaoCaoBieuDo.php");
-include("lib/General.php");
+<?php
+session_start();
+use Lib\BaoCaoBieuDo;
+use Lib\General;
+require_once realpath('../../../../../vendor/autoload.php');
+$conn = DBConnect();
 $general = new General($conn);
 @session_start();
 $dophu = new BaoCaoBieuDo($conn);

@@ -1,5 +1,6 @@
 <?php
-require_once('lib/General.php');
+namespace Lib;
+use Lib\General;
 class NhanVien extends General {
 
 	/* Properties */
@@ -7,9 +8,9 @@ class NhanVien extends General {
     private $general;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
-        $this->general = new General( $dbCon );
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
+        $this->general = new General( $conn );
 	}
 
 	public function getNhanVien(){
@@ -26,7 +27,7 @@ class NhanVien extends General {
 
 				do {
 
-				    $rowset[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				    $rowset[] = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 				    
 				} while ($stmt->nextRowset());
 
@@ -48,7 +49,7 @@ class NhanVien extends General {
 		FROM tblPhieuThuChi a WHERE LoaiPhieu like 'CHH'";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -63,7 +64,7 @@ class NhanVien extends General {
 		FROM tblPhieuThuChi a left join tblDMNhanVien b On a.MaNV = b.MaNV Where LoaiPhieu like 'CHH' and b.TenNV <> '' and b.TenNV is not null";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -81,7 +82,7 @@ class NhanVien extends General {
 		AND  a.MaNhanVien = b.MaNV Group by a.MaThe, a.GioVao, a.GioRa, a.MaNhanVien, b.TenNV Order by a.GioVao, a.MaNhanVien";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -121,7 +122,7 @@ class NhanVien extends General {
 
 			$stmt->execute();
 
-			$rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -134,7 +135,7 @@ class NhanVien extends General {
 		$sql = 'select Ma, Ten from tblDMNhomNhanVien where IsDieuTour = 1';
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 	
 		}
@@ -178,7 +179,7 @@ class NhanVien extends General {
 		// 		SELECT * from t1 Order by NhomNhanVien";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 
 		}
@@ -194,7 +195,7 @@ class NhanVien extends General {
 		$sql = "Select * from tblDMNhomNhanVien where IsDieuTour = 1";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 
 		}
@@ -284,7 +285,7 @@ class NhanVien extends General {
 			$rs = $this->conn->query($sql);
 			if( $rs )
 			{
-				$r = $rs->fetch(PDO::FETCH_ASSOC);
+				$r = $rs->fetch(\PDO::FETCH_ASSOC);
 				$this->vaoCaMoi( $maNV, $r['GioBatDau'], $r['GioKetThuc'] );
 			}
 		}

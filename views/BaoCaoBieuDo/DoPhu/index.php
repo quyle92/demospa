@@ -1,5 +1,7 @@
 <?php
-include('./lib/BaoCaoBieuDo.php');
+
+use Lib\BaoCaoBieuDo;
+
 $dophu = new BaoCaoBieuDo($conn);
 ?>
 <style>

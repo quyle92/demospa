@@ -1,5 +1,7 @@
 <?php
-require_once('lib/NhanVien.php');
+
+use Lib\NhanVien;
+
 $ktv = new NhanVien($conn);
 $themmoi = 0; $chinhsua = "0"; 
 ?>

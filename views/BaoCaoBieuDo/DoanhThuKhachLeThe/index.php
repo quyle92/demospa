@@ -1,6 +1,6 @@
 <?php
-require_once('./lib/BaoCaoBieuDo.php');
-require_once('./helper/custom-functions.php');
+use Lib\BaoCaoBieuDo;
+
 $client = new BaoCaoBieuDo($conn);
 ?>
 <script>

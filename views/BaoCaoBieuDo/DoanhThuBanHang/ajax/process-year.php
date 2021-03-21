@@ -1,7 +1,8 @@
 <?php
-require_once('../../../../lib/db.php');
-require_once('../../../../lib/BaoCaoBieuDo.php');
-@session_start();
+session_start();
+use Lib\BaoCaoBieuDo;
+require_once realpath('../../../../vendor/autoload.php');
+$conn = DBConnect();
 $chartReport = new BaoCaoBieuDo($conn);
 
 if($_POST['year'] != "") $year_selected = $_POST['year'];

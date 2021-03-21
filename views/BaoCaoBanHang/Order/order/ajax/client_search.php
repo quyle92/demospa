@@ -1,7 +1,7 @@
 <?php 
-require('lib/db.php');
-require('lib/clsKhachHang.php');
-require('helper/custom-functions.php');
+require_once realpath('../../../../../vendor/autoload.php');
+use Lib\clsKhachHang;
+$conn =  DBConnect();
 $sgDep = new clsKhachHang($conn);
 @session_start();	
 
@@ -18,7 +18,7 @@ foreach($rs as $r)
     <td>'. $r["TenDoiTuong"] . '</td>
     <td>' .$r["DienThoai"] .'</td>
     <td>' . $r["DiaChi"] . '</td>
-    <td> <button type="button" class="btn btn-primary" id="client_selected" value="' .$r["MaDoiTuong"] . '">Select</button></td>
+    <td> <button type="button" class="btn btn-primary" id="client_selected_' . $r["MaDoiTuong"] . '" value="' .$r["MaDoiTuong"] . '">Select</button></td>
   </tr>';
 }
 

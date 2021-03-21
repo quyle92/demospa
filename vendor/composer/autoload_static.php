@@ -9,7 +9,8 @@ class ComposerStaticInit36089b11b19dd29f818510dd72f59d14
     public static $files = array (
         '2eaf2b3d63f497c99a25bf4b61a5c470' => __DIR__ . '/../..' . '/lib/db.php',
         '017259e5355b6b672ed0876bab897b9d' => __DIR__ . '/../..' . '/helper/custom-functions.php',
-        '15ffcab70e3575e93a608615ccf12d98' => __DIR__ . '/../..' . '/helper/security.php',
+        '0a984322f2ed2dfd8505d73a8420833c' => __DIR__ . '/../..' . '/helper/portable-utf8-master/src/voku/helper/UTF8.php',
+        'f80fe0d0644cdb92fdf1a01c0f062f8e' => __DIR__ . '/../..' . '/helper/ForceUTF8/Encoding.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -28,6 +29,13 @@ class ComposerStaticInit36089b11b19dd29f818510dd72f59d14
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Lib\\BaoCaoBieuDo' => __DIR__ . '/../..' . '/lib/BaoCaoBieuDo.php',
+        'Lib\\BaoCaoSoLieu' => __DIR__ . '/../..' . '/lib/BaoCaoSoLieu.php',
+        'Lib\\General' => __DIR__ . '/../..' . '/lib/General.php',
+        'Lib\\HangHoa' => __DIR__ . '/../..' . '/lib/HangHoa.php',
+        'Lib\\NhanVien' => __DIR__ . '/../..' . '/lib/NhanVien.php',
+        'Lib\\Users' => __DIR__ . '/../..' . '/lib/Users.php',
+        'Lib\\clsKhachHang' => __DIR__ . '/../..' . '/lib/clsKhachHang.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

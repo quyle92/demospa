@@ -5,7 +5,7 @@ class Model extends DB{
 	{
 		 $sql = "SELECT  ROW_NUMBER() OVER(ORDER BY TenSD)  AS STT,  TenSD, b.MaNV,b.TenNV, BaoCaoDuocXem FROM [tblDSNguoiSD] a,  [tblDMNhanVien] b where a.MaNhanVien = b.MaNV ";
 		try{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			
 			return $rs;
 			
@@ -18,7 +18,7 @@ class Model extends DB{
 	public function layTatCaBaoCao(){
 		$sql = "SELECT  * FROM [tblDMBaoCao] ";
 		try {
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); 
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC); 
 			
 				return $rs;
 			

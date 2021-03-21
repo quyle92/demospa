@@ -1,10 +1,10 @@
 <?php 
-//require_once('./helper/security.php');
-require_once('lib/db.php');
-require_once('lib/Users.php');
 session_start();
-$user = new Users($conn); 
+use Lib\Users;
+require_once realpath('../../../../vendor/autoload.php');
+$conn = DBConnect();
 
+$user = new Users($conn); 
 // var_dump($_POST['add_user']); die;
 if(!empty($_GET['xoaUser']) )
 { 

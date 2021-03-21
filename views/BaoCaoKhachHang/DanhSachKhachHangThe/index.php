@@ -1,6 +1,7 @@
 <?php
 
-require_once('lib/KhachHang.php');
+use Lib\KhachHang;
+
 $client = new KhachHang($conn);
 ?>
 <style>

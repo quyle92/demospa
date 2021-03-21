@@ -9,7 +9,7 @@ class DbConnection {
 				$this->conn = new PDO("odbc:Driver={SQL Server}; Server=DELL-PC\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
 				
 				$this->conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
-				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
+				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC );
 				$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 			}
 			catch(Exception $e){
@@ -27,8 +27,8 @@ class ORDER_KTV {
     private $conn;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
 	}
 
 	public function getTenKTV( $maktv ){
@@ -310,7 +310,7 @@ class ORDER_KTV {
 
 	public function getHangBan(){
 		$sql = "SELECT *  FROM [MASSAGE_VL].[dbo].[tblDMHangBan] ";
-		$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 		return $rs;
 	}
 }

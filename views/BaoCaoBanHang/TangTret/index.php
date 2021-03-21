@@ -1,7 +1,9 @@
 <?php 
+
+use Lib\clsKhachHang;
 $page_name = "BaoCaoBanHang";
 //require_once('helper/security.php');
-require('lib/clsKhachHang.php');
+
 require('functions/lichsuphieu.php');
 $sgDep = new clsKhachHang($conn);
 @session_start();	
@@ -79,7 +81,7 @@ if(isset($_SESSION['MaBan']))
 	//	lay cac gia tri tu lich su phieus
 	//
 	$l_sql = "Select * from tblLichSuPhieu Where MaBan = '$maban' and DaTinhTien = 0 and PhieuHuy = 0 and ThoiGianDongPhieu is null";
-	$rs =  $conn->query($l_sql)->fetchAll(PDO::FETCH_ASSOC);
+	$rs =  $conn->query($l_sql)->fetchAll(\PDO::FETCH_ASSOC);
 	foreach($rs as $r3)
 	{
 		$malichsuphieu = $r3['MaLichSuPhieu'];
@@ -463,7 +465,7 @@ aside.floating section.inside > a {
 	{
 		$mabantemp = ""; $giovao = ""; $thoigianconlai = ""; $tendv = ""; $malichsuphieutemp = ""; $ghichu = ""; $tongtien = 0; $tenkhachhang = "";
 
-		$rs=$conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		$rs=$conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 		foreach($rs as $r2)	//-----duyet danh sach ban
 		{
 			$r2['MaBan'];
@@ -483,7 +485,7 @@ aside.floating section.inside > a {
         then 'Còn: ' + cast((ISNULL(ThoiGianLam,0) - Cast(datediff(mi,GioVao,getdate()) as decimal(18,0))) as varchar(10)) + ' p' 
         else 'Còn: ' + cast(ISNULL(ThoiGianLam,0) as varchar(10)) + ' p' end as ThoiGianConLai FROM tblLichSuPhieu WHERE MaBan like '$mabantemp' and DaTinhTien = 0 and ThoiGianDongPhieu is null";
 
-			$result = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$result = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			try	
 			{
 				if(($result) != false) 

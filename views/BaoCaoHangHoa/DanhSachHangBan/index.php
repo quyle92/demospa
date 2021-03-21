@@ -1,5 +1,7 @@
 <?php
-require_once('lib/HangHoa.php');
+
+use Lib\HangHoa;
+
 $product = new HangHoa($conn);
 ?>
 <style type="text/css">

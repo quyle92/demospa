@@ -46,7 +46,7 @@ if(isset($_SESSION['MaKTV']))
 	$total_pages_sql = "select COUNT(*) from tblDMNhanVien  Where NhomNhanVien = '$manhomktvmoi'";
 	try
 	{
-		$total_rows=$dbCon->query($total_pages_sql)->fetchColumn();
+		$total_rows=$conn->query($total_pages_sql)->fetchColumn();
 		$total_pages = ceil($total_rows / $no_of_records_per_page);
 	}
 	catch (Exception $e) 
@@ -57,7 +57,7 @@ if(isset($_SESSION['MaKTV']))
 	 $sql="select MaNV, TenNV,NhomNhanVien, SourceHinhAnh from (SELECT *, ROW_NUMBER() OVER (ORDER BY TenNV) as rowNum FROM tblDMNhanVien Where NhomNhanVien = '$manhomktvmoi' and SourceHinhAnh is not null and SourceHinhAnh <> '') sub WHERE rowNum >  '$startRowHB' and rowNum <= '$endpoint'";
 	try
 	{
-		$rs = $dbCon->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+		$rs = $conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 		$i=1;
 		foreach($rs as $r2)
 		{	

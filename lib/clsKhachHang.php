@@ -1,28 +1,7 @@
 <?php
-require('helper/ForceUTF8/Encoding.php');
+namespace Lib;
+
 use \ForceUTF8\Encoding;
-class DbConnection {
-
-		protected $conn;
-
-		function __construct() {
-			try{
-				$this->conn = new PDO("odbc:Driver={SQL Server}; Server=DELL-PC\SQLEXPRESS; Port=14330; Database=SPA_SAIGONDEP; Client Charset=UTF-8,  Uid=sa;Pwd=123;");
-				
-				$this->conn->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
-				$this->conn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
-				$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-				$conn->setAttribute( PDO::ODBC_ATTR_ASSUME_UTF8 , true );
-			}
-			catch(Exception $e){
-                throw new Exception($e->getMessage());   
-            }			
-		
-		}
-		
-
-
-}
 
 class clsKhachHang{
 
@@ -30,8 +9,8 @@ class clsKhachHang{
     private $conn;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
 	}
 
 	public function getCustomersList()
@@ -39,7 +18,7 @@ class clsKhachHang{
 		$sql = "SELECT * FROM [tblDMKHNCC] WHERE LaKH = 1 ";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -62,7 +41,7 @@ class clsKhachHang{
 
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -77,7 +56,7 @@ class clsKhachHang{
 			 Where  LaKH = 1 AND [MaDoiTuong]='$ma_doi_tuong'";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetch(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( PDOException $e )
@@ -135,7 +114,7 @@ class clsKhachHang{
 
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -198,7 +177,7 @@ class clsKhachHang{
 		$sql="select a.MaDoiTuong, a.TenDoiTuong, a.DienThoai, a.DiaChi, a.MaNhomKH, a.GhiChu from tblDMKHNCC a left join tblDMNhomKH b on a.MaNhomKH = b.Ma Order by a.MaDoiTuong";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
 			return $rs;
 			
@@ -214,7 +193,7 @@ class clsKhachHang{
 		$sql = "SELECT  MaLichSuPhieu, substring( Convert(varchar,GioVao,105),0,11 ) as GioVao, TienThucTra FROM [tblLichSuPhieu] WHERE MaKhachHang = '$client_id' ORDER BY substring( Convert(varchar,GioVao,105),0,11 ) DESC";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -237,7 +216,7 @@ class clsKhachHang{
 				SELECT * from t1 Order by  MaDoiTuong, GioVao DESC";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 

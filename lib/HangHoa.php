@@ -1,5 +1,6 @@
 <?php
-require_once('lib/General.php');
+namespace Lib;
+use Lib\General;
 use \ForceUTF8\Encoding;
 class HangHoa  extends General {
 
@@ -8,9 +9,9 @@ class HangHoa  extends General {
     private $general;
 
     /* Get database access */
-    public function __construct(\PDO $dbCon) {
-        $this->conn = $dbCon;
-        $this->general = new General( $dbCon );
+    public function __construct(\PDO $conn) {
+        $this->conn = $conn;
+        $this->general = new General( $conn );
 	}
 
 
@@ -18,7 +19,7 @@ class HangHoa  extends General {
 		$sql = "SELECT * FROM [tblDMNhomHangBan]";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -141,7 +142,7 @@ class HangHoa  extends General {
 		order by a.[MaHangBan]";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -155,7 +156,7 @@ class HangHoa  extends General {
 		$sql = "SELECT distinct [MaDVTCoBan] from [tblDMHangBan]";
 		try
 		{
-			$rs = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+			$rs = $this->conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 			return $rs;
 		}
 		catch( Exception $e )
@@ -171,7 +172,7 @@ class HangHoa  extends General {
 		$prod_id = htmlentities(trim(strip_tags($_POST['prod_id'])),ENT_QUOTES,'utf-8');
 		$prod_name = htmlentities(trim(strip_tags($_POST['prod_name'])),ENT_QUOTES,'utf-8');
 		$prod_price = str_replace('.', '', $_POST['prod_price']);
-		$prod_price = htmlentities(trim(strip_tags($_POST['prod_price'])),ENT_QUOTES,'utf-8');
+		$prod_price = htmlentities(trim(strip_tags($prod_price)),ENT_QUOTES,'utf-8');
 		$cat_id = isset($_POST['cat_id']) ? htmlentities(trim(strip_tags($_POST['cat_id'])),ENT_QUOTES,'utf-8') : "";
 		$donViTinh = isset($_POST['donViTinh']) ? htmlentities(trim(strip_tags($_POST['donViTinh'])),ENT_QUOTES,'utf-8') : "";
 
@@ -223,7 +224,7 @@ class HangHoa  extends General {
 
 		if ( $flag === true )
 		{
-			$sql = "INSERT INTO [tblDMHangBan] ( [MaHangBan], [TenHangBan], [MaNhomHangBan], [MaDVTCoBan] ) VALUES ( '$prod_id', N'$prod_name', '$cat_id', '$donViTinh')
+			 $sql = "INSERT INTO [tblDMHangBan] ( [MaHangBan], [TenHangBan], [MaNhomHangBan], [MaDVTCoBan] ) VALUES ( '$prod_id', N'$prod_name', '$cat_id', '$donViTinh')
 				INSERT INTO [tblGiaBanHang] ( [ID], [MaHangBan], [MaTienTe], [NgayApDung], [MaKhu], [Gia], [MaDonViTinh], [GiaNoiBo], [ChoKhuCon] ) VALUES ( '01-$prod_id', '$prod_id', 'VND',  GETDATE(), '01-SPA', $prod_price, '$donViTinh', 0, 0 )
 			";
 			try

@@ -60,7 +60,7 @@ if(@$_GET['maktv'] != null)
     $l_sql="select * from tblDMNhanVien a, tblDMNhomNhanVien b Where a.NhomNhanVien = b.Ma and a.MaNV like '$maktvcu'";
     try
     {
-      $rs =$conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+      $rs =$conn->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
       foreach($rs as $r)
       {
             $r['MaNV'];

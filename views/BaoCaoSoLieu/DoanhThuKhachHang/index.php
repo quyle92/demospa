@@ -1,5 +1,7 @@
 <?php
-require_once('lib/BaoCaoSoLieu.php');
+
+use Lib\BaoCaoSoLieu;
+
 $client = new BaoCaoSoLieu($conn);
 
 ?>

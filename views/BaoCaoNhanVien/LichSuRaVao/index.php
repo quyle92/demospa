@@ -1,5 +1,7 @@
 <?php
-require_once('lib/NhanVien.php');
+
+use Lib\NhanVien;
+
 $staff = new NhanVien($conn);
 
 ?>

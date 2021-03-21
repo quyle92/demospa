@@ -1,8 +1,9 @@
 <?php 
+
+use Lib\HangHoa;
 session_start();
-//require_once('./helper/security.php');
-require_once('lib/db.php');
-require_once('lib/HangHoa.php');
+require_once realpath('../../../../vendor/autoload.php');
+$conn = DBConnect();
 $product = new HangHoa($conn);
 
 //var_dump($_POST); die;

@@ -1,5 +1,7 @@
 <?php
 require('lib/db.php');
+$conn = DBConnect();
+
 session_start();
 	$user=$_POST['username'];
 	$pass=$_POST['password'];

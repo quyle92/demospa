@@ -1,5 +1,7 @@
 <?php
-require_once('./lib/BaoCaoBieuDo.php');
+
+use Lib\BaoCaoBieuDo;
+
 $chartReport = new BaoCaoBieuDo($conn);
 ?>
 <script>
@@ -16,17 +18,17 @@ var title = "Doanh Thu Theo Năm";
     <div class="panel-body">
         <div class="tab-content">
             <div class="tab-pane fade in active" id="tab1primary">
-              <div class="col-xs-12 col-sm-12 table-responsive">
+              <div class="col-xs-12 col-sm-12">
               	<?php require('this_year.php'); ?>	
                </div>
 	        </div>
             <div class="tab-pane fade" id="tab2primary">	
-              <div class="col-xs-12 col-sm-12 table-responsive">
+              <div class="col-xs-12 col-sm-12">
               	<?php require('last_year.php'); ?>	
               </div>
             </div>
             <div class="tab-pane fade" id="tab3primary">
-              <div class="col-xs-12 col-sm-12 table-responsive">
+              <div class="col-xs-12 col-sm-12">
               	<?php require('another_year.php');  ?>	
               </div>
             </div>
