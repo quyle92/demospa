@@ -159,3 +159,13 @@ function formatTel( obj ) {
     }
     obj.value = number;
 }
+
+(function( $ ){
+       $.fn.toggleClick=function(){
+      var functions=arguments, iteration=0
+      return this.click(function(){
+        functions[iteration].apply(this,arguments)
+        iteration= (iteration+1) %functions.length
+      })
+    }
+})( jQuery );

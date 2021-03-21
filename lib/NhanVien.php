@@ -254,11 +254,68 @@ class NhanVien extends General {
 	{	
 		$maktv = $params['MaNV'];
 		$sql = "DELETE FROM tblDMNhanVien WHERE MaNV = '$maktv'";
-		var_dump ($maktv );die;
+		// var_dump ($maktv );die;
 		try
 		{
 			$rs = $this->conn->query($sql);
 			return $rs;
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function vaoCa( $maNV )
+	{	
+		// var_dump ($maNV);die;
+	 $sql = "SET NOCOUNT ON;
+		 IF NOT EXISTS
+(
+    SELECT Top 1 GioBatDau, GioKetThuc from tblHR_LichDieuTour where MaNV like '001' and  Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() ) Order by GioBatDau desc
+) 
+   SELECT Top 1 GioBatDau, GioKetThuc from tblHR_LichDieuTour where MaNV like '001' Order by GioBatDau desc
+		ELSE
+   UPDATE tblHR_LichDieuTour SET ThuTuDieuTour = ThuTuDieuTour + 1 Where MaNV = '001' and Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() )";
+		try
+		{
+			$rs = $this->conn->query($sql);
+			if( $rs )
+			{
+				$r = $rs->fetch(PDO::FETCH_ASSOC);
+				$this->vaoCaMoi( $maNV, $r['GioBatDau'], $r['GioKetThuc'] );
+			}
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	protected function vaoCaMoi( $maNV, $giobatdau, $gioketthuc )
+	{
+		 $sql = "INSERT into tblHR_LichDieuTour(MaNV, Ngay, Thang, Nam, ThuTuDieuTour,GioBatDau, GioKetThuc) values('$maNV', DAY( GETDATE() ), Month( GETDATE() ), YEAR( GETDATE() ), 1 ,'$giobatdau','$gioketthuc')";
+		try
+		{
+			$rs = $this->conn->query($sql);
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function raCa( $maNV )
+	{	
+		$sql = "Update tblHR_LichDieuTour set ThuTuDieuTour = 0 where MaNV like '$maNV' and Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() )";
+		try
+		{
+			$rs = $this->conn->query($sql);
 
 		}
 

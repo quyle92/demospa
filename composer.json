@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Lib\\": "lib/"
+        },
+         "files": [
+         	"lib/db.php",
+         	"helper/custom-functions.php",
+         	"helper/security.php"
+         ]
+    }
+}

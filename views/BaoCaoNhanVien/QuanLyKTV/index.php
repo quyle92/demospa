@@ -4,40 +4,40 @@ $ktv = new NhanVien($conn);
 $themmoi = 0; $chinhsua = "0"; 
 ?>
 
+<div class="dataFilter" style="min-height: 55px">
+    <div  id="ktv_list_selected">
+        <div class="form-group" >
+           <div class="col-sm-6 col-md-2">
+                <select  class="form-control">
+                  <option selected="true" disabled="disabled">Chọn Nhóm KTV</option>
+                  <option value="all">Tất cả</option>
+            <?php
+            $ktvGroup = $ktv->getKTVGroup();
+            foreach($ktvGroup as $r)
+            {
+            ?>
+              <option value="<?=$r['Ma']?>"><?=$r['Ten']?></option>
 
-<div  id="ktv_list_selected">
-    <div class="form-group" >
-       <div class="col-sm-6 col-md-2">
-            <select  class="form-control">
-              <option selected="true" disabled="disabled">Chọn Nhóm KTV</option>
-              <option value="all">Tất cả</option>
-        <?php
-        $ktvGroup = $ktv->getKTVGroup();
-        foreach($ktvGroup as $r)
-        {
-        ?>
-          <option value="<?=$r['Ma']?>"><?=$r['Ten']?></option>
-
-        <?php
-        }
-        ?>
-           </select>
+            <?php
+            }
+            ?>
+               </select>
+            </div>
+        </div>
+    </div>
+    <div  id="ktv_list_tour_order">
+        <div class="form-group">
+           <div class="col-sm-6 col-md-2">
+                <select  class="form-control">
+                  <option selected="true" disabled="disabled">Chọn thứ tự tour</option>
+                  <option value = 'all'>Tất cả </option>
+    							<option value = 1>Có </option>
+                  <option value = 0>Không </option>
+               </select>
+            </div>
         </div>
     </div>
 </div>
-<div  id="ktv_list_tour_order">
-    <div class="form-group">
-       <div class="col-sm-6 col-md-2">
-            <select  class="form-control">
-              <option selected="true" disabled="disabled">Chọn thứ tự tour</option>
-              <option value = 'all'>Tất cả </option>
-							<option value = 1>Có </option>
-              <option value = 0>Không </option>
-           </select>
-        </div>
-    </div>
-</div>
-
      <div class="row">
         <div id="app">
             <api-calling></api-calling>

@@ -1,5 +1,17 @@
 <template>
   <div class="col-md-12">
+    <div class="alert alert-danger alert-dismissible" role="alert" v-if="error">
+       <b>Alert:</b>
+       <ul  v-if="typeof error === []">
+           <li v-for="(e, index) in error" :key="index">
+               {{ e }}
+           </li>
+       </ul>
+       <p  v-if="typeof error !== []">{{ error }}</p>
+       <button type="button" class="close" @click="error = null">
+           <span aria-hidden="true">&times;</span>
+       </button>
+   </div>
     <table class="table" id="ktv_list">
       <thead>
         <tr>
@@ -8,9 +20,10 @@
           <th>Nhóm</th>
           <th>Thứ tự làm</th>
           <th>Số tour theo lượt</th>
-          <th>Số tour yêu cầu</th>          
+          <th>Số tour yêu cầu</th>                     
           <th>Giờ vào</th>             
-          <th>Giờ ra</th>              
+          <th>Giờ ra</th>   
+          <th>Điểm danh</th>  
           <th scope="col">Actions</th>         
         </tr>
       </thead>
@@ -46,17 +59,25 @@
             <td v-else><input type="text" v-model="person.GioKetThuc" class="form-control" name="GioKetThuc" v-bind:id=" 'GioKetThuc_'+  person.MaNV"/>
             </td>
 
-            <td v-if="!person.isEdit"> 
-              <button type="button" @click="editKTV(person)" class="btn btn-primary">Edit</button>
-              <button type="button" @click="deleteKTV(person, index)" class="btn btn-danger" name="action" value="delete">Delete</button>
+            <td v-if="person.status === 'raCa'"> 
+               <button  v-bind:id="'raCa_' +  person.MaNV" class="btn btn-warning btn-sm" @click="raCa(index, person.MaNV)">Out</button onclick="test()">
             </td>
             <td v-else>
-              <button type="button" @click="updateKTV(index)" class="btn btn-primary" name="action" value="update">Update</button>
-              <button type="button" @click="person.isEdit = false" class="btn btn-primary">Cancel</button>
+               <button  v-bind:id="'vaoCa_' +  person.MaNV" class="btn btn-success btn-sm" @click="vaoCa(index, person.MaNV)">In</button>
+            </td>
+
+            <td v-if="!person.isEdit"> 
+              <button type="button" @click="editKTV(person)" class="btn btn-primary btn-sm btn-block"><span class="glyphicon glyphicon-pencil"></span></button> 
+              <button type="button" @click="deleteKTV(person, index)" class="btn btn-danger btn-sm btn-block" name="action" value="delete"><span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+            <td v-else>
+              <button type="button" @click="updateKTV(index)" class="btn btn-primary btn-sm btn-block" name="action" value="update">Update</button>
+              <button type="button" @click="person.isEdit = false" class="btn btn-warning btn-sm btn-block">Cancel</button>
             </td>
         </tr>
       </tbody>
     </table> 
+    <button type="button" class="btn btn-default" @click="test()">button</button>
   </div>
 
 </template>
@@ -64,6 +85,9 @@
 
 <script>
 
+function test(){console.log(11);
+
+}
 module.exports = {
     data: function() {
         return {
@@ -98,7 +122,47 @@ module.exports = {
       this.getnhomNV();
     },
     methods: {
-      async getKTVList(){
+      async vaoCa(index, MaNV) {
+
+        try 
+          { 
+            const response = await axios.get('api/ktv.php?action=vaoCa&id=' + MaNV);
+            console.log(response);
+            if( response.data ) {
+              this.error = 'Sth Wrong...';
+              return;
+             
+            }
+             this.KTVList[index].status = 'raCa';
+          }
+          catch (error)
+          {
+              this.error = error.response;
+          }
+
+
+      },
+      async raCa(index, MaNV) { 
+        try 
+          {
+            const response = await axios.get('api/ktv.php?action=raCa&id=' + MaNV);
+            console.log(response);
+            if( response.data ) {
+              this.error = 'Sth Wrong...';
+              return;
+             
+            }
+            this.KTVList[index].status = 'vaoCa';
+
+          }
+          catch (error)
+          {
+              this.error = error.response;
+          }    
+
+      },
+      
+      async  getKTVList(){
           try 
           {
             const response = await axios.get('api/ktv.php?action=getAllKTV');
@@ -108,7 +172,10 @@ module.exports = {
             
             this.KTVList.forEach(person => {
               Vue.set(person, 'isEdit', false);
+              person.ThuTuDieuTour > 0  ? Vue.set(person, 'status', 'raCa') : Vue.set(person, 'status', 'vaoCa');
             }); 
+
+            // console.log( this.KTVList );
 
           }
           catch (error)
@@ -197,14 +264,23 @@ module.exports = {
         
         const response = await axios.post('api/ktv.php', bodyFormData, config);
 
-        if( response.data.success === false )
-        {
-          Vue.$toast.open({
-              message: response.data.msg,
-              type: 'error',
-              // all of other options may go here
-          });
-
+        if( response.data )
+        {//cái này để show lỗi chính xác, như duplicate username, password mismatch,...
+          if( response.data.success === false )
+          {  Vue.$toast.open({
+                message: response.data.msg,
+                type: 'error',
+                // all of other options may go here
+            });
+          }
+          else
+          {//cái này để show lỗi chung chung như php error notice, warning or fatal error.
+            Vue.$toast.open({
+                message: 'Sth Wrong...',
+                type: 'error',
+                // all of other options may go here
+            });
+          }
           return;
         }
 
@@ -236,7 +312,7 @@ module.exports = {
           }
            const response = await axios.post('api/ktv.php', bodyFormData, config);
            this.KTVList.splice(index, 1);
-           //console.log( this.KTVList )          
+      
 
             this.$nextTick(() => {
                initDatatable();
@@ -244,14 +320,16 @@ module.exports = {
 
         }
         catch (error) {
-          console.log(error);
-          //this.error = error.response.data;
+          //console.log(error);
+          this.error = error.response.data;
         }
       }
 
 
         }
 }
+
+
 </script>
 <!-- 
 Note:

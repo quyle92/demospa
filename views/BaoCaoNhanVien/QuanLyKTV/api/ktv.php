@@ -47,6 +47,17 @@ if( isset( $_GET['action'] ) && $_GET['action'] === 'getnhomNV' )
       echo json_encode($output);
 }
 
+if( isset( $_GET['action'] ) && $_GET['action'] === 'vaoCa' )
+{     
+      $maNV = $_GET['id'];
+      $rs =  $ktv->vaoCa( $maNV );
+}
+
+if( isset( $_GET['action'] ) && $_GET['action'] === 'raCa' )
+{     
+      $maNV = $_GET['id'];
+      $rs =  $ktv->raCa( $maNV );
+}
 
 if( isset( $_POST['action'] ) && $_POST['action'] == 'update' )
 {     
