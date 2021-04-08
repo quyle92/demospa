@@ -2,11 +2,11 @@
 require_once realpath(dirname(__FILE__,4) . '/vendor/autoload.php');
 
 $conn = DBConnect();
- use Lib\clsKhachHang;
-//var_dump ( UTF8::access() );
+use Lib\clsKhachHang;
+
 $sgDep = new clsKhachHang($conn);
 @session_start(); //session_destroy();
-//error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
 date_default_timezone_set('Asia/Bangkok');
 $_SESSION['previous'] = basename($_SERVER['PHP_SELF']);
 

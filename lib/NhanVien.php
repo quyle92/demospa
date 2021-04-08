@@ -272,19 +272,31 @@ class NhanVien extends General {
 	public function vaoCa( $maNV )
 	{	
 		// var_dump ($maNV);die;
-	 $sql = "SET NOCOUNT ON;
-		 IF NOT EXISTS
-(
-    SELECT Top 1 GioBatDau, GioKetThuc from tblHR_LichDieuTour where MaNV like '001' and  Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() ) Order by GioBatDau desc
-) 
-   SELECT Top 1 GioBatDau, GioKetThuc from tblHR_LichDieuTour where MaNV like '001' Order by GioBatDau desc
-		ELSE
-   UPDATE tblHR_LichDieuTour SET ThuTuDieuTour = ThuTuDieuTour + 1 Where MaNV = '001' and Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() )";
+	 $sql = "
+	SET NOCOUNT ON;
+
+	IF NOT EXISTS
+		(
+		    SELECT Top 1 GioBatDau, GioKetThuc from tblHR_LichDieuTour where MaNV like '$maNV' and  Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() ) Order by GioBatDau desc
+		) 	
+		BEGIN
+	  		SELECT Top 1 GioBatDau, GioKetThuc from tblHR_LichDieuTour where MaNV like '$maNV' Order by GioBatDau desc
+	   	END
+	   	
+	ELSE
+		BEGIN
+   			UPDATE tblHR_LichDieuTour SET ThuTuDieuTour = ThuTuDieuTour + 1 Where MaNV = '$maNV' and Ngay = DAY( GETDATE() ) and Thang = Month( GETDATE() ) and Nam = YEAR( GETDATE() )
+   		END
+   	";
+
 		try
 		{
-			$rs = $this->conn->query($sql);
-			if( $rs )
-			{
+			$rs = $this->conn->prepare($sql);
+			$rs->execute();
+			//echo $rs->rowCount();//-1: select | 0: update
+			if( $rs->rowCount() === -1  )
+			{	
+
 				$r = $rs->fetch(\PDO::FETCH_ASSOC);
 				$this->vaoCaMoi( $maNV, $r['GioBatDau'], $r['GioKetThuc'] );
 			}
@@ -302,7 +314,7 @@ class NhanVien extends General {
 		try
 		{
 			$rs = $this->conn->query($sql);
-
+			
 		}
 
 		catch( Exception $e )
@@ -317,6 +329,71 @@ class NhanVien extends General {
 		try
 		{
 			$rs = $this->conn->query($sql);
+
+		}
+
+		catch( Exception $e )
+		{
+			echo $e->getMessage();
+		}
+	}
+
+	public function addKVT( $params )
+	{	
+		$message = [];
+		$maNV = $params['maNV'];
+		$tenNV = $params['tenNV'];
+		$nhomNhanVien = $params['nhomNV'];
+		$gioiTinh =  $params['gioiTinh'];
+		//var_dump ( $gioiTinh);die;
+		//bắt lỗi mã NV
+		if ( empty($maNV) )
+		{	
+			 $message['empty_maNV'] = "Mã NV chưa điền.";
+		}
+
+		if ( $this->general->checkMaNV( $maNV ) === true )
+		{	
+			 $message['duplicate_maNV'] = "Mã NV đã tồn tại.";
+		}
+
+		//bắt lỗi tên NVPhucVu
+		if ( empty($tenNV) )
+		{	
+			 $message['empty_tenNV'] = "Tên NV chưa điền.";
+		}
+
+		//bắt lỗi tên nhomNV
+		if ( empty($nhomNhanVien) )
+		{	
+			 $message['empty_nhomNhanVien'] = "Nhóm NV chưa điền.";
+		}
+
+
+		//bắt lỗi tên gioiTinh
+		if ( ! in_array( $gioiTinh, ['0','1'] )  )
+		{	
+			 $message['empty_gioiTinh'] = "Giói tính chưa điền.";
+		}
+		//var_dump ($message);die;
+		if( count ( $message ) > 0 ) return $message;
+		//sql 
+		$sql = "INSERT INTO tblDMNhanVien (MaNV, TenNV, NhomNhanVien, GioiTinh, DaNghiViec, MaTrungTam)
+		VALUES(:maNV, :tenNV, :nhomNhanVien, :gioiTinh, 0, 1) ";
+
+		try
+		{
+			$stmt = $this->conn->prepare($sql);
+
+			$stmt->bindParam('maNV', $maNV);
+			$stmt->bindParam('tenNV', $tenNV);
+			$stmt->bindParam('nhomNhanVien', $nhomNhanVien);
+			$stmt->bindParam('gioiTinh', $gioiTinh);
+
+			$stmt->execute();
+			$count = $stmt->rowCount();
+			$message['success'] = "Insert $count rows.\n";
+			return $message;
 
 		}
 

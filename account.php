@@ -341,7 +341,7 @@ if(isset($_POST['pass']))
           <tr>
             <td width="18%"></td>
             <th width="20%" scope="row">Tên đăng nhập:</th>
-            <td width="50%"><input name="id" class="width_input" type="text" size="135" value="<?php echo $tensd; ?>"></td>
+            <td width="50%"><input name="id" class="width_input" type="text" size="135" value="<?php echo $tensd; ?> "></td>
             <td width="12%"></td>
           </tr>
           
@@ -376,32 +376,5 @@ if(isset($_POST['pass']))
     <!-- /#wrapper -->
 <!-- Nav CSS -->
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="js/metisMenu.min.js"></script>
-<script src="js/custom.js"></script>
-<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<link href="js/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
- <script>
-	$('#tungay').datepicker({
-		dateFormat:'dd-mm-yy',
-		changeMonth:true,
-		changeYear:true,
-		yearRange:'-99:+0',
-	})
-	 
-	$('#denngay').datepicker({
-		dateFormat:'dd-mm-yy',
-		changeMonth:true,
-		changeYear:true,
-		yearRange:'-99:+0',
-	})
-
-</script>   
-<script>
-$('.navbar-toggle').on('click', function() {
-  $('.sidebar-nav').toggleClass('block');  
-});
-</script>
 </body>
 </html>

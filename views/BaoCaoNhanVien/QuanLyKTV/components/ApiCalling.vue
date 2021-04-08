@@ -1,5 +1,9 @@
 <template>
   <div class="col-md-12">
+    <div class="col-md-12" style="margin: 9px 0;">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#add_kvt" >Thêm User </button>
+    </div>
+    <ktv-modal :group="nhomNV" @update-list="updateList"></ktv-modal>
     <div class="alert alert-danger alert-dismissible" role="alert" v-if="error">
        <b>Alert:</b>
        <ul  v-if="typeof error === []">
@@ -68,7 +72,7 @@
 
             <td v-if="!person.isEdit"> 
               <button type="button" @click="editKTV(person)" class="btn btn-primary btn-sm btn-block"><span class="glyphicon glyphicon-pencil"></span></button> 
-              <button type="button" @click="deleteKTV(person, index)" class="btn btn-danger btn-sm btn-block" name="action" value="delete"><span class="glyphicon glyphicon-remove"></span></button>
+              <button type="button" @click="deleteKTV(person, index)" class="btn btn-danger btn-sm btn-block" name="action" value="delete" onclick="return confirm('Are you sure you want to delete?');"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
             <td v-else>
               <button type="button" @click="updateKTV(index)" class="btn btn-primary btn-sm btn-block" name="action" value="update">Update</button>
@@ -77,7 +81,7 @@
         </tr>
       </tbody>
     </table> 
-    <button type="button" class="btn btn-default" @click="test()">button</button>
+
   </div>
 
 </template>
@@ -85,9 +89,6 @@
 
 <script>
 
-function test(){console.log(11);
-
-}
 module.exports = {
     data: function() {
         return {
@@ -115,7 +116,7 @@ module.exports = {
         }
     },
     components: {
-      'nhom': httpVueLoader('components/select_option.vue')
+       'ktv-modal': httpVueLoader('components/add_ktv.vue')
     },
     created() {
       this.getKTVList();
@@ -238,6 +239,11 @@ module.exports = {
               this.error = error.response;
           }      
       },
+      updateList(ktvObj)
+      {
+        this.KTVList.unshift(ktvObj);
+        console.log(this.KTVList);
+      },
       async updateKTV(index)
       {
         let bodyFormData = new FormData();  
@@ -296,7 +302,13 @@ module.exports = {
       },
       async deleteKTV(person, index){
         try
-        { let table =  $('#ktv_list').DataTable();
+        { 
+           Vue.$toast.open({
+                message: 'item removed successfully',
+                type: 'error',
+                // all of other options may go here
+            });
+          let table =  $('#ktv_list').DataTable();
               table.destroy();//(3)
 
           let bodyFormData = new FormData();  
@@ -318,6 +330,7 @@ module.exports = {
                initDatatable();
             });//(3)
 
+           
         }
         catch (error) {
           //console.log(error);

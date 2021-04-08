@@ -208,8 +208,11 @@ class Users extends General {
 
 	}
 
-	public function xoaUser( $tenSD ){
-		//$tenSD = implode
+	public function xoaUser( $tenSD )
+	{
+		if ( ! $tenSD ) throw new ErrorException;
+		
+		$tenSD = htmlentities(trim(strip_tags($tenSD)));
 		$sql = "DELETE FROM  [tblDSNguoiSD] where [TenSD] = '$tenSD'";
 		try{
 			$rs = $this->conn->query($sql);

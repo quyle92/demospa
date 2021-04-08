@@ -78,3 +78,10 @@ if( isset( $_POST['action'] ) && $_POST['action'] == 'delete' )
       //var_dump ($params);die;
       $rs =  $ktv->deleteKTV( $params );
 }
+
+if( isset( $_POST['action'] ) && $_POST['action'] === 'addKVT' )
+{     
+      // var_dump($_POST);
+      $rs =  $ktv->addKVT( $_POST );
+      echo json_encode($rs);
+}

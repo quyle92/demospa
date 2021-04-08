@@ -39,7 +39,7 @@ session_start();
 			$_SESSION['MaTrungTam']=$r['MaTrungTam'];
 			$_SESSION['TenTrungTam']=$r['TenTrungTam']; //mb_convert_encoding($r['TenTrungTam'],'UTF-8', 'UTF-8');
 			//$_SESSION['MaKhu'] = "";
-			$_SESSION['BaoCaoDuocXem'] = unserialize( $r['BaoCaoDuocXem'] );//var_dump($_SESSION['BaoCaoDuocXem'] );die;
+			$_SESSION['BaoCaoDuocXem'] = unserialize( $r['BaoCaoDuocXem'] );
 
 			header('location:views/BaoCaoBanHang/TangTret/');
 		}

@@ -421,7 +421,10 @@ class KhachHang extends General { //(1)
 	}
 
 	public function	xoaClient($prod_id)
-	{
+	{	
+		if ( ! $prod_id ) throw new ErrorException;
+		
+		$prod_id = htmlentities(trim(strip_tags($prod_id)));
 		$sql = "DELETE FROM  [tblDMKHNCC] where [MaDoiTuong] = '$prod_id'";
 		//var_dump ($prod_id);die;
 		try

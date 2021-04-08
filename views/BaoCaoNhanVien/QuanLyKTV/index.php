@@ -42,6 +42,7 @@ $themmoi = 0; $chinhsua = "0";
 </div>
      <div class="row">
         <div id="app">
+            <!-- ktv-modal></ktv-modal> -->
             <api-calling></api-calling>
         </div>
      </div>
@@ -51,7 +52,8 @@ $themmoi = 0; $chinhsua = "0";
     const app = new Vue({
     el: '#app',
     components: {
-      'api-calling': httpVueLoader('components/ApiCalling.vue')
+      'api-calling': httpVueLoader('components/ApiCalling.vue'),
+      //'ktv-modal': httpVueLoader('components/add_ktv.vue')
     }
 
   });

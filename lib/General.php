@@ -149,4 +149,28 @@ class General {
 		}
 	}
 
+	protected function checkMaNV( $maNV )
+	{
+		$sql = "SELECT MaNV FROM [tblDMNhanVien] WHERE MaNV = :maNV";
+		try 
+		{
+			$stmt = $this->conn->prepare($sql);
+
+			$stmt->bindParam('maNV', $maNV);
+
+			$stmt->execute();
+			$rs = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+			if( empty( $rs ) ){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		catch ( PDOException $error ) {
+			echo $error->getMessage();
+		}
+	}
+
 }

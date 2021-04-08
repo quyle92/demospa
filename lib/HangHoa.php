@@ -118,6 +118,10 @@ class HangHoa  extends General {
 	
 	public function xoaCat($cat_id)
 	{	
+		if( ! $cat_id ) throw new ErrorException;
+
+		$cat_id = htmlentities(trim(strip_tags($cat_id))); 
+
 		$sql = "DELETE FROM  [tblDMNhomHangBan] where [Ma] = '$cat_id'";
 
 		try
@@ -309,6 +313,9 @@ class HangHoa  extends General {
 
 	public function xoaProd($prod_id)
 	{	
+		if( ! $cat_id ) throw new ErrorException;
+		
+		$prod_id =  htmlentities(trim(strip_tags($prod_id)));
 		$sql = "DELETE FROM  [tblDMHangBan] where [MaHangBan] = '$prod_id'";
 
 		try

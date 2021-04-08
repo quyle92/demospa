@@ -41,7 +41,7 @@
 <script>
 //var ctx = document.getElementById('myChart').getContext('2d');
 
-
+var mylineChart;
   $('form').on('submit', function (event){
     event.preventDefault();
     var formValues= $(this).serialize();
@@ -132,7 +132,18 @@
               }
            } 
         };
-
+		console.log(lineChart);
+		if ( lineChart ) 
+        { console.log('lineChart');
+          lineChart.config = {
+              type: 'line',
+              data: data,
+              options: chartOptions,
+          };
+          lineChart.update();//(2)
+          console.log(lineChart.config);
+        } 
+		
         var lineChart = new Chart(anotherYearSales, {
             type: 'line',
             data:data,

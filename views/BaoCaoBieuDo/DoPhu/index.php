@@ -120,7 +120,7 @@ $dophu = new BaoCaoBieuDo($conn);
 		                            file_put_contents( $file_name , $file_contents );
 		                        }
 
-		                         if( $r['count'] != 1 && $i % 2 === 0 )
+		                        if( $r['count'] != 1 && $i % 2 === 0 )
 								{ ?>
 									 <div class="row loop_start" >
 								<?php }

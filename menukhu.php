@@ -195,12 +195,12 @@
                 </ul>
             </div>
 
-            <li style="list-style-type: none;" class="li-level1">
+            <!-- <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>KTV_list.php"><i class="fa fa-upload nav_icon"></i>QUẢN LÝ KTV</a>
             </li>
             <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>KH_list.php"><i class="fa fa-upload nav_icon"></i>KHÁCH HÀNG</a>
-            </li>
+            </li> -->
             <!-- <li style="list-style-type: none;" class="li-level1">
                 <a class="menu-level1" href="<?=BASE_URL?>logout.php"><span class="glyphicon glyphicon-off"> THOÁT</a>
             </li> -->
